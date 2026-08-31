@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Production Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; }
+    body { background: #e6eef8; padding: 20px; color: #444; }
+    .dashboard { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; max-width: 1400px; margin: 0 auto; }
+    
+    /* Neumorphic Card Style */
+    .card {
+      background: #e6eef8;
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 8px 8px 16px #c5d0e0, -8px -8px 16px #ffffff;
+    }
+    
+    .badge {
+      background: linear-gradient(135deg, #00b4db, #0083b0);
+      color: white; padding: 6px 16px; border-radius: 20px;
+      font-size: 14px; font-weight: bold; display: inline-block; margin-bottom: 15px;
+    }
+
+    .stat-box { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }
+    .stat-item {
+      background: #e6eef8; padding: 10px 15px; border-radius: 12px;
+      box-shadow: inset 3px 3px 6px #c5d0e0, inset -3px -3px 6px #ffffff; text-align: center;
+    }
+
+    .grid-col-2 { grid-column: span 2; }
+    .grid-col-3 { grid-column: span 3; }
+    .grid-col-4 { grid-column: span 4; }
+
+    /* Circular Progress */
+    .circle-container { display: flex; justify-content: space-around; text-align: center; }
+    .circle-val { font-size: 18px; font-weight: bold; color: #0083b0; }
+  </style>
+</head>
+<body>
+
+<div class="dashboard">
+  <div class="card" style="background: linear-gradient(135deg, #00b4db, #0083b0); color: white;">
+    <h3>ฝ่ายผลิต โรงงาน A</h3>
+    <h1 style="margin: 15px 0;">15,400 ชิ้น</h1>
+    <div style="display: flex; gap: 10px;">
+      <div style="background: rgba(255,255,255,0.2); padding: 8px; border-radius: 10px; width: 50%;">
+        <small>ผ่าน QC</small><br><strong>14,850</strong>
+      </div>
+      <div style="background: rgba(255,255,255,0.2); padding: 8px; border-radius: 10px; width: 50%;">
+        <small>เสีย (NG)</small><br><strong>550</strong>
+      </div>
+    </div>
+  </div>
+
+  <div class="card grid-col-3">
+    <span class="badge">ยอดการผลิตรายชั่วโมง</span>
+    <canvas id="lineChart" height="90"></canvas>
+  </div>
+
+  <div class="card">
+    <span class="badge">รายการสินค้าที่ผลิต</span>
+    <div class="stat-item" style="margin-bottom: 10px;">
+      <span>ชิ้นส่วน A</span> <strong>4,500 ชิ้น</strong>
+    </div>
+    <div class="stat-item" style="margin-bottom: 10px;">
+      <span>ชิ้นส่วน B</span> <strong>3,200 ชิ้น</strong>
+    </div>
+    <div class="stat-item">
+      <span>ชิ้นส่วน C</span> <strong>7,700 ชิ้น</strong>
+    </div>
+  </div>
+
+  <div class="card grid-col-3">
+    <span class="badge">เป้าหมายการผลิตรายไลน์</span>
+    <div class="circle-container">
+      <div><div class="circle-val">85%</div><small>Line A</small></div>
+      <div><div class="circle-val">92%</div><small>Line B</small></div>
+      <div><div class="circle-val">64%</div><small>Line C</small></div>
+      <div><div class="circle-val">78%</div><small>Line D</small></div>
+    </div>
+  </div>
+
+  <div class="card grid-col-2">
+    <span class="badge">ประสิทธิภาพการทำงาน
