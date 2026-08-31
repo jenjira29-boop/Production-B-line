@@ -3,85 +3,407 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Production Dashboard</title>
+  <title>Production KPI Dashboard</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <style>
-    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; }
-    body { background: #e6eef8; padding: 20px; color: #444; }
-    .dashboard { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; max-width: 1400px; margin: 0 auto; }
+    * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
+    body { background: #e6eef8; padding: 24px; color: #334155; }
     
-    /* Neumorphic Card Style */
+    .dashboard-container { max-width: 1400px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px; }
+
+    /* Top Navigation Bar */
+    .top-nav {
+      background: #e6eef8;
+      border-radius: 50px;
+      padding: 12px 30px;
+      box-shadow: 6px 6px 12px #c5d0e0, -6px -6px 12px #ffffff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .nav-links { display: flex; gap: 30px; align-items: center; margin: 0 auto; }
+    .nav-item {
+      display: flex; align-items: center; gap: 8px; font-weight: 600; color: #64748b; cursor: pointer; padding: 8px 16px; border-radius: 20px; transition: all 0.3s;
+    }
+    .nav-item.active {
+      color: #0083b0;
+      box-shadow: inset 3px 3px 6px #c5d0e0, inset -3px -3px 6px #ffffff;
+    }
+
+    /* KPI Summary Row - Matches User Image Requirements */
+    .kpi-row {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 16px;
+    }
+
+    .kpi-card {
+      background: #e6eef8;
+      border-radius: 20px;
+      padding: 18px 14px;
+      box-shadow: 8px 8px 16px #c5d0e0, -8px -8px 16px #ffffff;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .kpi-header {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      padding: 6px 12px;
+      border-radius: 12px;
+      text-align: center;
+      margin-bottom: 12px;
+      color: white;
+    }
+
+    /* Distinct header colors corresponding to design */
+    .bg-blue-dark { background: linear-gradient(135deg, #1e3a8a, #3b82f6); }
+    .bg-blue-light { background: linear-gradient(135deg, #0284c7, #38bdf8); }
+    .bg-brown { background: linear-gradient(135deg, #9a3412, #ea580c); }
+    .bg-orange { background: linear-gradient(135deg, #c2410c, #f97316); }
+    .bg-cyan { background: linear-gradient(135deg, #0891b2, #06b6d4); }
+    .bg-teal { background: linear-gradient(135deg, #0d9488, #14b8a6); }
+
+    .kpi-single-value {
+      text-align: center;
+      font-size: 32px;
+      font-weight: 800;
+      color: #1e293b;
+      margin: auto 0;
+      padding: 10px 0;
+    }
+
+    .kpi-split-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .shift-box {
+      border-radius: 12px;
+      padding: 8px 4px;
+      text-align: center;
+      box-shadow: inset 2px 2px 5px #c5d0e0, inset -2px -2px 5px #ffffff;
+    }
+
+    .shift-title {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 0;
+      border-radius: 6px;
+      margin-bottom: 6px;
+    }
+
+    .shift-day { background-color: #fef08a; color: #854d0e; }
+    .shift-night { background-color: #1e293b; color: #ffffff; }
+
+    .shift-value {
+      font-size: 16px;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    /* Main Dashboard Layout */
+    .main-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
     .card {
       background: #e6eef8;
       border-radius: 20px;
       padding: 20px;
       box-shadow: 8px 8px 16px #c5d0e0, -8px -8px 16px #ffffff;
     }
-    
+
     .badge {
       background: linear-gradient(135deg, #00b4db, #0083b0);
       color: white; padding: 6px 16px; border-radius: 20px;
-      font-size: 14px; font-weight: bold; display: inline-block; margin-bottom: 15px;
-    }
-
-    .stat-box { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }
-    .stat-item {
-      background: #e6eef8; padding: 10px 15px; border-radius: 12px;
-      box-shadow: inset 3px 3px 6px #c5d0e0, inset -3px -3px 6px #ffffff; text-align: center;
+      font-size: 13px; font-weight: bold; display: inline-block; margin-bottom: 15px;
     }
 
     .grid-col-2 { grid-column: span 2; }
     .grid-col-3 { grid-column: span 3; }
     .grid-col-4 { grid-column: span 4; }
 
-    /* Circular Progress */
-    .circle-container { display: flex; justify-content: space-around; text-align: center; }
-    .circle-val { font-size: 18px; font-weight: bold; color: #0083b0; }
+    /* Progress Rings / Circles */
+    .circle-container { display: flex; justify-content: space-around; text-align: center; margin-top: 10px; }
+    .circle-card {
+      background: #e6eef8;
+      border-radius: 16px;
+      padding: 15px;
+      box-shadow: inset 3px 3px 6px #c5d0e0, inset -3px -3px 6px #ffffff;
+      width: 22%;
+    }
+    .circle-val { font-size: 22px; font-weight: bold; color: #0083b0; margin-top: 5px; }
+
+    .prod-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 16px;
+      margin-bottom: 10px;
+      border-radius: 12px;
+      box-shadow: inset 3px 3px 6px #c5d0e0, inset -3px -3px 6px #ffffff;
+      font-size: 14px;
+    }
   </style>
 </head>
 <body>
 
-<div class="dashboard">
-  <div class="card" style="background: linear-gradient(135deg, #00b4db, #0083b0); color: white;">
-    <h3>ฝ่ายผลิต โรงงาน A</h3>
-    <h1 style="margin: 15px 0;">15,400 ชิ้น</h1>
-    <div style="display: flex; gap: 10px;">
-      <div style="background: rgba(255,255,255,0.2); padding: 8px; border-radius: 10px; width: 50%;">
-        <small>ผ่าน QC</small><br><strong>14,850</strong>
+<div class="dashboard-container">
+  
+  <!-- Navigation Bar -->
+  <div class="top-nav">
+    <div style="font-weight:bold; color:#0083b0; display:flex; align-items:center; gap:8px;">
+      <i class="fa-solid fa-industry"></i> Smart Factory OS
+    </div>
+    <div class="nav-links">
+      <div class="nav-item active"><i class="fa-solid fa-chart-pie"></i> Overview</div>
+      <div class="nav-item"><i class="fa-solid fa-list-check"></i> Results</div>
+      <div class="nav-item"><i class="fa-solid fa-microchip"></i> Devices</div>
+      <div class="nav-item"><i class="fa-solid fa-gear"></i> Settings</div>
+    </div>
+    <div style="color:#ef4444; font-weight:600; cursor:pointer;"><i class="fa-solid fa-right-from-bracket"></i> Logout</div>
+  </div>
+
+  <!-- KPI Cards Row (Built from User Spec Image) -->
+  <div class="kpi-row">
+    
+    <!-- TOTAL PRODUCTION -->
+    <div class="kpi-card">
+      <div class="kpi-header bg-blue-dark">TOTAL PRODUCTION</div>
+      <div class="kpi-single-value">1,244</div>
+    </div>
+
+    <!-- PRODUCTION Shift -->
+    <div class="kpi-card">
+      <div class="kpi-header bg-blue-light">PRODUCTION Shift</div>
+      <div class="kpi-split-container">
+        <div class="shift-box">
+          <div class="shift-title shift-day">Day Shift</div>
+          <div class="shift-value">833</div>
+        </div>
+        <div class="shift-box">
+          <div class="shift-title shift-night">Night Shift</div>
+          <div class="shift-value">411</div>
+        </div>
       </div>
-      <div style="background: rgba(255,255,255,0.2); padding: 8px; border-radius: 10px; width: 50%;">
-        <small>เสีย (NG)</small><br><strong>550</strong>
+    </div>
+
+    <!-- TOTAL DEFECT -->
+    <div class="kpi-card">
+      <div class="kpi-header bg-brown">TOTAL DEFECT</div>
+      <div class="kpi-single-value" style="color: #b91c1c;">137</div>
+    </div>
+
+    <!-- DEFECT RATE -->
+    <div class="kpi-card">
+      <div class="kpi-header bg-orange">DEFECT RATE</div>
+      <div class="kpi-split-container">
+        <div class="shift-box">
+          <div class="shift-title shift-day">Day Shift</div>
+          <div class="shift-value" style="color:#c2410c;">10.68%</div>
+        </div>
+        <div class="shift-box">
+          <div class="shift-title shift-night">Night Shift</div>
+          <div class="shift-value" style="color:#c2410c;">11.68%</div>
+        </div>
       </div>
     </div>
+
+    <!-- TOTAL SCRAP (Overall) -->
+    <div class="kpi-card">
+      <div class="kpi-header bg-cyan">TOTAL SCRAP</div>
+      <div class="kpi-single-value" style="color: #475569;">29</div>
+    </div>
+
+    <!-- TOTAL SCRAP (By Shift) -->
+    <div class="kpi-card">
+      <div class="kpi-header bg-teal">TOTAL SCRAP</div>
+      <div class="kpi-split-container">
+        <div class="shift-box">
+          <div class="shift-title shift-day">Day Shift</div>
+          <div class="shift-value">8</div>
+        </div>
+        <div class="shift-box">
+          <div class="shift-title shift-night">Night Shift</div>
+          <div class="shift-value">21</div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
-  <div class="card grid-col-3">
-    <span class="badge">ยอดการผลิตรายชั่วโมง</span>
-    <canvas id="lineChart" height="90"></canvas>
-  </div>
+  <!-- Main Dashboard Content Grid -->
+  <div class="main-grid">
+    
+    <!-- User / Plant Summary Card -->
+    <div class="card" style="background: linear-gradient(135deg, #00b4db, #0083b0); color: white;">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <span style="font-size: 13px; opacity:0.9;">Production Summary</span>
+        <i class="fa-solid fa-circle-info"></i>
+      </div>
+      <h2 style="margin: 15px 0 5px 0; font-size:26px;">Factory Line A</h2>
+      <p style="opacity: 0.8; font-size: 13px; margin-bottom: 20px;">Real-time Shift Monitoring</p>
+      
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+        <div style="background: rgba(255,255,255,0.18); padding: 10px; border-radius: 12px; backdrop-filter: blur(5px);">
+          <small style="opacity:0.8;">Target Yield</small>
+          <div style="font-size:18px; font-weight:bold;">1,500 Pcs</div>
+        </div>
+        <div style="background: rgba(255,255,255,0.18); padding: 10px; border-radius: 12px; backdrop-filter: blur(5px);">
+          <small style="opacity:0.8;">Achievement</small>
+          <div style="font-size:18px; font-weight:bold;">82.9%</div>
+        </div>
+      </div>
+    </div>
 
-  <div class="card">
-    <span class="badge">รายการสินค้าที่ผลิต</span>
-    <div class="stat-item" style="margin-bottom: 10px;">
-      <span>ชิ้นส่วน A</span> <strong>4,500 ชิ้น</strong>
+    <!-- Hourly Production Line Chart -->
+    <div class="card grid-col-3">
+      <span class="badge"><i class="fa-solid fa-chart-line"></i> Hourly Output Trend</span>
+      <canvas id="lineChart" height="95"></canvas>
     </div>
-    <div class="stat-item" style="margin-bottom: 10px;">
-      <span>ชิ้นส่วน B</span> <strong>3,200 ชิ้น</strong>
-    </div>
-    <div class="stat-item">
-      <span>ชิ้นส่วน C</span> <strong>7,700 ชิ้น</strong>
-    </div>
-  </div>
 
-  <div class="card grid-col-3">
-    <span class="badge">เป้าหมายการผลิตรายไลน์</span>
-    <div class="circle-container">
-      <div><div class="circle-val">85%</div><small>Line A</small></div>
-      <div><div class="circle-val">92%</div><small>Line B</small></div>
-      <div><div class="circle-val">64%</div><small>Line C</small></div>
-      <div><div class="circle-val">78%</div><small>Line D</small></div>
+    <!-- Product Breakdown -->
+    <div class="card">
+      <span class="badge"><i class="fa-solid fa-boxes-stacked"></i> Output by Product</span>
+      <div class="prod-item">
+        <span><i class="fa-solid fa-gear" style="color:#00b4db;"></i> Product A</span>
+        <strong>450 Pcs</strong>
+      </div>
+      <div class="prod-item">
+        <span><i class="fa-solid fa-gear" style="color:#10b981;"></i> Product B</span>
+        <strong>383 Pcs</strong>
+      </div>
+      <div class="prod-item">
+        <span><i class="fa-solid fa-gear" style="color:#f59e0b;"></i> Product C</span>
+        <strong>270 Pcs</strong>
+      </div>
+      <div class="prod-item">
+        <span><i class="fa-solid fa-gear" style="color:#8b5cf6;"></i> Product D</span>
+        <strong>141 Pcs</strong>
+      </div>
     </div>
-  </div>
 
-  <div class="card grid-col-2">
-    <span class="badge">ประสิทธิภาพการทำงาน
+    <!-- Stock / Machine Progress -->
+    <div class="card grid-col-3">
+      <span class="badge"><i class="fa-solid fa-bars-progress"></i> Line Fulfillment Status</span>
+      <div class="circle-container">
+        <div class="circle-card">
+          <small style="color:#64748b;">Line A (Target)</small>
+          <div class="circle-val">83.3%</div>
+        </div>
+        <div class="circle-card">
+          <small style="color:#64748b;">Line B (Target)</small>
+          <div class="circle-val" style="color:#10b981;">91.2%</div>
+        </div>
+        <div class="circle-card">
+          <small style="color:#64748b;">Line C (Target)</small>
+          <div class="circle-val" style="color:#ef4444;">65.0%</div>
+        </div>
+        <div class="circle-card">
+          <small style="color:#64748b;">Line D (Target)</small>
+          <div class="circle-val" style="color:#8b5cf6;">77.8%</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- OEE Doughnut Chart -->
+    <div class="card grid-col-2">
+      <span class="badge"><i class="fa-solid fa-chart-pie"></i> Overall Equipment Effectiveness (OEE)</span>
+      <canvas id="doughnutChart" height="150"></canvas>
+    </div>
+
+    <!-- Day vs Night Shift Comparison Bar Chart -->
+    <div class="card grid-col-2">
+      <span class="badge"><i class="fa-solid fa-chart-column"></i> Shift Yield Comparison</span>
+      <canvas id="barChart" height="150"></canvas>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // Hourly Production Line Chart
+  new Chart(document.getElementById('lineChart'), {
+    type: 'line',
+    data: {
+      labels: ['08:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00', '22:00'],
+      datasets: [
+        {
+          label: 'Day Shift Yield',
+          data: [110, 145, 130, 160, 150, 138, 0, 0],
+          borderColor: '#00b4db',
+          backgroundColor: 'rgba(0, 180, 219, 0.15)',
+          fill: true,
+          tension: 0.4
+        },
+        {
+          label: 'Night Shift Yield',
+          data: [0, 0, 0, 0, 0, 0, 120, 141],
+          borderColor: '#1e293b',
+          backgroundColor: 'rgba(30, 41, 59, 0.1)',
+          fill: true,
+          tension: 0.4
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { position: 'top' } }
+    }
+  });
+
+  // OEE Doughnut Chart
+  new Chart(document.getElementById('doughnutChart'), {
+    type: 'doughnut',
+    data: {
+      labels: ['Availability (85%)', 'Performance (90%)', 'Quality (89%)', 'Downtime (11%)'],
+      datasets: [{
+        data: [85, 90, 89, 11],
+        backgroundColor: ['#00b4db', '#10b981', '#f59e0b', '#ef4444']
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { position: 'right' } }
+    }
+  });
+
+  // Shift Comparison Bar Chart
+  new Chart(document.getElementById('barChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Production', 'Defect', 'Scrap'],
+      datasets: [
+        {
+          label: 'Day Shift',
+          data: [833, 89, 8],
+          backgroundColor: '#facc15'
+        },
+        {
+          label: 'Night Shift',
+          data: [411, 48, 21],
+          backgroundColor: '#1e293b'
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { position: 'top' } }
+    }
+  });
+</script>
+
+</body>
+</html>
