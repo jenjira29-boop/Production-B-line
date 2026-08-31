@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Production KPI Dashboard</title>
+  <title>Production B Line KPI Dashboard</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <style>
@@ -24,16 +24,16 @@
       margin-bottom: 10px;
     }
 
-    .nav-links { display: flex; gap: 30px; align-items: center; margin: 0 auto; }
+    .nav-links { display: flex; gap: 20px; align-items: center; margin: 0 auto; }
     .nav-item {
-      display: flex; align-items: center; gap: 8px; font-weight: 600; color: #64748b; cursor: pointer; padding: 8px 16px; border-radius: 20px; transition: all 0.3s;
+      display: flex; align-items: center; gap: 8px; font-weight: 600; color: #64748b; cursor: pointer; padding: 8px 18px; border-radius: 20px; transition: all 0.3s;
     }
     .nav-item.active {
       color: #0083b0;
       box-shadow: inset 3px 3px 6px #c5d0e0, inset -3px -3px 6px #ffffff;
     }
 
-    /* KPI Summary Row - Matches User Image Requirements */
+    /* KPI Summary Row */
     .kpi-row {
       display: grid;
       grid-template-columns: repeat(6, 1fr);
@@ -64,7 +64,7 @@
       color: white;
     }
 
-    /* Distinct header colors corresponding to design */
+    /* Header gradients */
     .bg-blue-dark { background: linear-gradient(135deg, #1e3a8a, #3b82f6); }
     .bg-blue-light { background: linear-gradient(135deg, #0284c7, #38bdf8); }
     .bg-brown { background: linear-gradient(135deg, #9a3412, #ea580c); }
@@ -135,7 +135,6 @@
     .grid-col-3 { grid-column: span 3; }
     .grid-col-4 { grid-column: span 4; }
 
-    /* Progress Rings / Circles */
     .circle-container { display: flex; justify-content: space-around; text-align: center; margin-top: 10px; }
     .circle-card {
       background: #e6eef8;
@@ -162,21 +161,21 @@
 
 <div class="dashboard-container">
   
-  <!-- Navigation Bar -->
+  <!-- Updated Navigation Bar -->
   <div class="top-nav">
     <div style="font-weight:bold; color:#0083b0; display:flex; align-items:center; gap:8px;">
       <i class="fa-solid fa-industry"></i> Smart Factory OS
     </div>
     <div class="nav-links">
-      <div class="nav-item active"><i class="fa-solid fa-chart-pie"></i> Overview</div>
-      <div class="nav-item"><i class="fa-solid fa-list-check"></i> Results</div>
-      <div class="nav-item"><i class="fa-solid fa-microchip"></i> Devices</div>
-      <div class="nav-item"><i class="fa-solid fa-gear"></i> Settings</div>
+      <div class="nav-item active"><i class="fa-solid fa-bullseye"></i> FTR</div>
+      <div class="nav-item"><i class="fa-solid fa-trash-can"></i> Scrap</div>
+      <div class="nav-item"><i class="fa-solid fa-triangle-exclamation"></i> Production Loss</div>
+      <div class="nav-item"><i class="fa-solid fa-chart-line"></i> Improvement</div>
     </div>
     <div style="color:#ef4444; font-weight:600; cursor:pointer;"><i class="fa-solid fa-right-from-bracket"></i> Logout</div>
   </div>
 
-  <!-- KPI Cards Row (Built from User Spec Image) -->
+  <!-- KPI Cards Row -->
   <div class="kpi-row">
     
     <!-- TOTAL PRODUCTION -->
@@ -247,13 +246,13 @@
   <!-- Main Dashboard Content Grid -->
   <div class="main-grid">
     
-    <!-- User / Plant Summary Card -->
+    <!-- Plant Summary Card (Updated to Production B Line) -->
     <div class="card" style="background: linear-gradient(135deg, #00b4db, #0083b0); color: white;">
       <div style="display:flex; justify-content:space-between; align-items:center;">
         <span style="font-size: 13px; opacity:0.9;">Production Summary</span>
         <i class="fa-solid fa-circle-info"></i>
       </div>
-      <h2 style="margin: 15px 0 5px 0; font-size:26px;">Factory Line A</h2>
+      <h2 style="margin: 15px 0 5px 0; font-size:26px;">Production B Line</h2>
       <p style="opacity: 0.8; font-size: 13px; margin-bottom: 20px;">Real-time Shift Monitoring</p>
       
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
@@ -270,7 +269,7 @@
 
     <!-- Hourly Production Line Chart -->
     <div class="card grid-col-3">
-      <span class="badge"><i class="fa-solid fa-chart-line"></i> Hourly Output Trend</span>
+      <span class="badge"><i class="fa-solid fa-chart-line"></i> Hourly Output Trend (Production B Line)</span>
       <canvas id="lineChart" height="95"></canvas>
     </div>
 
@@ -295,24 +294,24 @@
       </div>
     </div>
 
-    <!-- Stock / Machine Progress -->
+    <!-- Line Fulfillment Status -->
     <div class="card grid-col-3">
-      <span class="badge"><i class="fa-solid fa-bars-progress"></i> Line Fulfillment Status</span>
+      <span class="badge"><i class="fa-solid fa-bars-progress"></i> Station Fulfillment Status</span>
       <div class="circle-container">
         <div class="circle-card">
-          <small style="color:#64748b;">Line A (Target)</small>
+          <small style="color:#64748b;">Station B1</small>
           <div class="circle-val">83.3%</div>
         </div>
         <div class="circle-card">
-          <small style="color:#64748b;">Line B (Target)</small>
+          <small style="color:#64748b;">Station B2</small>
           <div class="circle-val" style="color:#10b981;">91.2%</div>
         </div>
         <div class="circle-card">
-          <small style="color:#64748b;">Line C (Target)</small>
+          <small style="color:#64748b;">Station B3</small>
           <div class="circle-val" style="color:#ef4444;">65.0%</div>
         </div>
         <div class="circle-card">
-          <small style="color:#64748b;">Line D (Target)</small>
+          <small style="color:#64748b;">Station B4</small>
           <div class="circle-val" style="color:#8b5cf6;">77.8%</div>
         </div>
       </div>
@@ -324,7 +323,7 @@
       <canvas id="doughnutChart" height="150"></canvas>
     </div>
 
-    <!-- Day vs Night Shift Comparison Bar Chart -->
+    <!-- Shift Comparison Bar Chart -->
     <div class="card grid-col-2">
       <span class="badge"><i class="fa-solid fa-chart-column"></i> Shift Yield Comparison</span>
       <canvas id="barChart" height="150"></canvas>
