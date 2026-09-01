@@ -12,7 +12,7 @@
     
     .dashboard-container { max-width: 1400px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px; }
 
-    /* Top Navigation Bar */
+    /* Navigation Bar */
     .top-nav {
       background: #e6eef8;
       border-radius: 50px;
@@ -91,7 +91,6 @@
       box-shadow: 3px 3px 6px #c5d0e0;
     }
 
-    /* Action Buttons */
     .btn-group { display: flex; gap: 10px; align-items: center; }
 
     .refresh-btn {
@@ -109,16 +108,10 @@
       box-shadow: 4px 4px 10px #c5d0e0, -4px -4px 10px #ffffff;
       transition: all 0.2s ease;
     }
-    .refresh-btn:hover {
-      box-shadow: inset 3px 3px 6px #c5d0e0, inset -3px -3px 6px #ffffff;
-    }
-    .refresh-btn i.spinning {
-      animation: spin 0.8s linear infinite;
-    }
+    .refresh-btn:hover { box-shadow: inset 3px 3px 6px #c5d0e0, inset -3px -3px 6px #ffffff; }
+    .refresh-btn i.spinning { animation: spin 0.8s linear infinite; }
 
-    @keyframes spin {
-      100% { transform: rotate(360deg); }
-    }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
 
     .add-data-btn {
       background: linear-gradient(135deg, #10b981, #059669);
@@ -133,7 +126,6 @@
       align-items: center;
       gap: 8px;
       box-shadow: 4px 4px 10px #c5d0e0, -4px -4px 10px #ffffff;
-      transition: all 0.2s ease;
     }
 
     /* KPI Summary Row */
@@ -183,11 +175,7 @@
       padding: 10px 0;
     }
 
-    .kpi-split-container {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-    }
+    .kpi-split-container { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 
     .shift-box {
       border-radius: 12px;
@@ -196,29 +184,13 @@
       box-shadow: inset 2px 2px 5px #c5d0e0, inset -2px -2px 5px #ffffff;
     }
 
-    .shift-title {
-      font-size: 11px;
-      font-weight: 700;
-      padding: 3px 0;
-      border-radius: 6px;
-      margin-bottom: 6px;
-    }
-
+    .shift-title { font-size: 11px; font-weight: 700; padding: 3px 0; border-radius: 6px; margin-bottom: 6px; }
     .shift-day { background-color: #fef08a; color: #854d0e; }
     .shift-night { background-color: #1e293b; color: #ffffff; }
+    .shift-value { font-size: 16px; font-weight: 800; color: #0f172a; }
 
-    .shift-value {
-      font-size: 16px;
-      font-weight: 800;
-      color: #0f172a;
-    }
-
-    /* Main Dashboard Layout */
-    .main-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
-    }
+    /* Main Grid Layout */
+    .main-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
 
     .card {
       background: #e6eef8;
@@ -227,7 +199,6 @@
       box-shadow: 8px 8px 16px #c5d0e0, -8px -8px 16px #ffffff;
     }
 
-    /* Style Designed Based on Image Prompt */
     .summary-card-cyan {
       background: #00a5cf;
       color: white;
@@ -239,63 +210,27 @@
       justify-content: space-between;
     }
 
-    .summary-card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 15px;
-      font-weight: 600;
-    }
-
+    .summary-card-header { display: flex; justify-content: space-between; align-items: center; font-size: 15px; font-weight: 600; }
     .info-btn {
       background: rgba(255, 255, 255, 0.85);
       color: #00a5cf;
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 13px;
-      font-weight: bold;
-      cursor: pointer;
+      width: 26px; height: 26px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: bold; cursor: pointer;
     }
 
     .summary-title { font-size: 28px; font-weight: 800; margin-top: 14px; line-height: 1.1; }
     .summary-subtitle { font-size: 13px; opacity: 0.95; margin-top: 4px; margin-bottom: 18px; }
 
-    .top5-list {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      margin-bottom: 14px;
-    }
-
+    .top5-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
     .top5-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: rgba(255, 255, 255, 0.15);
-      padding: 6px 12px;
-      border-radius: 10px;
-      font-size: 12px;
-      font-weight: 600;
-      backdrop-filter: blur(4px);
+      display: flex; justify-content: space-between; align-items: center;
+      background: rgba(255, 255, 255, 0.15); padding: 6px 12px; border-radius: 10px;
+      font-size: 12px; font-weight: 600; backdrop-filter: blur(4px);
     }
 
-    .summary-metrics-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-
-    .metric-sub-card {
-      background: rgba(255, 255, 255, 0.2);
-      border-radius: 18px;
-      padding: 12px;
-      backdrop-filter: blur(10px);
-    }
-
+    .summary-metrics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .metric-sub-card { background: rgba(255, 255, 255, 0.2); border-radius: 18px; padding: 12px; backdrop-filter: blur(10px); }
     .metric-sub-label { font-size: 11px; opacity: 0.95; margin-bottom: 4px; }
     .metric-sub-value { font-size: 22px; font-weight: 800; line-height: 1.1; }
 
@@ -304,45 +239,21 @@
       color: white; padding: 6px 16px; border-radius: 20px;
       font-size: 13px; font-weight: bold; display: inline-block; margin-bottom: 15px;
     }
-
-    .badge-red {
-      background: linear-gradient(135deg, #ef4444, #dc2626);
-    }
+    .badge-red { background: linear-gradient(135deg, #ef4444, #dc2626); }
 
     .grid-col-1 { grid-column: span 1; }
     .grid-col-2 { grid-column: span 2; }
     .grid-col-3 { grid-column: span 3; }
     .grid-col-4 { grid-column: span 4; }
 
-    /* Custom Station Cards */
-    .station-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-    }
-
+    .station-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
     .station-card {
-      background: #e6eef8;
-      border-radius: 18px;
-      padding: 24px 16px;
+      background: #e6eef8; border-radius: 18px; padding: 24px 16px;
       box-shadow: inset 3px 3px 6px #c5d0e0, inset -3px -3px 6px #ffffff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      justify-content: center;
+      display: flex; flex-direction: column; align-items: center; text-align: center; justify-content: center;
     }
 
-    .station-metric-title {
-      font-size: 15px;
-      font-weight: 700;
-      color: #334155;
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
+    .station-metric-title { font-size: 15px; font-weight: 700; color: #334155; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
     .station-val-main { font-size: 26px; font-weight: 800; }
     .station-val-sub { font-size: 13px; font-weight: 700; margin-top: 6px; }
 
@@ -352,76 +263,38 @@
     .status-diff { color: #f59e0b; }
 
     .prod-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 16px;
-      margin-bottom: 10px;
-      border-radius: 12px;
-      box-shadow: inset 3px 3px 6px #c5d0e0, inset -3px -3px 6px #ffffff;
-      font-size: 14px;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 12px 16px; margin-bottom: 10px; border-radius: 12px;
+      box-shadow: inset 3px 3px 6px #c5d0e0, inset -3px -3px 6px #ffffff; font-size: 14px;
     }
 
-    /* Modal Dialog CSS */
+    /* Modal Styling */
     .modal-overlay {
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(15, 23, 42, 0.4);
-      backdrop-filter: blur(4px);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(15, 23, 42, 0.4); backdrop-filter: blur(4px);
+      display: none; align-items: center; justify-content: center; z-index: 1000;
     }
     .modal-content {
-      background: #e6eef8;
-      border-radius: 24px;
-      padding: 28px;
-      width: 100%;
-      max-width: 480px;
+      background: #e6eef8; border-radius: 24px; padding: 28px; width: 100%; max-width: 480px;
       box-shadow: 12px 12px 24px #b8c4d8, -12px -12px 24px #ffffff;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
+      display: flex; flex-direction: column; gap: 16px;
     }
-    .modal-header {
-      font-size: 18px; font-weight: 800; color: #1e293b;
-      display: flex; justify-content: space-between; align-items: center;
-    }
+    .modal-header { font-size: 18px; font-weight: 800; color: #1e293b; display: flex; justify-content: space-between; align-items: center; }
     .form-group { display: flex; flex-direction: column; gap: 6px; }
     .form-group label { font-size: 13px; font-weight: 700; color: #475569; }
     .form-input {
-      background: #e6eef8; border: none; padding: 10px 14px;
-      border-radius: 12px;
+      background: #e6eef8; border: none; padding: 10px 14px; border-radius: 12px;
       box-shadow: inset 3px 3px 6px #c5d0e0, inset -3px -3px 6px #ffffff;
       font-size: 14px; font-weight: 600; outline: none; color: #1e293b;
     }
     .file-input-wrapper {
-      position: relative;
-      background: #e6eef8;
-      border: 2px dashed #94a3b8;
-      border-radius: 14px;
-      padding: 16px;
-      text-align: center;
-      cursor: pointer;
+      position: relative; background: #e6eef8; border: 2px dashed #94a3b8;
+      border-radius: 14px; padding: 16px; text-align: center; cursor: pointer;
     }
-    .file-input-wrapper input[type="file"] {
-      position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-      opacity: 0;
-      cursor: pointer;
-    }
+    .file-input-wrapper input[type="file"] { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
     .modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px; }
-    .btn-cancel {
-      background: transparent; border: none; padding: 10px 18px;
-      border-radius: 10px; font-weight: 700; color: #64748b; cursor: pointer;
-    }
-    .btn-submit {
-      background: linear-gradient(135deg, #0083b0, #00b4db);
-      color: white; border: none; padding: 10px 20px;
-      border-radius: 10px; font-weight: 700; cursor: pointer;
-      box-shadow: 3px 3px 6px #c5d0e0;
-    }
+    .btn-cancel { background: transparent; border: none; padding: 10px 18px; border-radius: 10px; font-weight: 700; color: #64748b; cursor: pointer; }
+    .btn-submit { background: linear-gradient(135deg, #0083b0, #00b4db); color: white; border: none; padding: 10px 20px; border-radius: 10px; font-weight: 700; cursor: pointer; box-shadow: 3px 3px 6px #c5d0e0; }
   </style>
 </head>
 <body>
@@ -537,7 +410,7 @@
   <!-- Main Dashboard Content Grid -->
   <div class="main-grid">
     
-    <!-- Clean KPI Cards Section -->
+    <!-- Station Status KPI Cards -->
     <div class="card grid-col-4">
       <div class="station-grid">
         <div class="station-card">
@@ -566,8 +439,30 @@
       </div>
     </div>
 
-    <!-- Production Summary Card (Top 5 Models Calculated Daily) -->
-    <div class="summary-card-cyan">
+    <!-- Station Defect Summary KPI Card -->
+    <div class="card grid-col-1">
+      <span class="badge badge-red"><i class="fa-solid fa-triangle-exclamation"></i> Station Defect</span>
+      
+      <div class="prod-item">
+        <span><i class="fa-solid fa-industry" style="color:#ef4444;"></i> PU Foam</span>
+        <strong id="puFoamVal" style="color:#dc2626;">12 Unit</strong>
+      </div>
+      <div class="prod-item">
+        <span><i class="fa-solid fa-bolt" style="color:#f59e0b;"></i> Charging (Room1)</span>
+        <strong id="chargingVal" style="color:#dc2626;">24 Unit</strong>
+      </div>
+      <div class="prod-item">
+        <span><i class="fa-solid fa-snowflake" style="color:#0284c7;"></i> Cooling Test</span>
+        <strong id="coolingVal" style="color:#dc2626;">18 Unit</strong>
+      </div>
+      <div class="prod-item">
+        <span><i class="fa-solid fa-flag-checkered" style="color:#10b981;"></i> Final Line</span>
+        <strong id="finalLineVal" style="color:#dc2626;">9 Unit</strong>
+      </div>
+    </div>
+
+    <!-- Top 5 Models Summary Card -->
+    <div class="summary-card-cyan grid-col-3">
       <div>
         <div class="summary-card-header">
           <span>Production Summary</span>
@@ -576,9 +471,8 @@
         <h2 class="summary-title">Top 5 Models</h2>
         <p class="summary-subtitle">Daily Calculated Output Ranking</p>
 
-        <!-- Top 5 Models Container -->
         <div class="top5-list" id="top5Container">
-          <!-- Dynamically populated via JS -->
+          <!-- Populated by JS -->
         </div>
       </div>
       
@@ -595,9 +489,9 @@
     </div>
 
     <!-- Hourly Output Trend Line Chart -->
-    <div class="card grid-col-3">
+    <div class="card grid-col-4">
       <span class="badge"><i class="fa-solid fa-chart-line"></i> Hourly Output Trend (FTR Mode)</span>
-      <canvas id="lineChart" height="95"></canvas>
+      <canvas id="lineChart" height="80"></canvas>
     </div>
 
     <!-- Daily Defect Trend Line Chart -->
@@ -669,7 +563,6 @@
   let activeTab = 'FTR';
   let lineChartObj, defectChartObj, doughnutChartObj, barChartObj;
 
-  // Raw Raw Model Database Simulation Across Days
   const rawModelDatabase = [
     { model: 'Model A', output: 450 },
     { model: 'Model B', output: 383 },
@@ -771,9 +664,7 @@
     refreshDailyData();
   }
 
-  // Calculate & Render Top 5 Models Dynamically
   function calculateTop5Models(modelsData) {
-    // Sort array by output in descending order
     const sorted = [...modelsData].sort((a, b) => b.output - a.output);
     const top5 = sorted.slice(0, 5);
 
@@ -793,26 +684,39 @@
       container.appendChild(div);
     });
 
-    // Update Achievement based on Top 5 Total vs Target
     const targetYield = 1500;
     const achievementPct = ((totalTop5Output / targetYield) * 100).toFixed(1);
     document.getElementById('achievePct').innerText = `${achievementPct}%`;
   }
 
-  // Refresh Daily Data Engine
+  // Refresh Station Defect Data Dynamically
+  function updateStationDefects() {
+    const puFoam = Math.floor(Math.random() * 15 + 5);
+    const charging = Math.floor(Math.random() * 20 + 10);
+    const cooling = Math.floor(Math.random() * 15 + 8);
+    const finalLine = Math.floor(Math.random() * 10 + 3);
+
+    document.getElementById('puFoamVal').innerText = `${puFoam} Unit`;
+    document.getElementById('chargingVal').innerText = `${charging} Unit`;
+    document.getElementById('coolingVal').innerText = `${cooling} Unit`;
+    document.getElementById('finalLineVal').innerText = `${finalLine} Unit`;
+  }
+
   function refreshDailyData() {
     const icon = document.getElementById('refreshIcon');
     icon.classList.add('spinning');
 
     setTimeout(() => {
-      // 1. Generate Daily Random Datasets for Charts
+      // Refresh Station Defect KPI Values
+      updateStationDefects();
+
+      // Refresh Daily Charts Data
       const newDayYield = [Math.floor(Math.random()*30 + 100), Math.floor(Math.random()*30 + 130), Math.floor(Math.random()*30 + 120), Math.floor(Math.random()*30 + 150), Math.floor(Math.random()*30 + 140), Math.floor(Math.random()*20 + 130), 0, 0];
       const newNightYield = [0, 0, 0, 0, 0, 0, Math.floor(Math.random()*30 + 110), Math.floor(Math.random()*30 + 130)];
 
       const newDayDefect = [Math.floor(Math.random()*10 + 10), Math.floor(Math.random()*10 + 12), Math.floor(Math.random()*10 + 8), Math.floor(Math.random()*10 + 15), Math.floor(Math.random()*10 + 10), Math.floor(Math.random()*8 + 5), 0, 0];
       const newNightDefect = [0, 0, 0, 0, 0, 0, Math.floor(Math.random()*10 + 15), Math.floor(Math.random()*10 + 20)];
 
-      // 2. Generate Daily Random Output for Top 5 Models Calculation
       const currentDayModels = [
         { model: 'Model A', output: Math.floor(Math.random() * 200 + 350) },
         { model: 'Model B', output: Math.floor(Math.random() * 200 + 300) },
@@ -822,10 +726,8 @@
         { model: 'Model F', output: Math.floor(Math.random() * 50 + 30) }
       ];
 
-      // Calculate and display Top 5 Models
       calculateTop5Models(currentDayModels);
 
-      // 3. Update Line Charts
       lineChartObj.data.datasets[0].data = newDayYield;
       lineChartObj.data.datasets[1].data = newNightYield;
       lineChartObj.update();
@@ -834,7 +736,6 @@
       defectChartObj.data.datasets[1].data = newNightDefect;
       defectChartObj.update();
 
-      // 4. Update KPI Values
       const sumDayProd = newDayYield.reduce((a, b) => a + b, 0);
       const sumNightProd = newNightYield.reduce((a, b) => a + b, 0);
       const sumTotalProd = sumDayProd + sumNightProd;
@@ -851,7 +752,6 @@
       document.getElementById('defectRateDay').innerText = sumDayProd > 0 ? ((sumDayDefect / sumDayProd) * 100).toFixed(2) + '%' : '0%';
       document.getElementById('defectRateNight').innerText = sumNightProd > 0 ? ((sumNightDefect / sumNightProd) * 100).toFixed(2) + '%' : '0%';
 
-      // Update Bar Chart
       barChartObj.data.datasets[0].data[0] = sumDayProd;
       barChartObj.data.datasets[0].data[1] = sumDayDefect;
       barChartObj.data.datasets[1].data[0] = sumNightProd;
@@ -862,81 +762,42 @@
     }, 500);
   }
 
-  // Initialize Charts & Calculation on Page Load
   window.onload = function() {
-    // Initial calculation for Top 5 Models Card
     calculateTop5Models(rawModelDatabase);
 
-    // Hourly Output Line Chart
     lineChartObj = new Chart(document.getElementById('lineChart'), {
       type: 'line',
       data: {
         labels: ['08:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00', '22:00'],
         datasets: [
-          {
-            label: 'Day Shift Yield',
-            data: [110, 145, 130, 160, 150, 138, 0, 0],
-            borderColor: '#00b4db',
-            backgroundColor: 'rgba(0, 180, 219, 0.15)',
-            fill: true,
-            tension: 0.4
-          },
-          {
-            label: 'Night Shift Yield',
-            data: [0, 0, 0, 0, 0, 0, 120, 141],
-            borderColor: '#1e293b',
-            backgroundColor: 'rgba(30, 41, 59, 0.1)',
-            fill: true,
-            tension: 0.4
-          }
+          { label: 'Day Shift Yield', data: [110, 145, 130, 160, 150, 138, 0, 0], borderColor: '#00b4db', backgroundColor: 'rgba(0, 180, 219, 0.15)', fill: true, tension: 0.4 },
+          { label: 'Night Shift Yield', data: [0, 0, 0, 0, 0, 0, 120, 141], borderColor: '#1e293b', backgroundColor: 'rgba(30, 41, 59, 0.1)', fill: true, tension: 0.4 }
         ]
       },
       options: { responsive: true, plugins: { legend: { position: 'top' } } }
     });
 
-    // Daily Defect Line Chart
     defectChartObj = new Chart(document.getElementById('defectTrendChart'), {
       type: 'line',
       data: {
         labels: ['08:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00', '22:00'],
         datasets: [
-          {
-            label: 'Day Shift Defect',
-            data: [12, 18, 15, 22, 14, 8, 0, 0],
-            borderColor: '#00b4db',
-            backgroundColor: 'rgba(0, 180, 219, 0.15)',
-            borderWidth: 3,
-            fill: true,
-            tension: 0.4
-          },
-          {
-            label: 'Night Shift Defect',
-            data: [0, 0, 0, 0, 0, 0, 19, 29],
-            borderColor: '#1e293b',
-            backgroundColor: 'rgba(30, 41, 59, 0.1)',
-            borderWidth: 3,
-            fill: true,
-            tension: 0.4
-          }
+          { label: 'Day Shift Defect', data: [12, 18, 15, 22, 14, 8, 0, 0], borderColor: '#00b4db', backgroundColor: 'rgba(0, 180, 219, 0.15)', borderWidth: 3, fill: true, tension: 0.4 },
+          { label: 'Night Shift Defect', data: [0, 0, 0, 0, 0, 0, 19, 29], borderColor: '#1e293b', backgroundColor: 'rgba(30, 41, 59, 0.1)', borderWidth: 3, fill: true, tension: 0.4 }
         ]
       },
       options: { responsive: true, plugins: { legend: { position: 'top' } } }
     });
 
-    // OEE Doughnut Chart
     doughnutChartObj = new Chart(document.getElementById('doughnutChart'), {
       type: 'doughnut',
       data: {
         labels: ['Availability (85%)', 'Performance (90%)', 'Quality (89%)', 'Downtime (11%)'],
-        datasets: [{
-          data: [85, 90, 89, 11],
-          backgroundColor: ['#00b4db', '#10b981', '#f59e0b', '#ef4444']
-        }]
+        datasets: [{ data: [85, 90, 89, 11], backgroundColor: ['#00b4db', '#10b981', '#f59e0b', '#ef4444'] }]
       },
       options: { responsive: true, plugins: { legend: { position: 'right' } } }
     });
 
-    // Shift Comparison Bar Chart
     barChartObj = new Chart(document.getElementById('barChart'), {
       type: 'bar',
       data: {
