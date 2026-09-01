@@ -241,11 +241,12 @@
       font-size: 13px; font-weight: bold; display: inline-block; margin-bottom: 15px;
     }
 
+    .grid-col-1 { grid-column: span 1; }
     .grid-col-2 { grid-column: span 2; }
     .grid-col-3 { grid-column: span 3; }
     .grid-col-4 { grid-column: span 4; }
 
-    /* Custom Station Fulfillment Cards */
+    /* Custom Focused Station Fulfillment Cards */
     .station-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -256,36 +257,46 @@
     .station-card {
       background: #e6eef8;
       border-radius: 18px;
-      padding: 16px;
+      padding: 18px 16px;
       box-shadow: inset 3px 3px 6px #c5d0e0, inset -3px -3px 6px #ffffff;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      align-items: center;
+      text-align: center;
+      justify-content: center;
     }
 
-    .station-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid #cbd5e1;
-      padding-bottom: 8px;
-    }
-
-    .station-name { font-size: 14px; font-weight: 700; color: #475569; }
-    .station-pct { font-size: 20px; font-weight: 800; }
-
-    .station-detail-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 12px;
+    .station-name {
+      font-size: 13px;
+      font-weight: 700;
       color: #64748b;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
 
-    .station-detail-val { font-weight: 700; color: #1e293b; }
-    .status-text-online { color: #10b981; }
-    .status-text-offline { color: #ef4444; }
-    .status-text-diff { color: #f59e0b; }
+    .station-metric-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #334155;
+      margin-bottom: 8px;
+    }
+
+    .station-val-main {
+      font-size: 24px;
+      font-weight: 800;
+    }
+
+    .station-val-sub {
+      font-size: 14px;
+      font-weight: 700;
+      margin-top: 4px;
+    }
+
+    .status-online { color: #10b981; }
+    .status-offline { color: #ef4444; }
+    .status-target { color: #0083b0; }
+    .status-diff { color: #f59e0b; }
 
     .prod-item {
       display: flex;
@@ -403,106 +414,44 @@
   <!-- Main Dashboard Content Grid -->
   <div class="main-grid">
     
-    <!-- Station Fulfillment Status (Moved Above Hourly Output Trend) -->
+    <!-- Station Fulfillment Status (Positioned Above Hourly Output) -->
     <div class="card grid-col-4">
       <span class="badge"><i class="fa-solid fa-bars-progress"></i> Station Fulfillment Status</span>
       
       <div class="station-grid">
-        <!-- Station B1 -->
+        
+        <!-- Station B1: Online Unit & % -->
         <div class="station-card">
-          <div class="station-header">
-            <span class="station-name">Station B1</span>
-            <span class="station-pct" style="color:#0083b0;">83.3%</span>
-          </div>
-          <div class="station-detail-row">
-            <span>Target Daily:</span>
-            <span class="station-detail-val">300 Units</span>
-          </div>
-          <div class="station-detail-row">
-            <span>Online:</span>
-            <span class="station-detail-val status-text-online">250 Units (83.3%)</span>
-          </div>
-          <div class="station-detail-row">
-            <span>Offline:</span>
-            <span class="station-detail-val status-text-offline">50 Units (16.7%)</span>
-          </div>
-          <div class="station-detail-row">
-            <span>Diff:</span>
-            <span class="station-detail-val status-text-diff">-50 Units</span>
-          </div>
+          <div class="station-name">Station B1</div>
+          <div class="station-metric-title"><i class="fa-solid fa-circle-check status-online"></i> Online Status</div>
+          <div class="station-val-main status-online">250 Units</div>
+          <div class="station-val-sub status-online">83.3%</div>
         </div>
 
-        <!-- Station B2 -->
+        <!-- Station B2: Offline Unit & % -->
         <div class="station-card">
-          <div class="station-header">
-            <span class="station-name">Station B2</span>
-            <span class="station-pct" style="color:#10b981;">91.2%</span>
-          </div>
-          <div class="station-detail-row">
-            <span>Target Daily:</span>
-            <span class="station-detail-val">340 Units</span>
-          </div>
-          <div class="station-detail-row">
-            <span>Online:</span>
-            <span class="station-detail-val status-text-online">310 Units (91.2%)</span>
-          </div>
-          <div class="station-detail-row">
-            <span>Offline:</span>
-            <span class="station-detail-val status-text-offline">30 Units (8.8%)</span>
-          </div>
-          <div class="station-detail-row">
-            <span>Diff:</span>
-            <span class="station-detail-val status-text-diff">-30 Units</span>
-          </div>
+          <div class="station-name">Station B2</div>
+          <div class="station-metric-title"><i class="fa-solid fa-circle-xmark status-offline"></i> Offline Status</div>
+          <div class="station-val-main status-offline">30 Units</div>
+          <div class="station-val-sub status-offline">8.8%</div>
         </div>
 
-        <!-- Station B3 -->
+        <!-- Station B3: Target Daily Unit -->
         <div class="station-card">
-          <div class="station-header">
-            <span class="station-name">Station B3</span>
-            <span class="station-pct" style="color:#ef4444;">65.0%</span>
-          </div>
-          <div class="station-detail-row">
-            <span>Target Daily:</span>
-            <span class="station-detail-val">400 Units</span>
-          </div>
-          <div class="station-detail-row">
-            <span>Online:</span>
-            <span class="station-detail-val status-text-online">260 Units (65.0%)</span>
-          </div>
-          <div class="station-detail-row">
-            <span>Offline:</span>
-            <span class="station-detail-val status-text-offline">140 Units (35.0%)</span>
-          </div>
-          <div class="station-detail-row">
-            <span>Diff:</span>
-            <span class="station-detail-val status-text-diff">-140 Units</span>
-          </div>
+          <div class="station-name">Station B3</div>
+          <div class="station-metric-title"><i class="fa-solid fa-bullseye status-target"></i> Target Daily</div>
+          <div class="station-val-main status-target">400 Units</div>
+          <div class="station-val-sub" style="color:#64748b;">Daily Target Goal</div>
         </div>
 
-        <!-- Station B4 -->
+        <!-- Station B4: Diff Unit -->
         <div class="station-card">
-          <div class="station-header">
-            <span class="station-name">Station B4</span>
-            <span class="station-pct" style="color:#8b5cf6;">77.8%</span>
-          </div>
-          <div class="station-detail-row">
-            <span>Target Daily:</span>
-            <span class="station-detail-val">460 Units</span>
-          </div>
-          <div class="station-detail-row">
-            <span>Online:</span>
-            <span class="station-detail-val status-text-online">358 Units (77.8%)</span>
-          </div>
-          <div class="station-detail-row">
-            <span>Offline:</span>
-            <span class="station-detail-val status-text-offline">102 Units (22.2%)</span>
-          </div>
-          <div class="station-detail-row">
-            <span>Diff:</span>
-            <span class="station-detail-val status-text-diff">-102 Units</span>
-          </div>
+          <div class="station-name">Station B4</div>
+          <div class="station-metric-title"><i class="fa-solid fa-triangle-exclamation status-diff"></i> Diff Unit</div>
+          <div class="station-val-main status-diff">-102 Units</div>
+          <div class="station-val-sub status-diff">Variance Target</div>
         </div>
+
       </div>
     </div>
 
@@ -561,7 +510,7 @@
     </div>
 
     <!-- Shift Comparison Bar Chart -->
-    <div class="card grid-col-1" style="grid-column: span 1;">
+    <div class="card grid-col-1">
       <span class="badge"><i class="fa-solid fa-chart-column"></i> Shift Yield Comparison</span>
       <canvas id="barChart" height="280"></canvas>
     </div>
