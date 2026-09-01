@@ -14,157 +14,82 @@
 
     /* Top Navigation Bar */
     .top-nav {
-      background: #e6eef8;
-      border-radius: 50px;
-      padding: 12px 30px;
+      background: #e6eef8; border-radius: 50px; padding: 12px 30px;
       box-shadow: 6px 6px 12px #c5d0e0, -6px -6px 12px #ffffff;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      display: flex; justify-content: space-between; align-items: center;
     }
-
     .nav-links { display: flex; gap: 20px; align-items: center; margin: 0 auto; }
     .nav-item {
       display: flex; align-items: center; gap: 8px; font-weight: 600; color: #64748b; cursor: pointer; padding: 8px 18px; border-radius: 20px; transition: all 0.3s;
     }
-    .nav-item.active {
-      color: #0083b0;
-      box-shadow: inset 3px 3px 6px #c5d0e0, inset -3px -3px 6px #ffffff;
-    }
+    .nav-item.active { color: #0083b0; box-shadow: inset 3px 3px 6px #c5d0e0, inset -3px -3px 6px #ffffff; }
 
     /* Filter Controls Section */
     .filter-bar {
-      background: #e6eef8;
-      border-radius: 20px;
-      padding: 15px 25px;
+      background: #e6eef8; border-radius: 20px; padding: 15px 25px;
       box-shadow: 6px 6px 12px #c5d0e0, -6px -6px 12px #ffffff;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      flex-wrap: wrap;
+      display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap;
     }
-
     .filter-group { display: flex; align-items: center; gap: 12px; }
     .filter-label { font-weight: 700; font-size: 14px; color: #475569; display: flex; align-items: center; gap: 6px; }
-
     .date-picker {
-      background: #e6eef8;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 12px;
+      background: #e6eef8; border: none; padding: 8px 16px; border-radius: 12px;
       box-shadow: inset 3px 3px 6px #c5d0e0, inset -3px -3px 6px #ffffff;
-      font-size: 14px;
-      color: #1e293b;
-      outline: none;
-      cursor: pointer;
-      font-weight: 600;
+      font-size: 14px; color: #1e293b; outline: none; cursor: pointer; font-weight: 600;
     }
-
     .shift-toggle-group {
-      display: flex;
-      background: #e6eef8;
-      padding: 4px;
-      border-radius: 14px;
-      box-shadow: inset 3px 3px 6px #c5d0e0, inset -3px -3px 6px #ffffff;
-      gap: 4px;
+      display: flex; background: #e6eef8; padding: 4px; border-radius: 14px;
+      box-shadow: inset 3px 3px 6px #c5d0e0, inset -3px -3px 6px #ffffff; gap: 4px;
     }
-
     .shift-btn {
-      border: none;
-      background: transparent;
-      padding: 8px 18px;
-      border-radius: 10px;
-      font-weight: 700;
-      font-size: 13px;
-      color: #64748b;
-      cursor: pointer;
-      transition: all 0.2s ease-in-out;
-      display: flex;
-      align-items: center;
-      gap: 6px;
+      border: none; background: transparent; padding: 8px 18px; border-radius: 10px;
+      font-weight: 700; font-size: 13px; color: #64748b; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 6px;
     }
-
-    .shift-btn.active {
-      background: #0083b0;
-      color: white;
-      box-shadow: 3px 3px 6px #c5d0e0;
-    }
-
+    .shift-btn.active { background: #0083b0; color: white; box-shadow: 3px 3px 6px #c5d0e0; }
     .btn-group { display: flex; gap: 10px; align-items: center; }
-
     .refresh-btn {
-      background: #e6eef8;
-      color: #0083b0;
-      border: none;
-      padding: 10px 18px;
-      border-radius: 14px;
-      font-weight: 700;
-      font-size: 13px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      box-shadow: 4px 4px 10px #c5d0e0, -4px -4px 10px #ffffff;
-      transition: all 0.2s ease;
+      background: #e6eef8; color: #0083b0; border: none; padding: 10px 18px; border-radius: 14px;
+      font-weight: 700; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 8px;
+      box-shadow: 4px 4px 10px #c5d0e0, -4px -4px 10px #ffffff; transition: all 0.2s;
     }
     .refresh-btn:hover { box-shadow: inset 3px 3px 6px #c5d0e0, inset -3px -3px 6px #ffffff; }
     .refresh-btn i.spinning { animation: spin 0.8s linear infinite; }
-
     @keyframes spin { 100% { transform: rotate(360deg); } }
 
     .add-data-btn {
-      background: linear-gradient(135deg, #10b981, #059669);
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 14px;
-      font-weight: 700;
-      font-size: 13px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      box-shadow: 4px 4px 10px #c5d0e0, -4px -4px 10px #ffffff;
+      background: linear-gradient(135deg, #10b981, #059669); color: white; border: none;
+      padding: 10px 20px; border-radius: 14px; font-weight: 700; font-size: 13px; cursor: pointer;
+      display: flex; align-items: center; gap: 8px; box-shadow: 4px 4px 10px #c5d0e0, -4px -4px 10px #ffffff;
     }
 
-    /* Common Card Styling */
-    .card {
-      background: #e6eef8;
-      border-radius: 20px;
-      padding: 20px;
-      box-shadow: 8px 8px 16px #c5d0e0, -8px -8px 16px #ffffff;
-    }
-
+    /* Common Layout & Cards */
+    .card { background: #e6eef8; border-radius: 20px; padding: 20px; box-shadow: 8px 8px 16px #c5d0e0, -8px -8px 16px #ffffff; }
     .badge {
-      background: linear-gradient(135deg, #00b4db, #0083b0);
-      color: white; padding: 6px 16px; border-radius: 20px;
+      background: linear-gradient(135deg, #00b4db, #0083b0); color: white; padding: 6px 16px; border-radius: 20px;
       font-size: 13px; font-weight: bold; display: inline-block; margin-bottom: 15px;
     }
+    .badge-purple { background: linear-gradient(135deg, #6366f1, #4f46e5); }
     .badge-red { background: linear-gradient(135deg, #ef4444, #dc2626); }
 
-    /* View Switcher */
     .tab-view { display: none; flex-direction: column; gap: 24px; }
     .tab-view.active-view { display: flex; }
 
-    /* ================= FTR VIEW STYLES ================= */
+    .main-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .grid-col-1 { grid-column: span 1; }
+    .grid-col-2 { grid-column: span 2; }
+    .grid-col-3 { grid-column: span 3; }
+    .grid-col-4 { grid-column: span 4; }
+
+    /* FTR STYLES */
     .kpi-row { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; }
-    .kpi-card {
-      background: #e6eef8; border-radius: 20px; padding: 18px 14px;
-      box-shadow: 8px 8px 16px #c5d0e0, -8px -8px 16px #ffffff;
-      display: flex; flex-direction: column; justify-content: space-between;
-    }
-    .kpi-header {
-      font-size: 13px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;
-      padding: 6px 12px; border-radius: 12px; text-align: center; margin-bottom: 12px; color: white;
-    }
+    .kpi-card { background: #e6eef8; border-radius: 20px; padding: 18px 14px; box-shadow: 8px 8px 16px #c5d0e0, -8px -8px 16px #ffffff; display: flex; flex-direction: column; justify-content: space-between; }
+    .kpi-header { font-size: 13px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; padding: 6px 12px; border-radius: 12px; text-align: center; margin-bottom: 12px; color: white; }
     .bg-blue-dark { background: linear-gradient(135deg, #1e3a8a, #3b82f6); }
     .bg-blue-light { background: linear-gradient(135deg, #0284c7, #38bdf8); }
     .bg-brown { background: linear-gradient(135deg, #9a3412, #ea580c); }
     .bg-orange { background: linear-gradient(135deg, #c2410c, #f97316); }
     .bg-cyan { background: linear-gradient(135deg, #0891b2, #06b6d4); }
     .bg-teal { background: linear-gradient(135deg, #0d9488, #14b8a6); }
-
     .kpi-single-value { text-align: center; font-size: 32px; font-weight: 800; color: #1e293b; margin: auto 0; padding: 10px 0; }
     .kpi-split-container { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
     .shift-box { border-radius: 12px; padding: 8px 4px; text-align: center; box-shadow: inset 2px 2px 5px #c5d0e0, inset -2px -2px 5px #ffffff; }
@@ -173,99 +98,46 @@
     .shift-night { background-color: #1e293b; color: #ffffff; }
     .shift-value { font-size: 16px; font-weight: 800; color: #0f172a; }
 
-    .main-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-    .grid-col-1 { grid-column: span 1; }
-    .grid-col-2 { grid-column: span 2; }
-    .grid-col-3 { grid-column: span 3; }
-    .grid-col-4 { grid-column: span 4; }
-
-    .summary-card-cyan {
-      background: #00a5cf; color: white; border-radius: 28px; padding: 24px;
-      box-shadow: 8px 8px 18px #b8c5d6, -8px -8px 18px #ffffff;
-      display: flex; flex-direction: column; justify-content: space-between;
-    }
+    .summary-card-cyan { background: #00a5cf; color: white; border-radius: 28px; padding: 24px; box-shadow: 8px 8px 18px #b8c5d6, -8px -8px 18px #ffffff; display: flex; flex-direction: column; justify-content: space-between; }
     .summary-card-header { display: flex; justify-content: space-between; align-items: center; font-size: 8px; font-weight: 600; }
     .info-btn { background: rgba(255, 255, 255, 0.85); color: #00a5cf; width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: bold; cursor: pointer; }
     .summary-title { font-size: 28px; font-weight: 800; margin-top: 14px; line-height: 1.1; }
     .summary-subtitle { font-size: 13px; opacity: 0.95; margin-top: 4px; margin-bottom: 18px; }
-
     .top5-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
     .top5-item { display: flex; justify-content: space-between; align-items: center; background: rgba(255, 255, 255, 0.15); padding: 6px 12px; border-radius: 10px; font-size: 12px; font-weight: 600; backdrop-filter: blur(4px); }
     .summary-metrics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     .metric-sub-card { background: rgba(255, 255, 255, 0.2); border-radius: 18px; padding: 12px; backdrop-filter: blur(10px); }
     .metric-sub-label { font-size: 11px; opacity: 0.95; margin-bottom: 4px; }
     .metric-sub-value { font-size: 22px; font-weight: 800; line-height: 1.1; }
-
     .prod-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; margin-bottom: 10px; border-radius: 12px; box-shadow: inset 3px 3px 6px #c5d0e0, inset -3px -3px 6px #ffffff; font-size: 14px; }
 
-    /* ================= SCRAP VIEW STYLES (MATCHING TEMPLATE) ================= */
-    .station-fulfillment-wrapper {
-      background: #e6eef8;
-      border-radius: 20px;
-      padding: 24px;
-      box-shadow: 8px 8px 16px #c5d0e0, -8px -8px 16px #ffffff;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-
-    .station-header-badge {
-      background: #00a5cf;
-      color: white;
-      padding: 8px 18px;
-      border-radius: 20px;
-      font-size: 14px;
-      font-weight: 700;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      width: fit-content;
-    }
-
-    .station-grid-four {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
-    }
-
-    .station-box-card {
-      background: #e6eef8;
-      border-radius: 18px;
-      padding: 20px 16px;
-      box-shadow: inset 4px 4px 8px #c5d0e0, inset -4px -4px 8px #ffffff;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-
+    /* SCRAP & PRODUCTION LOSS TEMPLATE STYLES */
+    .station-fulfillment-wrapper { background: #e6eef8; border-radius: 20px; padding: 24px; box-shadow: 8px 8px 16px #c5d0e0, -8px -8px 16px #ffffff; display: flex; flex-direction: column; gap: 20px; }
+    .station-header-badge { background: #00a5cf; color: white; padding: 8px 18px; border-radius: 20px; font-size: 14px; font-weight: 700; display: inline-flex; align-items: center; gap: 8px; width: fit-content; }
+    .station-grid-four { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .station-box-card { background: #e6eef8; border-radius: 18px; padding: 20px 16px; box-shadow: inset 4px 4px 8px #c5d0e0, inset -4px -4px 8px #ffffff; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; }
     .station-title-text { font-size: 13px; font-weight: 700; color: #64748b; margin-bottom: 8px; }
     .station-pct-large { font-size: 30px; font-weight: 800; margin-bottom: 4px; }
 
+    /* PRODUCTION LOSS SPECIAL WIDGETS */
+    .loss-kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .loss-kpi-card { background: #ffffff; border-radius: 16px; padding: 18px; box-shadow: 6px 6px 12px #c5d0e0, -6px -6px 12px #ffffff; display: flex; align-items: center; justify-content: space-between; }
+    .loss-kpi-info { display: flex; flex-direction: column; }
+    .loss-kpi-title { font-size: 12px; color: #64748b; font-weight: 700; }
+    .loss-kpi-val { font-size: 24px; font-weight: 800; color: #1e293b; margin-top: 4px; }
+    .loss-kpi-badge { padding: 4px 8px; border-radius: 8px; font-size: 11px; font-weight: 700; }
+    .bg-badge-green { background: #d1fae5; color: #059669; }
+    .bg-badge-red { background: #fee2e2; color: #dc2626; }
+    .icon-box-round { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+
     /* Modal Styling */
-    .modal-overlay {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(15, 23, 42, 0.4); backdrop-filter: blur(4px);
-      display: none; align-items: center; justify-content: center; z-index: 1000;
-    }
-    .modal-content {
-      background: #e6eef8; border-radius: 24px; padding: 28px; width: 100%; max-width: 480px;
-      box-shadow: 12px 12px 24px #b8c4d8, -12px -12px 24px #ffffff;
-      display: flex; flex-direction: column; gap: 16px;
-    }
+    .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.4); backdrop-filter: blur(4px); display: none; align-items: center; justify-content: center; z-index: 1000; }
+    .modal-content { background: #e6eef8; border-radius: 24px; padding: 28px; width: 100%; max-width: 480px; box-shadow: 12px 12px 24px #b8c4d8, -12px -12px 24px #ffffff; display: flex; flex-direction: column; gap: 16px; }
     .modal-header { font-size: 18px; font-weight: 800; color: #1e293b; display: flex; justify-content: space-between; align-items: center; }
     .form-group { display: flex; flex-direction: column; gap: 6px; }
     .form-group label { font-size: 13px; font-weight: 700; color: #475569; }
-    .form-input {
-      background: #e6eef8; border: none; padding: 10px 14px; border-radius: 12px;
-      box-shadow: inset 3px 3px 6px #c5d0e0, inset -3px -3px 6px #ffffff;
-      font-size: 14px; font-weight: 600; outline: none; color: #1e293b;
-    }
-    .file-input-wrapper {
-      position: relative; background: #e6eef8; border: 2px dashed #94a3b8;
-      border-radius: 14px; padding: 16px; text-align: center; cursor: pointer;
-    }
+    .form-input { background: #e6eef8; border: none; padding: 10px 14px; border-radius: 12px; box-shadow: inset 3px 3px 6px #c5d0e0, inset -3px -3px 6px #ffffff; font-size: 14px; font-weight: 600; outline: none; color: #1e293b; }
+    .file-input-wrapper { position: relative; background: #e6eef8; border: 2px dashed #94a3b8; border-radius: 14px; padding: 16px; text-align: center; cursor: pointer; }
     .file-input-wrapper input[type="file"] { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
     .modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px; }
     .btn-cancel { background: transparent; border: none; padding: 10px 18px; border-radius: 10px; font-weight: 700; color: #64748b; cursor: pointer; }
@@ -298,85 +170,51 @@
     <div class="filter-group">
       <span class="filter-label"><i class="fa-solid fa-clock"></i> Shift Filter:</span>
       <div class="shift-toggle-group">
-        <button class="shift-btn active" onclick="setShift('all', this)">
-          <i class="fa-solid fa-layer-group"></i> All Shifts
-        </button>
-        <button class="shift-btn" onclick="setShift('day', this)">
-          <i class="fa-solid fa-sun"></i> Day Shift
-        </button>
-        <button class="shift-btn" onclick="setShift('night', this)">
-          <i class="fa-solid fa-moon"></i> Night Shift
-        </button>
+        <button class="shift-btn active" onclick="setShift('all', this)"><i class="fa-solid fa-layer-group"></i> All Shifts</button>
+        <button class="shift-btn" onclick="setShift('day', this)"><i class="fa-solid fa-sun"></i> Day Shift</button>
+        <button class="shift-btn" onclick="setShift('night', this)"><i class="fa-solid fa-moon"></i> Night Shift</button>
       </div>
     </div>
 
     <div class="btn-group">
-      <button class="refresh-btn" onclick="refreshDailyData()">
-        <i class="fa-solid fa-rotate-right" id="refreshIcon"></i> Refresh Data
-      </button>
-      <button class="add-data-btn" onclick="openModal()">
-        <i class="fa-solid fa-plus"></i> Add Data
-      </button>
+      <button class="refresh-btn" onclick="refreshDailyData()"><i class="fa-solid fa-rotate-right" id="refreshIcon"></i> Refresh Data</button>
+      <button class="add-data-btn" onclick="openModal()"><i class="fa-solid fa-plus"></i> Add Data</button>
     </div>
   </div>
 
   <div class="tab-view active-view" id="view-FTR">
-    
     <div class="kpi-row">
       <div class="kpi-card">
         <div class="kpi-header bg-blue-dark">TOTAL PRODUCTION</div>
         <div class="kpi-single-value" id="totalProdVal">1,244</div>
       </div>
-
       <div class="kpi-card">
         <div class="kpi-header bg-blue-light">PRODUCTION Shift</div>
         <div class="kpi-split-container">
-          <div class="shift-box">
-            <div class="shift-title shift-day">Day Shift</div>
-            <div class="shift-value" id="prodDayVal">833</div>
-          </div>
-          <div class="shift-box">
-            <div class="shift-title shift-night">Night Shift</div>
-            <div class="shift-value" id="prodNightVal">411</div>
-          </div>
+          <div class="shift-box"><div class="shift-title shift-day">Day Shift</div><div class="shift-value" id="prodDayVal">833</div></div>
+          <div class="shift-box"><div class="shift-title shift-night">Night Shift</div><div class="shift-value" id="prodNightVal">411</div></div>
         </div>
       </div>
-
       <div class="kpi-card">
         <div class="kpi-header bg-brown">TOTAL DEFECT</div>
         <div class="kpi-single-value" style="color: #b91c1c;" id="totalDefectVal">137</div>
       </div>
-
       <div class="kpi-card">
         <div class="kpi-header bg-orange">DEFECT RATE</div>
         <div class="kpi-split-container">
-          <div class="shift-box">
-            <div class="shift-title shift-day">Day Shift</div>
-            <div class="shift-value" style="color:#c2410c;" id="defectRateDay">10.68%</div>
-          </div>
-          <div class="shift-box">
-            <div class="shift-title shift-night">Night Shift</div>
-            <div class="shift-value" style="color:#c2410c;" id="defectRateNight">11.68%</div>
-          </div>
+          <div class="shift-box"><div class="shift-title shift-day">Day Shift</div><div class="shift-value" style="color:#c2410c;" id="defectRateDay">10.68%</div></div>
+          <div class="shift-box"><div class="shift-title shift-night">Night Shift</div><div class="shift-value" style="color:#c2410c;" id="defectRateNight">11.68%</div></div>
         </div>
       </div>
-
       <div class="kpi-card">
         <div class="kpi-header bg-cyan">TOTAL SCRAP</div>
         <div class="kpi-single-value" style="color: #475569;" id="totalScrapVal">29</div>
       </div>
-
       <div class="kpi-card">
         <div class="kpi-header bg-teal">TOTAL SCRAP</div>
         <div class="kpi-split-container">
-          <div class="shift-box">
-            <div class="shift-title shift-day">Day Shift</div>
-            <div class="shift-value" id="scrapDayVal">8</div>
-          </div>
-          <div class="shift-box">
-            <div class="shift-title shift-night">Night Shift</div>
-            <div class="shift-value" id="scrapNightVal">21</div>
-          </div>
+          <div class="shift-box"><div class="shift-title shift-day">Day Shift</div><div class="shift-value" id="scrapDayVal">8</div></div>
+          <div class="shift-box"><div class="shift-title shift-night">Night Shift</div><div class="shift-value" id="scrapNightVal">21</div></div>
         </div>
       </div>
     </div>
@@ -384,74 +222,31 @@
     <div class="main-grid">
       <div class="card grid-col-4">
         <div class="station-grid-four">
-          <div class="station-box-card">
-            <div class="station-title-text"><i class="fa-solid fa-circle-check" style="color:#10b981;"></i> Online Status</div>
-            <div class="station-pct-large" style="color:#10b981;" id="onlineVal">250 Units</div>
-            <div style="font-size:13px; font-weight:700; color:#10b981;" id="onlinePct">83.3%</div>
-          </div>
-
-          <div class="station-box-card">
-            <div class="station-title-text"><i class="fa-solid fa-circle-xmark" style="color:#ef4444;"></i> Offline Status</div>
-            <div class="station-pct-large" style="color:#ef4444;" id="offlineVal">30 Units</div>
-            <div style="font-size:13px; font-weight:700; color:#ef4444;" id="offlinePct">8.8%</div>
-          </div>
-
-          <div class="station-box-card">
-            <div class="station-title-text"><i class="fa-solid fa-bullseye" style="color:#0083b0;"></i> Target Daily</div>
-            <div class="station-pct-large" style="color:#0083b0;" id="targetVal">400 Units</div>
-            <div style="font-size:13px; font-weight:700; color:#64748b;">Daily Target Goal</div>
-          </div>
-
-          <div class="station-box-card">
-            <div class="station-title-text"><i class="fa-solid fa-triangle-exclamation" style="color:#f59e0b;"></i> Diff Unit</div>
-            <div class="station-pct-large" style="color:#f59e0b;" id="diffVal">-102 Units</div>
-            <div style="font-size:13px; font-weight:700; color:#f59e0b;">Variance Target</div>
-          </div>
+          <div class="station-box-card"><div class="station-title-text"><i class="fa-solid fa-circle-check" style="color:#10b981;"></i> Online Status</div><div class="station-pct-large" style="color:#10b981;" id="onlineVal">250 Units</div><div style="font-size:13px; font-weight:700; color:#10b981;" id="onlinePct">83.3%</div></div>
+          <div class="station-box-card"><div class="station-title-text"><i class="fa-solid fa-circle-xmark" style="color:#ef4444;"></i> Offline Status</div><div class="station-pct-large" style="color:#ef4444;" id="offlineVal">30 Units</div><div style="font-size:13px; font-weight:700; color:#ef4444;" id="offlinePct">8.8%</div></div>
+          <div class="station-box-card"><div class="station-title-text"><i class="fa-solid fa-bullseye" style="color:#0083b0;"></i> Target Daily</div><div class="station-pct-large" style="color:#0083b0;" id="targetVal">400 Units</div><div style="font-size:13px; font-weight:700; color:#64748b;">Daily Target Goal</div></div>
+          <div class="station-box-card"><div class="station-title-text"><i class="fa-solid fa-triangle-exclamation" style="color:#f59e0b;"></i> Diff Unit</div><div class="station-pct-large" style="color:#f59e0b;" id="diffVal">-102 Units</div><div style="font-size:13px; font-weight:700; color:#f59e0b;">Variance Target</div></div>
         </div>
       </div>
 
       <div class="card grid-col-1">
         <span class="badge badge-red"><i class="fa-solid fa-triangle-exclamation"></i> Station Defect</span>
-        
-        <div class="prod-item">
-          <span><i class="fa-solid fa-industry" style="color:#ef4444;"></i> PU Foam</span>
-          <strong id="puFoamVal" style="color:#dc2626;">12 Unit</strong>
-        </div>
-        <div class="prod-item">
-          <span><i class="fa-solid fa-bolt" style="color:#f59e0b;"></i> Charging (Room1)</span>
-          <strong id="chargingVal" style="color:#dc2626;">24 Unit</strong>
-        </div>
-        <div class="prod-item">
-          <span><i class="fa-solid fa-snowflake" style="color:#0284c7;"></i> Cooling Test</span>
-          <strong id="coolingVal" style="color:#dc2626;">18 Unit</strong>
-        </div>
-        <div class="prod-item">
-          <span><i class="fa-solid fa-flag-checkered" style="color:#10b981;"></i> Final Line</span>
-          <strong id="finalLineVal" style="color:#dc2626;">9 Unit</strong>
-        </div>
+        <div class="prod-item"><span><i class="fa-solid fa-industry" style="color:#ef4444;"></i> PU Foam</span><strong style="color:#dc2626;">12 Unit</strong></div>
+        <div class="prod-item"><span><i class="fa-solid fa-bolt" style="color:#f59e0b;"></i> Charging (Room1)</span><strong style="color:#dc2626;">24 Unit</strong></div>
+        <div class="prod-item"><span><i class="fa-solid fa-snowflake" style="color:#0284c7;"></i> Cooling Test</span><strong style="color:#dc2626;">18 Unit</strong></div>
+        <div class="prod-item"><span><i class="fa-solid fa-flag-checkered" style="color:#10b981;"></i> Final Line</span><strong style="color:#dc2626;">9 Unit</strong></div>
       </div>
 
       <div class="summary-card-cyan grid-col-3">
         <div>
-          <div class="summary-card-header">
-            <span>Production Summary</span>
-            <div class="info-btn">i</div>
-          </div>
+          <div class="summary-card-header"><span>Production Summary</span><div class="info-btn">i</div></div>
           <h2 class="summary-title">Top 5 Models</h2>
           <p class="summary-subtitle">Daily Calculated Output Ranking</p>
-
           <div class="top5-list" id="top5Container"></div>
         </div>
-        
         <div class="summary-metrics-grid">
-          <div class="metric-sub-card">
-            <div class="metric-sub-label">Target Yield</div>
-            <div class="metric-sub-value" id="top5TargetYield">1,500 Pcs</div>
-          </div>
-          <div class="metric-sub-card">
-            <div class="metric-sub-label">Achievement</div>
-            <div class="metric-sub-value" id="achievePct">82.9%</div>
-          </div>
+          <div class="metric-sub-card"><div class="metric-sub-label">Target Yield</div><div class="metric-sub-value">1,500 Pcs</div></div>
+          <div class="metric-sub-card"><div class="metric-sub-label">Achievement</div><div class="metric-sub-value" id="achievePct">82.9%</div></div>
         </div>
       </div>
 
@@ -463,68 +258,13 @@
   </div>
 
   <div class="tab-view" id="view-Scrap">
-    
     <div class="station-fulfillment-wrapper">
-      <div class="station-header-badge">
-        <i class="fa-solid fa-server"></i> Station Fulfillment Status
-      </div>
-
+      <div class="station-header-badge"><i class="fa-solid fa-server"></i> Station Fulfillment Status</div>
       <div class="station-grid-four">
-        <div class="station-box-card">
-          <div class="station-title-text">STATION B1</div>
-          <div class="station-title-text"><i class="fa-solid fa-circle-check" style="color:#10b981;"></i> Online Status</div>
-          <div class="station-pct-large" style="color:#0083b0;">250 Units</div>
-          <div style="font-size:16px; font-weight:800; color:#10b981;">83.3%</div>
-        </div>
-
-        <div class="station-box-card">
-          <div class="station-title-text">STATION B2</div>
-          <div class="station-title-text"><i class="fa-solid fa-circle-xmark" style="color:#ef4444;"></i> Offline Status</div>
-          <div class="station-pct-large" style="color:#ef4444;">30 Units</div>
-          <div style="font-size:16px; font-weight:800; color:#ef4444;">8.8%</div>
-        </div>
-
-        <div class="station-box-card">
-          <div class="station-title-text">STATION B3</div>
-          <div class="station-title-text"><i class="fa-solid fa-bullseye" style="color:#0083b0;"></i> Target Daily</div>
-          <div class="station-pct-large" style="color:#0083b0;">400 Units</div>
-          <div style="font-size:14px; font-weight:700; color:#64748b;">Daily Target Goal</div>
-        </div>
-
-        <div class="station-box-card">
-          <div class="station-title-text">STATION B4</div>
-          <div class="station-title-text"><i class="fa-solid fa-triangle-exclamation" style="color:#f59e0b;"></i> Diff Unit</div>
-          <div class="station-pct-large" style="color:#f59e0b;">-102 Units</div>
-          <div style="font-size:14px; font-weight:700; color:#f59e0b;">Variance Target</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="station-fulfillment-wrapper">
-      <div class="station-header-badge" style="background:linear-gradient(135deg, #0284c7, #38bdf8);">
-        <i class="fa-solid fa-chart-simple"></i> Station Yield Rate Overview
-      </div>
-
-      <div class="station-grid-four">
-        <div class="station-box-card">
-          <div class="station-title-text">Station B1</div>
-          <div class="station-pct-large" style="color:#0083b0;">83.3%</div>
-        </div>
-
-        <div class="station-box-card">
-          <div class="station-title-text">Station B2</div>
-          <div class="station-pct-large" style="color:#10b981;">91.2%</div>
-        </div>
-
-        <div class="station-box-card">
-          <div class="station-title-text">Station B3</div>
-          <div class="station-pct-large" style="color:#ef4444;">65.0%</div>
-        </div>
-
-        <div class="station-box-card">
-          <div class="station-title-text">Station B4</div>
-          <div class="station-pct-large" style="color:#8b5cf6;">77.8%</div>
-        </div>
+        <div class="station-box-card"><div class="station-title-text">STATION B1</div><div class="station-title-text"><i class="fa-solid fa-circle-check" style="color:#10b981;"></i> Online Status</div><div class="station-pct-large" style="color:#0083b0;">250 Units</div><div style="font-size:16px; font-weight:800; color:#10b981;">83.3%</div></div>
+        <div class="station-box-card"><div class="station-title-text">STATION B2</div><div class="station-title-text"><i class="fa-solid fa-circle-xmark" style="color:#ef4444;"></i> Offline Status</div><div class="station-pct-large" style="color:#ef4444;">30 Units</div><div style="font-size:16px; font-weight:800; color:#ef4444;">8.8%</div></div>
+        <div class="station-box-card"><div class="station-title-text">STATION B3</div><div class="station-title-text"><i class="fa-solid fa-bullseye" style="color:#0083b0;"></i> Target Daily</div><div class="station-pct-large" style="color:#0083b0;">400 Units</div><div style="font-size:14px; font-weight:700; color:#64748b;">Daily Target Goal</div></div>
+        <div class="station-box-card"><div class="station-title-text">STATION B4</div><div class="station-title-text"><i class="fa-solid fa-triangle-exclamation" style="color:#f59e0b;"></i> Diff Unit</div><div class="station-pct-large" style="color:#f59e0b;">-102 Units</div><div style="font-size:14px; font-weight:700; color:#f59e0b;">Variance Target</div></div>
       </div>
     </div>
 
@@ -533,19 +273,103 @@
         <span class="badge badge-red"><i class="fa-solid fa-dumpster"></i> Scrap Breakdown by Station</span>
         <canvas id="scrapDoughnutChart" height="150"></canvas>
       </div>
-
       <div class="card grid-col-2">
-        <span class="badge badge-red"><i class="fa-solid fa-chart-column"></i> Scrap Rate Trend (Shift Breakdown)</span>
+        <span class="badge badge-red"><i class="fa-solid fa-chart-column"></i> Scrap Rate Trend</span>
         <canvas id="scrapBarChart" height="150"></canvas>
       </div>
     </div>
-
   </div>
 
   <div class="tab-view" id="view-Production Loss">
-    <div class="card">
-      <span class="badge"><i class="fa-solid fa-microchip"></i> Production Loss Dashboard View</span>
-      <p style="margin-top:10px; font-weight:600; color:#64748b;">กำลังโหลดข้อมูล Production Loss Breakdown...</p>
+    
+    <div class="loss-kpi-row">
+      <div class="loss-kpi-card">
+        <div class="loss-kpi-info">
+          <span class="loss-kpi-title">Total Revenue Loss</span>
+          <span class="loss-kpi-val">$203,200</span>
+        </div>
+        <div class="icon-box-round" style="background:#e0f2fe; color:#0284c7;"><i class="fa-solid fa-wallet"></i></div>
+      </div>
+
+      <div class="loss-kpi-card">
+        <div class="loss-kpi-info">
+          <span class="loss-kpi-title">Average Downtime</span>
+          <span class="loss-kpi-val">45.5 Mins</span>
+        </div>
+        <div class="icon-box-round" style="background:#fef3c7; color:#d97706;"><i class="fa-solid fa-clock"></i></div>
+      </div>
+
+      <div class="loss-kpi-card">
+        <div class="loss-kpi-info">
+          <span class="loss-kpi-title">Loss Incidents</span>
+          <span class="loss-kpi-val">120,365</span>
+        </div>
+        <div class="icon-box-round" style="background:#fee2e2; color:#dc2626;"><i class="fa-solid fa-triangle-exclamation"></i></div>
+      </div>
+
+      <div class="loss-kpi-card">
+        <div class="loss-kpi-info">
+          <span class="loss-kpi-title">OEE Impact</span>
+          <span class="loss-kpi-val">834,521</span>
+        </div>
+        <div class="icon-box-round" style="background:#d1fae5; color:#059669;"><i class="fa-solid fa-chart-line"></i></div>
+      </div>
+    </div>
+
+    <div class="main-grid">
+      
+      <div class="card grid-col-3">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+          <span class="badge badge-purple"><i class="fa-solid fa-chart-area"></i> Company Loss & Progress Trend</span>
+          <div style="display:flex; gap:20px; font-size:13px; font-weight:700;">
+            <span>Avg. Selling Price: <strong style="color:#10b981;">$1231.10 (+25%)</strong></span>
+            <span>Avg. Downtime: <strong style="color:#ef4444;">120,365 (-13%)</strong></span>
+          </div>
+        </div>
+        <canvas id="lossTrendChart" height="110"></canvas>
+      </div>
+
+      <div class="card grid-col-1" style="display:flex; flex-direction:column; justify-content:space-between;">
+        <span class="badge badge-purple"><i class="fa-solid fa-chart-pie"></i> Loss Distribution</span>
+        
+        <div style="position:relative; height:180px;">
+          <canvas id="lossDonutChart"></canvas>
+        </div>
+
+        <div style="display:flex; justify-content:space-around; text-align:center; margin-top:10px;">
+          <div><div style="font-size:11px; color:#64748b;">Total Order</div><strong style="font-size:14px;">6.03</strong></div>
+          <div><div style="font-size:11px; color:#64748b;">Total Visitor</div><strong style="font-size:14px;">130K</strong></div>
+          <div><div style="font-size:11px; color:#64748b;">Revenue Loss</div><strong style="font-size:14px;">$12,365</strong></div>
+        </div>
+      </div>
+
+      <div class="card grid-col-2">
+        <span class="badge badge-purple"><i class="fa-solid fa-chart-column"></i> Data Loss Report by Station</span>
+        <canvas id="lossBarChart" height="140"></canvas>
+      </div>
+
+      <div class="card grid-col-2">
+        <span class="badge badge-purple"><i class="fa-solid fa-list-check"></i> Loss Category Breakdown</span>
+        <div style="display:flex; flex-direction:column; gap:12px; margin-top:10px;">
+          <div class="prod-item">
+            <span><i class="fa-solid fa-gears" style="color:#6366f1;"></i> Equipment Breakdown</span>
+            <strong style="color:#6366f1;">$630.00</strong>
+          </div>
+          <div class="prod-item">
+            <span><i class="fa-solid fa-box-open" style="color:#0284c7;"></i> Material Shortage</span>
+            <strong style="color:#0284c7;">$63.26</strong>
+          </div>
+          <div class="prod-item">
+            <span><i class="fa-solid fa-user-gear" style="color:#f59e0b;"></i> Operator Error</span>
+            <strong style="color:#f59e0b;">$360.20</strong>
+          </div>
+          <div class="prod-item">
+            <span><i class="fa-solid fa-ellipsis-h" style="color:#64748b;"></i> Others</span>
+            <strong style="color:#64748b;">$92.52</strong>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -583,6 +407,7 @@
 <script>
   let activeTab = 'FTR';
   let lineChartObj, scrapDoughnutChartObj, scrapBarChartObj;
+  let lossTrendChartObj, lossDonutChartObj, lossBarChartObj;
 
   const rawModelDatabase = [
     { model: 'Model A', output: 450 },
@@ -594,13 +419,10 @@
 
   function switchTab(tabName, element) {
     activeTab = tabName;
-    
-    // Update active nav status
     const navItems = document.querySelectorAll('.nav-item');
     navItems.forEach(item => item.classList.remove('active'));
     element.classList.add('active');
 
-    // Switch View
     const views = document.querySelectorAll('.tab-view');
     views.forEach(v => v.classList.remove('active-view'));
     
@@ -620,7 +442,7 @@
     const titleMap = {
       'FTR': '<i class="fa-solid fa-chart-pie" style="color:#0083b0;"></i> Input FTR Data',
       'Scrap': '<i class="fa-solid fa-list-check" style="color:#0083b0;"></i> Input Scrap Data',
-      'Production Loss': '<i class="fa-solid fa-microchip" style="color:#0083b0;"></i> Input Production Loss',
+      'Production Loss': '<i class="fa-solid fa-microchip" style="color:#6366f1;"></i> Input Production Loss Data',
       'Improvement': '<i class="fa-solid fa-gear" style="color:#0083b0;"></i> Input Improvement Record'
     };
     document.getElementById('modalHeaderTitle').innerHTML = titleMap[activeTab];
@@ -640,17 +462,16 @@
       container.innerHTML = `
         <div class="form-group"><label>Day Shift Scrap (Pcs)</label><input type="number" id="inputScrapDay" class="form-input" value="8"></div>
         <div class="form-group"><label>Night Shift Scrap (Pcs)</label><input type="number" id="inputScrapNight" class="form-input" value="21"></div>
-        <div class="form-group"><label>Scrap Reason / Category</label><input type="text" id="inputScrapReason" class="form-input" placeholder="e.g. Material Defect"></div>
       `;
     } else if (tab === 'Production Loss') {
       container.innerHTML = `
-        <div class="form-group"><label>Downtime Duration (Mins)</label><input type="number" id="inputLossTime" class="form-input" value="45"></div>
-        <div class="form-group"><label>Loss Category</label><input type="text" id="inputLossType" class="form-input" placeholder="e.g. Machine Breakdown"></div>
+        <div class="form-group"><label>Downtime Duration (Mins)</label><input type="number" id="inputLossTime" class="form-input" value="45.5"></div>
+        <div class="form-group"><label>Revenue Loss Cost ($)</label><input type="number" id="inputLossCost" class="form-input" value="203200"></div>
+        <div class="form-group"><label>Loss Category</label><input type="text" id="inputLossType" class="form-input" placeholder="e.g. Equipment Breakdown"></div>
       `;
     } else if (tab === 'Improvement') {
       container.innerHTML = `
         <div class="form-group"><label>Action Item / Kaizen Title</label><input type="text" id="inputImpTitle" class="form-input" placeholder="Enter improvement plan"></div>
-        <div class="form-group"><label>Target Yield Gain (%)</label><input type="number" id="inputImpGain" class="form-input" value="5"></div>
       `;
     }
   }
@@ -674,20 +495,15 @@
   function calculateTop5Models(modelsData) {
     const sorted = [...modelsData].sort((a, b) => b.output - a.output);
     const top5 = sorted.slice(0, 5);
-
     const container = document.getElementById('top5Container');
     container.innerHTML = '';
-
     let totalTop5Output = 0;
 
     top5.forEach((item, index) => {
       totalTop5Output += item.output;
       const div = document.createElement('div');
       div.className = 'top5-item';
-      div.innerHTML = `
-        <span>#${index + 1} ${item.model}</span>
-        <strong>${item.output.toLocaleString()} Pcs</strong>
-      `;
+      div.innerHTML = `<span>#${index + 1} ${item.model}</span><strong>${item.output.toLocaleString()} Pcs</strong>`;
       container.appendChild(div);
     });
 
@@ -699,10 +515,7 @@
   function refreshDailyData() {
     const icon = document.getElementById('refreshIcon');
     icon.classList.add('spinning');
-
-    setTimeout(() => {
-      icon.classList.remove('spinning');
-    }, 500);
+    setTimeout(() => { icon.classList.remove('spinning'); }, 500);
   }
 
   window.onload = function() {
@@ -721,7 +534,7 @@
       options: { responsive: true, plugins: { legend: { position: 'top' } } }
     });
 
-    // Scrap Chart Init (Doughnut)
+    // Scrap Doughnut & Bar Charts
     scrapDoughnutChartObj = new Chart(document.getElementById('scrapDoughnutChart'), {
       type: 'doughnut',
       data: {
@@ -731,7 +544,6 @@
       options: { responsive: true, plugins: { legend: { position: 'right' } } }
     });
 
-    // Scrap Chart Init (Bar)
     scrapBarChartObj = new Chart(document.getElementById('scrapBarChart'), {
       type: 'bar',
       data: {
@@ -739,6 +551,40 @@
         datasets: [
           { label: 'Day Shift Scrap', data: [4, 2, 12, 3], backgroundColor: '#facc15' },
           { label: 'Night Shift Scrap', data: [8, 3, 10, 7], backgroundColor: '#1e293b' }
+        ]
+      },
+      options: { responsive: true, plugins: { legend: { position: 'top' } } }
+    });
+
+    // PRODUCTION LOSS CHARTS
+    lossTrendChartObj = new Chart(document.getElementById('lossTrendChart'), {
+      type: 'line',
+      data: {
+        labels: ['Jun 4', 'Jun 5', 'Jun 6', 'Jun 7', 'Jun 8', 'Jun 9', 'Jun 10', 'Jun 11', 'Jun 12'],
+        datasets: [
+          { label: 'This Month ($1,234)', data: [3, 5, 4, 6, 4, 8, 6, 3, 4], borderColor: '#6366f1', backgroundColor: 'rgba(99, 102, 241, 0.1)', fill: true, tension: 0.4 },
+          { label: 'Last Month ($7,654)', data: [2, 3, 2, 4, 3, 5, 4, 2, 3], borderColor: '#06b6d4', borderDash: [5, 5], fill: false, tension: 0.4 }
+        ]
+      },
+      options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
+    });
+
+    lossDonutChartObj = new Chart(document.getElementById('lossDonutChart'), {
+      type: 'doughnut',
+      data: {
+        labels: ['Completed', 'Pending Loss'],
+        datasets: [{ data: [84, 16], backgroundColor: ['#6366f1', '#e2e8f0'] }]
+      },
+      options: { responsive: true, maintainAspectRatio: false, cutout: '75%', plugins: { legend: { display: false } } }
+    });
+
+    lossBarChartObj = new Chart(document.getElementById('lossBarChart'), {
+      type: 'bar',
+      data: {
+        labels: ['Station 1', 'Station 2', 'Station 3', 'Station 4'],
+        datasets: [
+          { label: 'Data A', data: [15, 20, 18, 22], backgroundColor: '#6366f1' },
+          { label: 'Data B', data: [10, 14, 12, 18], backgroundColor: '#38bdf8' }
         ]
       },
       options: { responsive: true, plugins: { legend: { position: 'top' } } }
