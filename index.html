@@ -91,6 +91,27 @@
       box-shadow: 3px 3px 6px #c5d0e0;
     }
 
+    /* Add Data Button */
+    .add-data-btn {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 4px 4px 10px #c5d0e0, -4px -4px 10px #ffffff;
+      transition: all 0.2s ease;
+    }
+    .add-data-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 6px 6px 14px #c5d0e0, -6px -6px 14px #ffffff;
+    }
+
     /* KPI Summary Row */
     .kpi-row {
       display: grid;
@@ -275,16 +296,8 @@
       gap: 6px;
     }
 
-    .station-val-main {
-      font-size: 26px;
-      font-weight: 800;
-    }
-
-    .station-val-sub {
-      font-size: 13px;
-      font-weight: 700;
-      margin-top: 6px;
-    }
+    .station-val-main { font-size: 26px; font-weight: 800; }
+    .station-val-sub { font-size: 13px; font-weight: 700; margin-top: 6px; }
 
     .status-online { color: #10b981; }
     .status-offline { color: #ef4444; }
@@ -300,6 +313,52 @@
       border-radius: 12px;
       box-shadow: inset 3px 3px 6px #c5d0e0, inset -3px -3px 6px #ffffff;
       font-size: 14px;
+    }
+
+    /* Modal Dialog CSS */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(15, 23, 42, 0.4);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+    .modal-content {
+      background: #e6eef8;
+      border-radius: 24px;
+      padding: 28px;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: 12px 12px 24px #b8c4d8, -12px -12px 24px #ffffff;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .modal-header {
+      font-size: 18px; font-weight: 800; color: #1e293b;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group label { font-size: 13px; font-weight: 700; color: #475569; }
+    .form-input {
+      background: #e6eef8; border: none; padding: 10px 14px;
+      border-radius: 12px;
+      box-shadow: inset 3px 3px 6px #c5d0e0, inset -3px -3px 6px #ffffff;
+      font-size: 14px; font-weight: 600; outline: none; color: #1e293b;
+    }
+    .modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px; }
+    .btn-cancel {
+      background: transparent; border: none; padding: 10px 18px;
+      border-radius: 10px; font-weight: 700; color: #64748b; cursor: pointer;
+    }
+    .btn-submit {
+      background: linear-gradient(135deg, #0083b0, #00b4db);
+      color: white; border: none; padding: 10px 20px;
+      border-radius: 10px; font-weight: 700; cursor: pointer;
+      box-shadow: 3px 3px 6px #c5d0e0;
     }
   </style>
 </head>
@@ -321,7 +380,7 @@
     <div style="color:#ef4444; font-weight:600; cursor:pointer;"><i class="fa-solid fa-right-from-bracket"></i> Logout</div>
   </div>
 
-  <!-- Filter Controls Section -->
+  <!-- Filter Controls Section with Add Data Button -->
   <div class="filter-bar">
     <div class="filter-group">
       <span class="filter-label"><i class="fa-regular fa-calendar-days"></i> Select Date:</span>
@@ -342,6 +401,11 @@
         </button>
       </div>
     </div>
+
+    <!-- Button to Open Data Input Modal -->
+    <button class="add-data-btn" onclick="openModal()">
+      <i class="fa-solid fa-plus"></i> Add Data
+    </button>
   </div>
 
   <!-- KPI Cards Row -->
@@ -414,28 +478,28 @@
         <!-- Online Status -->
         <div class="station-card">
           <div class="station-metric-title"><i class="fa-solid fa-circle-check status-online"></i> Online Status</div>
-          <div class="station-val-main status-online">250 Units</div>
-          <div class="station-val-sub status-online">83.3%</div>
+          <div class="station-val-main status-online" id="onlineVal">250 Units</div>
+          <div class="station-val-sub status-online" id="onlinePct">83.3%</div>
         </div>
 
         <!-- Offline Status -->
         <div class="station-card">
           <div class="station-metric-title"><i class="fa-solid fa-circle-xmark status-offline"></i> Offline Status</div>
-          <div class="station-val-main status-offline">30 Units</div>
-          <div class="station-val-sub status-offline">8.8%</div>
+          <div class="station-val-main status-offline" id="offlineVal">30 Units</div>
+          <div class="station-val-sub status-offline" id="offlinePct">8.8%</div>
         </div>
 
         <!-- Target Daily -->
         <div class="station-card">
           <div class="station-metric-title"><i class="fa-solid fa-bullseye status-target"></i> Target Daily</div>
-          <div class="station-val-main status-target">400 Units</div>
+          <div class="station-val-main status-target" id="targetVal">400 Units</div>
           <div class="station-val-sub" style="color:#64748b;">Daily Target Goal</div>
         </div>
 
         <!-- Diff Unit -->
         <div class="station-card">
           <div class="station-metric-title"><i class="fa-solid fa-triangle-exclamation status-diff"></i> Diff Unit</div>
-          <div class="station-val-main status-diff">-102 Units</div>
+          <div class="station-val-main status-diff" id="diffVal">-102 Units</div>
           <div class="station-val-sub status-diff">Variance Target</div>
         </div>
 
@@ -505,12 +569,71 @@
   </div>
 </div>
 
+<!-- Input Data Modal -->
+<div class="modal-overlay" id="dataModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <span><i class="fa-solid fa-pen-to-square" style="color:#0083b0;"></i> Input KPI Data</span>
+      <i class="fa-solid fa-xmark" style="cursor:pointer; color:#94a3b8;" onclick="closeModal()"></i>
+    </div>
+    
+    <div class="form-group">
+      <label>Online Units</label>
+      <input type="number" id="inputOnline" class="form-input" value="250">
+    </div>
+
+    <div class="form-group">
+      <label>Offline Units</label>
+      <input type="number" id="inputOffline" class="form-input" value="30">
+    </div>
+
+    <div class="form-group">
+      <label>Target Daily Units</label>
+      <input type="number" id="inputTarget" class="form-input" value="400">
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+      <button class="btn-submit" onclick="saveData()">Save Data</button>
+    </div>
+  </div>
+</div>
+
 <script>
   function setShift(shiftType, element) {
     const buttons = document.querySelectorAll('.shift-btn');
     buttons.forEach(btn => btn.classList.remove('active'));
     element.classList.add('active');
-    console.log("Selected Shift Filter:", shiftType);
+  }
+
+  function openModal() {
+    document.getElementById('dataModal').style.display = 'flex';
+  }
+
+  function closeModal() {
+    document.getElementById('dataModal').style.display = 'none';
+  }
+
+  function saveData() {
+    const online = parseFloat(document.getElementById('inputOnline').value) || 0;
+    const offline = parseFloat(document.getElementById('inputOffline').value) || 0;
+    const target = parseFloat(document.getElementById('inputTarget').value) || 0;
+
+    const onlinePctVal = target > 0 ? ((online / target) * 100).toFixed(1) : 0;
+    const offlinePctVal = target > 0 ? ((offline / target) * 100).toFixed(1) : 0;
+    const diff = (online + offline) - target;
+
+    // Update Dashboard Values
+    document.getElementById('onlineVal').innerText = `${online} Units`;
+    document.getElementById('onlinePct').innerText = `${onlinePctVal}%`;
+
+    document.getElementById('offlineVal').innerText = `${offline} Units`;
+    document.getElementById('offlinePct').innerText = `${offlinePctVal}%`;
+
+    document.getElementById('targetVal').innerText = `${target} Units`;
+    document.getElementById('diffVal').innerText = `${diff >= 0 ? '+' : ''}${diff} Units`;
+
+    closeModal();
   }
 
   new Chart(document.getElementById('lineChart'), {
