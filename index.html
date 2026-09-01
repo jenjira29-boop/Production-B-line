@@ -21,7 +21,6 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 10px;
     }
 
     .nav-links { display: flex; gap: 20px; align-items: center; margin: 0 auto; }
@@ -31,6 +30,65 @@
     .nav-item.active {
       color: #0083b0;
       box-shadow: inset 3px 3px 6px #c5d0e0, inset -3px -3px 6px #ffffff;
+    }
+
+    /* Filter Controls Section */
+    .filter-bar {
+      background: #e6eef8;
+      border-radius: 20px;
+      padding: 15px 25px;
+      box-shadow: 6px 6px 12px #c5d0e0, -6px -6px 12px #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .filter-group { display: flex; align-items: center; gap: 12px; }
+    .filter-label { font-weight: 700; font-size: 14px; color: #475569; display: flex; align-items: center; gap: 6px; }
+
+    .date-picker {
+      background: #e6eef8;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 12px;
+      box-shadow: inset 3px 3px 6px #c5d0e0, inset -3px -3px 6px #ffffff;
+      font-size: 14px;
+      color: #1e293b;
+      outline: none;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .shift-toggle-group {
+      display: flex;
+      background: #e6eef8;
+      padding: 4px;
+      border-radius: 14px;
+      box-shadow: inset 3px 3px 6px #c5d0e0, inset -3px -3px 6px #ffffff;
+      gap: 4px;
+    }
+
+    .shift-btn {
+      border: none;
+      background: transparent;
+      padding: 8px 18px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 13px;
+      color: #64748b;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .shift-btn.active {
+      background: #0083b0;
+      color: white;
+      box-shadow: 3px 3px 6px #c5d0e0;
     }
 
     /* KPI Summary Row */
@@ -124,6 +182,77 @@
       box-shadow: 8px 8px 16px #c5d0e0, -8px -8px 16px #ffffff;
     }
 
+    /* Production Summary Card Style */
+    .summary-card-cyan {
+      background: #00a5cf;
+      color: white;
+      border-radius: 24px;
+      padding: 24px;
+      box-shadow: 8px 8px 16px #c5d0e0, -8px -8px 16px #ffffff;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    .summary-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 15px;
+      font-weight: 500;
+      opacity: 0.95;
+    }
+
+    .info-btn {
+      background: rgba(255, 255, 255, 0.9);
+      color: #00a5cf;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .summary-title {
+      font-size: 30px;
+      font-weight: 800;
+      margin: 18px 0 6px 0;
+    }
+
+    .summary-subtitle {
+      font-size: 14px;
+      opacity: 0.9;
+      margin-bottom: 24px;
+    }
+
+    .summary-metrics-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .metric-sub-card {
+      background: rgba(255, 255, 255, 0.18);
+      border-radius: 16px;
+      padding: 14px;
+      backdrop-filter: blur(8px);
+    }
+
+    .metric-sub-label {
+      font-size: 12px;
+      opacity: 0.9;
+      margin-bottom: 6px;
+    }
+
+    .metric-sub-value {
+      font-size: 22px;
+      font-weight: 800;
+    }
+
     .badge {
       background: linear-gradient(135deg, #00b4db, #0083b0);
       color: white; padding: 6px 16px; border-radius: 20px;
@@ -174,16 +303,36 @@
     <div style="color:#ef4444; font-weight:600; cursor:pointer;"><i class="fa-solid fa-right-from-bracket"></i> Logout</div>
   </div>
 
+  <!-- Filter Controls Section -->
+  <div class="filter-bar">
+    <div class="filter-group">
+      <span class="filter-label"><i class="fa-regular fa-calendar-days"></i> Select Date:</span>
+      <input type="date" class="date-picker" id="filterDate" value="2026-09-01">
+    </div>
+
+    <div class="filter-group">
+      <span class="filter-label"><i class="fa-solid fa-clock"></i> Shift Filter:</span>
+      <div class="shift-toggle-group">
+        <button class="shift-btn active" onclick="setShift('all', this)">
+          <i class="fa-solid fa-layer-group"></i> All Shifts
+        </button>
+        <button class="shift-btn" onclick="setShift('day', this)">
+          <i class="fa-solid fa-sun"></i> Day Shift
+        </button>
+        <button class="shift-btn" onclick="setShift('night', this)">
+          <i class="fa-solid fa-moon"></i> Night Shift
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- KPI Cards Row -->
   <div class="kpi-row">
-    
-    <!-- TOTAL PRODUCTION -->
     <div class="kpi-card">
       <div class="kpi-header bg-blue-dark">TOTAL PRODUCTION</div>
       <div class="kpi-single-value">1,244</div>
     </div>
 
-    <!-- PRODUCTION Shift -->
     <div class="kpi-card">
       <div class="kpi-header bg-blue-light">PRODUCTION Shift</div>
       <div class="kpi-split-container">
@@ -198,13 +347,11 @@
       </div>
     </div>
 
-    <!-- TOTAL DEFECT -->
     <div class="kpi-card">
       <div class="kpi-header bg-brown">TOTAL DEFECT</div>
       <div class="kpi-single-value" style="color: #b91c1c;">137</div>
     </div>
 
-    <!-- DEFECT RATE -->
     <div class="kpi-card">
       <div class="kpi-header bg-orange">DEFECT RATE</div>
       <div class="kpi-split-container">
@@ -219,13 +366,11 @@
       </div>
     </div>
 
-    <!-- TOTAL SCRAP (Overall) -->
     <div class="kpi-card">
       <div class="kpi-header bg-cyan">TOTAL SCRAP</div>
       <div class="kpi-single-value" style="color: #475569;">29</div>
     </div>
 
-    <!-- TOTAL SCRAP (By Shift) -->
     <div class="kpi-card">
       <div class="kpi-header bg-teal">TOTAL SCRAP</div>
       <div class="kpi-split-container">
@@ -239,29 +384,28 @@
         </div>
       </div>
     </div>
-
   </div>
 
   <!-- Main Dashboard Content Grid -->
   <div class="main-grid">
     
-    <!-- Plant Summary Card (Production B Line) -->
-    <div class="card" style="background: linear-gradient(135deg, #00b4db, #0083b0); color: white;">
-      <div style="display:flex; justify-content:space-between; align-items:center;">
-        <span style="font-size: 13px; opacity:0.9;">Production Summary</span>
-        <i class="fa-solid fa-circle-info"></i>
+    <!-- Production Summary Card -->
+    <div class="summary-card-cyan">
+      <div class="summary-card-header">
+        <span>Production Summary</span>
+        <div class="info-btn">i</div>
       </div>
-      <h2 style="margin: 15px 0 5px 0; font-size:26px;">Production B Line</h2>
-      <p style="opacity: 0.8; font-size: 13px; margin-bottom: 20px;">Real-time Shift Monitoring</p>
+      <h2 class="summary-title">Production B Line</h2>
+      <p class="summary-subtitle">Real-time Shift Monitoring</p>
       
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-        <div style="background: rgba(255,255,255,0.18); padding: 10px; border-radius: 12px; backdrop-filter: blur(5px);">
-          <small style="opacity:0.8;">Target Yield</small>
-          <div style="font-size:18px; font-weight:bold;">1,500 Pcs</div>
+      <div class="summary-metrics-grid">
+        <div class="metric-sub-card">
+          <div class="metric-sub-label">Target Yield</div>
+          <div class="metric-sub-value">1,500 Pcs</div>
         </div>
-        <div style="background: rgba(255,255,255,0.18); padding: 10px; border-radius: 12px; backdrop-filter: blur(5px);">
-          <small style="opacity:0.8;">Achievement</small>
-          <div style="font-size:18px; font-weight:bold;">82.9%</div>
+        <div class="metric-sub-card">
+          <div class="metric-sub-label">Achievement</div>
+          <div class="metric-sub-value">82.9%</div>
         </div>
       </div>
     </div>
@@ -332,7 +476,15 @@
 </div>
 
 <script>
-  // Hourly Production Line Chart
+  // Shift Filter Button Functionality
+  function setShift(shiftType, element) {
+    const buttons = document.querySelectorAll('.shift-btn');
+    buttons.forEach(btn => btn.classList.remove('active'));
+    element.classList.add('active');
+    console.log("Selected Shift Filter:", shiftType);
+  }
+
+  // Charts Initializations
   new Chart(document.getElementById('lineChart'), {
     type: 'line',
     data: {
@@ -362,7 +514,6 @@
     }
   });
 
-  // OEE Doughnut Chart
   new Chart(document.getElementById('doughnutChart'), {
     type: 'doughnut',
     data: {
@@ -378,7 +529,6 @@
     }
   });
 
-  // Shift Comparison Bar Chart
   new Chart(document.getElementById('barChart'), {
     type: 'bar',
     data: {
