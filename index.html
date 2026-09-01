@@ -91,7 +91,35 @@
       box-shadow: 3px 3px 6px #c5d0e0;
     }
 
-    /* Add Data Button */
+    /* Action Buttons */
+    .btn-group { display: flex; gap: 10px; align-items: center; }
+
+    .refresh-btn {
+      background: #e6eef8;
+      color: #0083b0;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 4px 4px 10px #c5d0e0, -4px -4px 10px #ffffff;
+      transition: all 0.2s ease;
+    }
+    .refresh-btn:hover {
+      box-shadow: inset 3px 3px 6px #c5d0e0, inset -3px -3px 6px #ffffff;
+    }
+    .refresh-btn i.spinning {
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      100% { transform: rotate(360deg); }
+    }
+
     .add-data-btn {
       background: linear-gradient(135deg, #10b981, #059669);
       color: white;
@@ -408,7 +436,7 @@
   <div class="filter-bar">
     <div class="filter-group">
       <span class="filter-label"><i class="fa-regular fa-calendar-days"></i> Select Date:</span>
-      <input type="date" class="date-picker" id="filterDate" value="2026-09-01">
+      <input type="date" class="date-picker" id="filterDate" value="2026-09-01" onchange="refreshDailyData()">
     </div>
 
     <div class="filter-group">
@@ -426,16 +454,21 @@
       </div>
     </div>
 
-    <button class="add-data-btn" onclick="openModal()">
-      <i class="fa-solid fa-plus"></i> Add Data
-    </button>
+    <div class="btn-group">
+      <button class="refresh-btn" onclick="refreshDailyData()">
+        <i class="fa-solid fa-rotate-right" id="refreshIcon"></i> Refresh Data
+      </button>
+      <button class="add-data-btn" onclick="openModal()">
+        <i class="fa-solid fa-plus"></i> Add Data
+      </button>
+    </div>
   </div>
 
   <!-- KPI Cards Row -->
   <div class="kpi-row">
     <div class="kpi-card">
       <div class="kpi-header bg-blue-dark">TOTAL PRODUCTION</div>
-      <div class="kpi-single-value">1,244</div>
+      <div class="kpi-single-value" id="totalProdVal">1,244</div>
     </div>
 
     <div class="kpi-card">
@@ -443,18 +476,18 @@
       <div class="kpi-split-container">
         <div class="shift-box">
           <div class="shift-title shift-day">Day Shift</div>
-          <div class="shift-value">833</div>
+          <div class="shift-value" id="prodDayVal">833</div>
         </div>
         <div class="shift-box">
           <div class="shift-title shift-night">Night Shift</div>
-          <div class="shift-value">411</div>
+          <div class="shift-value" id="prodNightVal">411</div>
         </div>
       </div>
     </div>
 
     <div class="kpi-card">
       <div class="kpi-header bg-brown">TOTAL DEFECT</div>
-      <div class="kpi-single-value" style="color: #b91c1c;">137</div>
+      <div class="kpi-single-value" style="color: #b91c1c;" id="totalDefectVal">137</div>
     </div>
 
     <div class="kpi-card">
@@ -462,11 +495,11 @@
       <div class="kpi-split-container">
         <div class="shift-box">
           <div class="shift-title shift-day">Day Shift</div>
-          <div class="shift-value" style="color:#c2410c;">10.68%</div>
+          <div class="shift-value" style="color:#c2410c;" id="defectRateDay">10.68%</div>
         </div>
         <div class="shift-box">
           <div class="shift-title shift-night">Night Shift</div>
-          <div class="shift-value" style="color:#c2410c;">11.68%</div>
+          <div class="shift-value" style="color:#c2410c;" id="defectRateNight">11.68%</div>
         </div>
       </div>
     </div>
@@ -481,11 +514,11 @@
       <div class="kpi-split-container">
         <div class="shift-box">
           <div class="shift-title shift-day">Day Shift</div>
-          <div class="shift-value">8</div>
+          <div class="shift-value" id="scrapDayVal">8</div>
         </div>
         <div class="shift-box">
           <div class="shift-title shift-night">Night Shift</div>
-          <div class="shift-value">21</div>
+          <div class="shift-value" id="scrapNightVal">21</div>
         </div>
       </div>
     </div>
@@ -539,7 +572,7 @@
         </div>
         <div class="metric-sub-card">
           <div class="metric-sub-label">Achievement</div>
-          <div class="metric-sub-value">82.9%</div>
+          <div class="metric-sub-value" id="achievePct">82.9%</div>
         </div>
       </div>
     </div>
@@ -550,7 +583,7 @@
       <canvas id="lineChart" height="95"></canvas>
     </div>
 
-    <!-- Daily Defect Trend Line Chart (NEW) -->
+    <!-- Daily Defect Trend Line Chart -->
     <div class="card grid-col-4">
       <span class="badge badge-red"><i class="fa-solid fa-chart-line"></i> Daily Defect Trend (Day Shift vs Night Shift)</span>
       <canvas id="defectTrendChart" height="85"></canvas>
@@ -561,19 +594,19 @@
       <span class="badge"><i class="fa-solid fa-boxes-stacked"></i> Output by Model</span>
       <div class="prod-item">
         <span><i class="fa-solid fa-gear" style="color:#00b4db;"></i> Model A</span>
-        <strong>450 Pcs</strong>
+        <strong id="modelAVal">450 Pcs</strong>
       </div>
       <div class="prod-item">
         <span><i class="fa-solid fa-gear" style="color:#10b981;"></i> Model B</span>
-        <strong>383 Pcs</strong>
+        <strong id="modelBVal">383 Pcs</strong>
       </div>
       <div class="prod-item">
         <span><i class="fa-solid fa-gear" style="color:#f59e0b;"></i> Model C</span>
-        <strong>270 Pcs</strong>
+        <strong id="modelCVal">270 Pcs</strong>
       </div>
       <div class="prod-item">
         <span><i class="fa-solid fa-gear" style="color:#8b5cf6;"></i> Model D</span>
-        <strong>141 Pcs</strong>
+        <strong id="modelDVal">141 Pcs</strong>
       </div>
     </div>
 
@@ -620,6 +653,7 @@
 
 <script>
   let activeTab = 'FTR';
+  let lineChartObj, defectChartObj, doughnutChartObj, barChartObj;
 
   function switchTab(tabName, element) {
     activeTab = tabName;
@@ -706,110 +740,160 @@
       const scrapDay = parseFloat(document.getElementById('inputScrapDay').value) || 0;
       const scrapNight = parseFloat(document.getElementById('inputScrapNight').value) || 0;
       document.getElementById('totalScrapVal').innerText = scrapDay + scrapNight;
+      document.getElementById('scrapDayVal').innerText = scrapDay;
+      document.getElementById('scrapNightVal').innerText = scrapNight;
     }
 
     closeModal();
+    refreshDailyData(); // Refresh graphics after saving dynamic data
   }
 
-  // Hourly Output Line Chart
-  new Chart(document.getElementById('lineChart'), {
-    type: 'line',
-    data: {
-      labels: ['08:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00', '22:00'],
-      datasets: [
-        {
-          label: 'Day Shift Yield',
-          data: [110, 145, 130, 160, 150, 138, 0, 0],
-          borderColor: '#00b4db',
-          backgroundColor: 'rgba(0, 180, 219, 0.15)',
-          fill: true,
-          tension: 0.4
-        },
-        {
-          label: 'Night Shift Yield',
-          data: [0, 0, 0, 0, 0, 0, 120, 141],
-          borderColor: '#1e293b',
-          backgroundColor: 'rgba(30, 41, 59, 0.1)',
-          fill: true,
-          tension: 0.4
-        }
-      ]
-    },
-    options: { responsive: true, plugins: { legend: { position: 'top' } } }
-  });
+  // Function: Refresh Daily Data & Dynamic Chart Update
+  function refreshDailyData() {
+    const icon = document.getElementById('refreshIcon');
+    icon.classList.add('spinning');
 
-  // Daily Defect Trend Line Chart (Day Shift & Night Shift)
-  new Chart(document.getElementById('defectTrendChart'), {
-    type: 'line',
-    data: {
-      labels: ['08:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00', '22:00'],
-      datasets: [
-        {
-          label: 'Day Shift Defect',
-          data: [12, 18, 15, 22, 14, 8, 0, 0],
-          borderColor: '#00b4db',
-          backgroundColor: 'rgba(0, 180, 219, 0.15)',
-          borderWidth: 3,
-          pointRadius: 4,
-          pointHoverRadius: 6,
-          fill: true,
-          tension: 0.4
-        },
-        {
-          label: 'Night Shift Defect',
-          data: [0, 0, 0, 0, 0, 0, 19, 29],
-          borderColor: '#1e293b',
-          backgroundColor: 'rgba(30, 41, 59, 0.1)',
-          borderWidth: 3,
-          pointRadius: 4,
-          pointHoverRadius: 6,
-          fill: true,
-          tension: 0.4
-        }
-      ]
-    },
-    options: {
-      responsive: true,
-      plugins: {
-        legend: { position: 'top' }
+    // Simulate API Fetch Delay
+    setTimeout(() => {
+      // 1. Generate randomized numbers for daily simulated update
+      const newDayYield = [Math.floor(Math.random()*30 + 100), Math.floor(Math.random()*30 + 130), Math.floor(Math.random()*30 + 120), Math.floor(Math.random()*30 + 150), Math.floor(Math.random()*30 + 140), Math.floor(Math.random()*20 + 130), 0, 0];
+      const newNightYield = [0, 0, 0, 0, 0, 0, Math.floor(Math.random()*30 + 110), Math.floor(Math.random()*30 + 130)];
+
+      const newDayDefect = [Math.floor(Math.random()*10 + 10), Math.floor(Math.random()*10 + 12), Math.floor(Math.random()*10 + 8), Math.floor(Math.random()*10 + 15), Math.floor(Math.random()*10 + 10), Math.floor(Math.random()*8 + 5), 0, 0];
+      const newNightDefect = [0, 0, 0, 0, 0, 0, Math.floor(Math.random()*10 + 15), Math.floor(Math.random()*10 + 20)];
+
+      // 2. Update Charts Data
+      lineChartObj.data.datasets[0].data = newDayYield;
+      lineChartObj.data.datasets[1].data = newNightYield;
+      lineChartObj.update();
+
+      defectChartObj.data.datasets[0].data = newDayDefect;
+      defectChartObj.data.datasets[1].data = newNightDefect;
+      defectChartObj.update();
+
+      // 3. Recalculate Summary Cards
+      const sumDayProd = newDayYield.reduce((a, b) => a + b, 0);
+      const sumNightProd = newNightYield.reduce((a, b) => a + b, 0);
+      const sumTotalProd = sumDayProd + sumNightProd;
+
+      const sumDayDefect = newDayDefect.reduce((a, b) => a + b, 0);
+      const sumNightDefect = newNightDefect.reduce((a, b) => a + b, 0);
+      const sumTotalDefect = sumDayDefect + sumNightDefect;
+
+      document.getElementById('totalProdVal').innerText = sumTotalProd.toLocaleString();
+      document.getElementById('prodDayVal').innerText = sumDayProd.toLocaleString();
+      document.getElementById('prodNightVal').innerText = sumNightProd.toLocaleString();
+
+      document.getElementById('totalDefectVal').innerText = sumTotalDefect.toLocaleString();
+      document.getElementById('defectRateDay').innerText = sumDayProd > 0 ? ((sumDayDefect / sumDayProd) * 100).toFixed(2) + '%' : '0%';
+      document.getElementById('defectRateNight').innerText = sumNightProd > 0 ? ((sumNightDefect / sumNightProd) * 100).toFixed(2) + '%' : '0%';
+
+      // Update Bar Chart
+      barChartObj.data.datasets[0].data[0] = sumDayProd;
+      barChartObj.data.datasets[0].data[1] = sumDayDefect;
+      barChartObj.data.datasets[1].data[0] = sumNightProd;
+      barChartObj.data.datasets[1].data[1] = sumNightDefect;
+      barChartObj.update();
+
+      icon.classList.remove('spinning');
+    }, 600);
+  }
+
+  // Initialize Charts
+  window.onload = function() {
+    // Hourly Output Line Chart
+    lineChartObj = new Chart(document.getElementById('lineChart'), {
+      type: 'line',
+      data: {
+        labels: ['08:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00', '22:00'],
+        datasets: [
+          {
+            label: 'Day Shift Yield',
+            data: [110, 145, 130, 160, 150, 138, 0, 0],
+            borderColor: '#00b4db',
+            backgroundColor: 'rgba(0, 180, 219, 0.15)',
+            fill: true,
+            tension: 0.4
+          },
+          {
+            label: 'Night Shift Yield',
+            data: [0, 0, 0, 0, 0, 0, 120, 141],
+            borderColor: '#1e293b',
+            backgroundColor: 'rgba(30, 41, 59, 0.1)',
+            fill: true,
+            tension: 0.4
+          }
+        ]
       },
-      scales: {
-        y: {
-          beginAtZero: true,
-          grid: { color: 'rgba(0, 0, 0, 0.05)' }
-        },
-        x: {
-          grid: { color: 'rgba(0, 0, 0, 0.05)' }
+      options: { responsive: true, plugins: { legend: { position: 'top' } } }
+    });
+
+    // Daily Defect Trend Line Chart
+    defectChartObj = new Chart(document.getElementById('defectTrendChart'), {
+      type: 'line',
+      data: {
+        labels: ['08:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00', '22:00'],
+        datasets: [
+          {
+            label: 'Day Shift Defect',
+            data: [12, 18, 15, 22, 14, 8, 0, 0],
+            borderColor: '#00b4db',
+            backgroundColor: 'rgba(0, 180, 219, 0.15)',
+            borderWidth: 3,
+            pointRadius: 4,
+            pointHoverRadius: 6,
+            fill: true,
+            tension: 0.4
+          },
+          {
+            label: 'Night Shift Defect',
+            data: [0, 0, 0, 0, 0, 0, 19, 29],
+            borderColor: '#1e293b',
+            backgroundColor: 'rgba(30, 41, 59, 0.1)',
+            borderWidth: 3,
+            pointRadius: 4,
+            pointHoverRadius: 6,
+            fill: true,
+            tension: 0.4
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { position: 'top' } },
+        scales: {
+          y: { beginAtZero: true, grid: { color: 'rgba(0, 0, 0, 0.05)' } },
+          x: { grid: { color: 'rgba(0, 0, 0, 0.05)' } }
         }
       }
-    }
-  });
+    });
 
-  // OEE Chart
-  new Chart(document.getElementById('doughnutChart'), {
-    type: 'doughnut',
-    data: {
-      labels: ['Availability (85%)', 'Performance (90%)', 'Quality (89%)', 'Downtime (11%)'],
-      datasets: [{
-        data: [85, 90, 89, 11],
-        backgroundColor: ['#00b4db', '#10b981', '#f59e0b', '#ef4444']
-      }]
-    },
-    options: { responsive: true, plugins: { legend: { position: 'right' } } }
-  });
+    // OEE Chart
+    doughnutChartObj = new Chart(document.getElementById('doughnutChart'), {
+      type: 'doughnut',
+      data: {
+        labels: ['Availability (85%)', 'Performance (90%)', 'Quality (89%)', 'Downtime (11%)'],
+        datasets: [{
+          data: [85, 90, 89, 11],
+          backgroundColor: ['#00b4db', '#10b981', '#f59e0b', '#ef4444']
+        }]
+      },
+      options: { responsive: true, plugins: { legend: { position: 'right' } } }
+    });
 
-  // Shift Comparison Bar Chart
-  new Chart(document.getElementById('barChart'), {
-    type: 'bar',
-    data: {
-      labels: ['Production', 'Defect', 'Scrap'],
-      datasets: [
-        { label: 'Day Shift', data: [833, 89, 8], backgroundColor: '#facc15' },
-        { label: 'Night Shift', data: [411, 48, 21], backgroundColor: '#1e293b' }
-      ]
-    },
-    options: { responsive: true, plugins: { legend: { position: 'top' } } }
-  });
+    // Shift Comparison Bar Chart
+    barChartObj = new Chart(document.getElementById('barChart'), {
+      type: 'bar',
+      data: {
+        labels: ['Production', 'Defect', 'Scrap'],
+        datasets: [
+          { label: 'Day Shift', data: [833, 89, 8], backgroundColor: '#facc15' },
+          { label: 'Night Shift', data: [411, 48, 21], backgroundColor: '#1e293b' }
+        ]
+      },
+      options: { responsive: true, plugins: { legend: { position: 'top' } } }
+    });
+  };
 </script>
 
 </body>
