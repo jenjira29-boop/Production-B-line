@@ -246,18 +246,17 @@
     .grid-col-3 { grid-column: span 3; }
     .grid-col-4 { grid-column: span 4; }
 
-    /* Custom Focused Station Fulfillment Cards */
+    /* Custom Clean Station Cards */
     .station-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 16px;
-      margin-top: 10px;
     }
 
     .station-card {
       background: #e6eef8;
       border-radius: 18px;
-      padding: 18px 16px;
+      padding: 24px 16px;
       box-shadow: inset 3px 3px 6px #c5d0e0, inset -3px -3px 6px #ffffff;
       display: flex;
       flex-direction: column;
@@ -266,31 +265,25 @@
       justify-content: center;
     }
 
-    .station-name {
-      font-size: 13px;
-      font-weight: 700;
-      color: #64748b;
-      margin-bottom: 4px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
     .station-metric-title {
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 700;
       color: #334155;
-      margin-bottom: 8px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
     .station-val-main {
-      font-size: 24px;
+      font-size: 26px;
       font-weight: 800;
     }
 
     .station-val-sub {
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 700;
-      margin-top: 4px;
+      margin-top: 6px;
     }
 
     .status-online { color: #10b981; }
@@ -414,39 +407,33 @@
   <!-- Main Dashboard Content Grid -->
   <div class="main-grid">
     
-    <!-- Station Fulfillment Status (Positioned Above Hourly Output) -->
+    <!-- Clean KPI Cards Section -->
     <div class="card grid-col-4">
-      <span class="badge"><i class="fa-solid fa-bars-progress"></i> Station Fulfillment Status</span>
-      
       <div class="station-grid">
         
-        <!-- Station B1: Online Unit & % -->
+        <!-- Online Status -->
         <div class="station-card">
-          <div class="station-name">Station B1</div>
           <div class="station-metric-title"><i class="fa-solid fa-circle-check status-online"></i> Online Status</div>
           <div class="station-val-main status-online">250 Units</div>
           <div class="station-val-sub status-online">83.3%</div>
         </div>
 
-        <!-- Station B2: Offline Unit & % -->
+        <!-- Offline Status -->
         <div class="station-card">
-          <div class="station-name">Station B2</div>
           <div class="station-metric-title"><i class="fa-solid fa-circle-xmark status-offline"></i> Offline Status</div>
           <div class="station-val-main status-offline">30 Units</div>
           <div class="station-val-sub status-offline">8.8%</div>
         </div>
 
-        <!-- Station B3: Target Daily Unit -->
+        <!-- Target Daily -->
         <div class="station-card">
-          <div class="station-name">Station B3</div>
           <div class="station-metric-title"><i class="fa-solid fa-bullseye status-target"></i> Target Daily</div>
           <div class="station-val-main status-target">400 Units</div>
           <div class="station-val-sub" style="color:#64748b;">Daily Target Goal</div>
         </div>
 
-        <!-- Station B4: Diff Unit -->
+        <!-- Diff Unit -->
         <div class="station-card">
-          <div class="station-name">Station B4</div>
           <div class="station-metric-title"><i class="fa-solid fa-triangle-exclamation status-diff"></i> Diff Unit</div>
           <div class="station-val-main status-diff">-102 Units</div>
           <div class="station-val-sub status-diff">Variance Target</div>
