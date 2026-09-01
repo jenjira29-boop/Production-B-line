@@ -64,7 +64,6 @@
       color: white;
     }
 
-    /* Header gradients */
     .bg-blue-dark { background: linear-gradient(135deg, #1e3a8a, #3b82f6); }
     .bg-blue-light { background: linear-gradient(135deg, #0284c7, #38bdf8); }
     .bg-brown { background: linear-gradient(135deg, #9a3412, #ea580c); }
@@ -161,16 +160,16 @@
 
 <div class="dashboard-container">
   
-  <!-- Updated Navigation Bar -->
+  <!-- Navigation Bar -->
   <div class="top-nav">
     <div style="font-weight:bold; color:#0083b0; display:flex; align-items:center; gap:8px;">
       <i class="fa-solid fa-industry"></i> Smart Factory OS
     </div>
     <div class="nav-links">
-      <div class="nav-item active"><i class="fa-solid fa-bullseye"></i> FTR</div>
-      <div class="nav-item"><i class="fa-solid fa-trash-can"></i> Scrap</div>
-      <div class="nav-item"><i class="fa-solid fa-triangle-exclamation"></i> Production Loss</div>
-      <div class="nav-item"><i class="fa-solid fa-chart-line"></i> Improvement</div>
+      <div class="nav-item active"><i class="fa-solid fa-chart-pie"></i> FTR</div>
+      <div class="nav-item"><i class="fa-solid fa-list-check"></i> Scrap</div>
+      <div class="nav-item"><i class="fa-solid fa-microchip"></i> Production Loss</div>
+      <div class="nav-item"><i class="fa-solid fa-gear"></i> Improvement</div>
     </div>
     <div style="color:#ef4444; font-weight:600; cursor:pointer;"><i class="fa-solid fa-right-from-bracket"></i> Logout</div>
   </div>
@@ -246,7 +245,7 @@
   <!-- Main Dashboard Content Grid -->
   <div class="main-grid">
     
-    <!-- Plant Summary Card (Updated to Production B Line) -->
+    <!-- Plant Summary Card (Production B Line) -->
     <div class="card" style="background: linear-gradient(135deg, #00b4db, #0083b0); color: white;">
       <div style="display:flex; justify-content:space-between; align-items:center;">
         <span style="font-size: 13px; opacity:0.9;">Production Summary</span>
@@ -273,28 +272,28 @@
       <canvas id="lineChart" height="95"></canvas>
     </div>
 
-    <!-- Product Breakdown -->
+    <!-- Output by Model Card -->
     <div class="card">
-      <span class="badge"><i class="fa-solid fa-boxes-stacked"></i> Output by Product</span>
+      <span class="badge"><i class="fa-solid fa-boxes-stacked"></i> Output by Model</span>
       <div class="prod-item">
-        <span><i class="fa-solid fa-gear" style="color:#00b4db;"></i> Product A</span>
+        <span><i class="fa-solid fa-gear" style="color:#00b4db;"></i> Model A</span>
         <strong>450 Pcs</strong>
       </div>
       <div class="prod-item">
-        <span><i class="fa-solid fa-gear" style="color:#10b981;"></i> Product B</span>
+        <span><i class="fa-solid fa-gear" style="color:#10b981;"></i> Model B</span>
         <strong>383 Pcs</strong>
       </div>
       <div class="prod-item">
-        <span><i class="fa-solid fa-gear" style="color:#f59e0b;"></i> Product C</span>
+        <span><i class="fa-solid fa-gear" style="color:#f59e0b;"></i> Model C</span>
         <strong>270 Pcs</strong>
       </div>
       <div class="prod-item">
-        <span><i class="fa-solid fa-gear" style="color:#8b5cf6;"></i> Product D</span>
+        <span><i class="fa-solid fa-gear" style="color:#8b5cf6;"></i> Model D</span>
         <strong>141 Pcs</strong>
       </div>
     </div>
 
-    <!-- Line Fulfillment Status -->
+    <!-- Station Fulfillment Status -->
     <div class="card grid-col-3">
       <span class="badge"><i class="fa-solid fa-bars-progress"></i> Station Fulfillment Status</span>
       <div class="circle-container">
