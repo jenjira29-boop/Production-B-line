@@ -135,10 +135,6 @@
       box-shadow: 4px 4px 10px #c5d0e0, -4px -4px 10px #ffffff;
       transition: all 0.2s ease;
     }
-    .add-data-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 6px 6px 14px #c5d0e0, -6px -6px 14px #ffffff;
-    }
 
     /* KPI Summary Row */
     .kpi-row {
@@ -231,15 +227,16 @@
       box-shadow: 8px 8px 16px #c5d0e0, -8px -8px 16px #ffffff;
     }
 
+    /* Style Designed Based on Image Prompt */
     .summary-card-cyan {
       background: #00a5cf;
       color: white;
-      border-radius: 24px;
+      border-radius: 28px;
       padding: 24px;
-      box-shadow: 8px 8px 16px #c5d0e0, -8px -8px 16px #ffffff;
+      box-shadow: 8px 8px 18px #b8c5d6, -8px -8px 18px #ffffff;
       display: flex;
       flex-direction: column;
-      justify-content: flex-start;
+      justify-content: space-between;
     }
 
     .summary-card-header {
@@ -247,26 +244,44 @@
       justify-content: space-between;
       align-items: center;
       font-size: 15px;
-      font-weight: 500;
-      opacity: 0.95;
+      font-weight: 600;
     }
 
     .info-btn {
-      background: rgba(255, 255, 255, 0.9);
+      background: rgba(255, 255, 255, 0.85);
       color: #00a5cf;
-      width: 24px;
-      height: 24px;
+      width: 26px;
+      height: 26px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 12px;
+      font-size: 13px;
       font-weight: bold;
       cursor: pointer;
     }
 
-    .summary-title { font-size: 30px; font-weight: 800; margin: 18px 0 6px 0; }
-    .summary-subtitle { font-size: 14px; opacity: 0.9; margin-bottom: 24px; }
+    .summary-title { font-size: 28px; font-weight: 800; margin-top: 14px; line-height: 1.1; }
+    .summary-subtitle { font-size: 13px; opacity: 0.95; margin-top: 4px; margin-bottom: 18px; }
+
+    .top5-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .top5-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.15);
+      padding: 6px 12px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 600;
+      backdrop-filter: blur(4px);
+    }
 
     .summary-metrics-grid {
       display: grid;
@@ -275,14 +290,14 @@
     }
 
     .metric-sub-card {
-      background: rgba(255, 255, 255, 0.18);
-      border-radius: 16px;
-      padding: 14px;
-      backdrop-filter: blur(8px);
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 18px;
+      padding: 12px;
+      backdrop-filter: blur(10px);
     }
 
-    .metric-sub-label { font-size: 12px; opacity: 0.9; margin-bottom: 6px; }
-    .metric-sub-value { font-size: 22px; font-weight: 800; }
+    .metric-sub-label { font-size: 11px; opacity: 0.95; margin-bottom: 4px; }
+    .metric-sub-value { font-size: 22px; font-weight: 800; line-height: 1.1; }
 
     .badge {
       background: linear-gradient(135deg, #00b4db, #0083b0);
@@ -389,11 +404,6 @@
       padding: 16px;
       text-align: center;
       cursor: pointer;
-      transition: all 0.2s;
-    }
-    .file-input-wrapper:hover {
-      border-color: #0083b0;
-      background: #edf4fc;
     }
     .file-input-wrapper input[type="file"] {
       position: absolute;
@@ -556,19 +566,26 @@
       </div>
     </div>
 
-    <!-- Production Summary Card -->
+    <!-- Production Summary Card (Top 5 Models Calculated Daily) -->
     <div class="summary-card-cyan">
-      <div class="summary-card-header">
-        <span>Production Summary</span>
-        <div class="info-btn">i</div>
+      <div>
+        <div class="summary-card-header">
+          <span>Production Summary</span>
+          <div class="info-btn">i</div>
+        </div>
+        <h2 class="summary-title">Top 5 Models</h2>
+        <p class="summary-subtitle">Daily Calculated Output Ranking</p>
+
+        <!-- Top 5 Models Container -->
+        <div class="top5-list" id="top5Container">
+          <!-- Dynamically populated via JS -->
+        </div>
       </div>
-      <h2 class="summary-title">Production B Line</h2>
-      <p class="summary-subtitle">Real-time Shift Monitoring</p>
       
       <div class="summary-metrics-grid">
         <div class="metric-sub-card">
           <div class="metric-sub-label">Target Yield</div>
-          <div class="metric-sub-value">1,500 Pcs</div>
+          <div class="metric-sub-value" id="top5TargetYield">1,500 Pcs</div>
         </div>
         <div class="metric-sub-card">
           <div class="metric-sub-label">Achievement</div>
@@ -625,16 +642,14 @@
   </div>
 </div>
 
-<!-- Input Data Dynamic Modal -->
+<!-- Modal Form -->
 <div class="modal-overlay" id="dataModal">
   <div class="modal-content">
     <div class="modal-header">
       <span id="modalHeaderTitle"><i class="fa-solid fa-pen-to-square" style="color:#0083b0;"></i> Update FTR Data</span>
       <i class="fa-solid fa-xmark" style="cursor:pointer; color:#94a3b8;" onclick="closeModal()"></i>
     </div>
-    
     <div id="modalFormBody"></div>
-
     <div class="form-group">
       <label><i class="fa-solid fa-paperclip"></i> Upload Data File (Excel / CSV)</label>
       <div class="file-input-wrapper">
@@ -643,7 +658,6 @@
         <input type="file" id="fileUpload" onchange="handleFileSelect(this)">
       </div>
     </div>
-
     <div class="modal-actions">
       <button class="btn-cancel" onclick="closeModal()">Cancel</button>
       <button class="btn-submit" onclick="saveData()">Save Data</button>
@@ -654,6 +668,16 @@
 <script>
   let activeTab = 'FTR';
   let lineChartObj, defectChartObj, doughnutChartObj, barChartObj;
+
+  // Raw Raw Model Database Simulation Across Days
+  const rawModelDatabase = [
+    { model: 'Model A', output: 450 },
+    { model: 'Model B', output: 383 },
+    { model: 'Model C', output: 270 },
+    { model: 'Model D', output: 141 },
+    { model: 'Model E', output: 95 },
+    { model: 'Model F', output: 60 }
+  ];
 
   function switchTab(tabName, element) {
     activeTab = tabName;
@@ -675,7 +699,6 @@
       'Production Loss': '<i class="fa-solid fa-microchip" style="color:#0083b0;"></i> Input Production Loss',
       'Improvement': '<i class="fa-solid fa-gear" style="color:#0083b0;"></i> Input Improvement Record'
     };
-
     document.getElementById('modalHeaderTitle').innerHTML = titleMap[activeTab];
     renderFormFields(activeTab);
     document.getElementById('dataModal').style.display = 'flex';
@@ -745,24 +768,64 @@
     }
 
     closeModal();
-    refreshDailyData(); // Refresh graphics after saving dynamic data
+    refreshDailyData();
   }
 
-  // Function: Refresh Daily Data & Dynamic Chart Update
+  // Calculate & Render Top 5 Models Dynamically
+  function calculateTop5Models(modelsData) {
+    // Sort array by output in descending order
+    const sorted = [...modelsData].sort((a, b) => b.output - a.output);
+    const top5 = sorted.slice(0, 5);
+
+    const container = document.getElementById('top5Container');
+    container.innerHTML = '';
+
+    let totalTop5Output = 0;
+
+    top5.forEach((item, index) => {
+      totalTop5Output += item.output;
+      const div = document.createElement('div');
+      div.className = 'top5-item';
+      div.innerHTML = `
+        <span>#${index + 1} ${item.model}</span>
+        <strong>${item.output.toLocaleString()} Pcs</strong>
+      `;
+      container.appendChild(div);
+    });
+
+    // Update Achievement based on Top 5 Total vs Target
+    const targetYield = 1500;
+    const achievementPct = ((totalTop5Output / targetYield) * 100).toFixed(1);
+    document.getElementById('achievePct').innerText = `${achievementPct}%`;
+  }
+
+  // Refresh Daily Data Engine
   function refreshDailyData() {
     const icon = document.getElementById('refreshIcon');
     icon.classList.add('spinning');
 
-    // Simulate API Fetch Delay
     setTimeout(() => {
-      // 1. Generate randomized numbers for daily simulated update
+      // 1. Generate Daily Random Datasets for Charts
       const newDayYield = [Math.floor(Math.random()*30 + 100), Math.floor(Math.random()*30 + 130), Math.floor(Math.random()*30 + 120), Math.floor(Math.random()*30 + 150), Math.floor(Math.random()*30 + 140), Math.floor(Math.random()*20 + 130), 0, 0];
       const newNightYield = [0, 0, 0, 0, 0, 0, Math.floor(Math.random()*30 + 110), Math.floor(Math.random()*30 + 130)];
 
       const newDayDefect = [Math.floor(Math.random()*10 + 10), Math.floor(Math.random()*10 + 12), Math.floor(Math.random()*10 + 8), Math.floor(Math.random()*10 + 15), Math.floor(Math.random()*10 + 10), Math.floor(Math.random()*8 + 5), 0, 0];
       const newNightDefect = [0, 0, 0, 0, 0, 0, Math.floor(Math.random()*10 + 15), Math.floor(Math.random()*10 + 20)];
 
-      // 2. Update Charts Data
+      // 2. Generate Daily Random Output for Top 5 Models Calculation
+      const currentDayModels = [
+        { model: 'Model A', output: Math.floor(Math.random() * 200 + 350) },
+        { model: 'Model B', output: Math.floor(Math.random() * 200 + 300) },
+        { model: 'Model C', output: Math.floor(Math.random() * 150 + 200) },
+        { model: 'Model D', output: Math.floor(Math.random() * 100 + 100) },
+        { model: 'Model E', output: Math.floor(Math.random() * 80 + 80) },
+        { model: 'Model F', output: Math.floor(Math.random() * 50 + 30) }
+      ];
+
+      // Calculate and display Top 5 Models
+      calculateTop5Models(currentDayModels);
+
+      // 3. Update Line Charts
       lineChartObj.data.datasets[0].data = newDayYield;
       lineChartObj.data.datasets[1].data = newNightYield;
       lineChartObj.update();
@@ -771,7 +834,7 @@
       defectChartObj.data.datasets[1].data = newNightDefect;
       defectChartObj.update();
 
-      // 3. Recalculate Summary Cards
+      // 4. Update KPI Values
       const sumDayProd = newDayYield.reduce((a, b) => a + b, 0);
       const sumNightProd = newNightYield.reduce((a, b) => a + b, 0);
       const sumTotalProd = sumDayProd + sumNightProd;
@@ -796,11 +859,14 @@
       barChartObj.update();
 
       icon.classList.remove('spinning');
-    }, 600);
+    }, 500);
   }
 
-  // Initialize Charts
+  // Initialize Charts & Calculation on Page Load
   window.onload = function() {
+    // Initial calculation for Top 5 Models Card
+    calculateTop5Models(rawModelDatabase);
+
     // Hourly Output Line Chart
     lineChartObj = new Chart(document.getElementById('lineChart'), {
       type: 'line',
@@ -828,7 +894,7 @@
       options: { responsive: true, plugins: { legend: { position: 'top' } } }
     });
 
-    // Daily Defect Trend Line Chart
+    // Daily Defect Line Chart
     defectChartObj = new Chart(document.getElementById('defectTrendChart'), {
       type: 'line',
       data: {
@@ -840,8 +906,6 @@
             borderColor: '#00b4db',
             backgroundColor: 'rgba(0, 180, 219, 0.15)',
             borderWidth: 3,
-            pointRadius: 4,
-            pointHoverRadius: 6,
             fill: true,
             tension: 0.4
           },
@@ -851,24 +915,15 @@
             borderColor: '#1e293b',
             backgroundColor: 'rgba(30, 41, 59, 0.1)',
             borderWidth: 3,
-            pointRadius: 4,
-            pointHoverRadius: 6,
             fill: true,
             tension: 0.4
           }
         ]
       },
-      options: {
-        responsive: true,
-        plugins: { legend: { position: 'top' } },
-        scales: {
-          y: { beginAtZero: true, grid: { color: 'rgba(0, 0, 0, 0.05)' } },
-          x: { grid: { color: 'rgba(0, 0, 0, 0.05)' } }
-        }
-      }
+      options: { responsive: true, plugins: { legend: { position: 'top' } } }
     });
 
-    // OEE Chart
+    // OEE Doughnut Chart
     doughnutChartObj = new Chart(document.getElementById('doughnutChart'), {
       type: 'doughnut',
       data: {
