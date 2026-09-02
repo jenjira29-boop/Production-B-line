@@ -124,103 +124,97 @@
     </div>
   </main>
 
-  <!-- ================= TEMPLATE 2: SCRAP METAL (NEW INVENTORY & SUPPLY CHAIN TEMPLATE) ================= -->
+  <!-- ================= TEMPLATE 2: SCRAP METAL (WITH DATA ENTRY FORM & TABLE) ================= -->
   <main id="tab-scrap" class="tab-content hidden space-y-6">
-    <!-- Top Blue KPI Banner Bar -->
+    <!-- Top Blue Dashboard Banner -->
     <div class="bg-gradient-to-r from-blue-700 via-sky-600 to-cyan-500 rounded-2xl p-4 text-white shadow-md">
       <div class="grid grid-cols-2 md:grid-cols-5 gap-4 divide-y md:divide-y-0 md:divide-x divide-white/20 text-center">
-        <div class="pt-2 md:pt-0">
-          <p id="invSales" class="text-xl md:text-2xl font-extrabold">2,00,000</p>
-          <p class="text-xs text-sky-100 font-medium">Sales</p>
-        </div>
-        <div class="pt-2 md:pt-0">
-          <p id="invTotal" class="text-xl md:text-2xl font-extrabold">8,765</p>
-          <p class="text-xs text-sky-100 font-medium">Inventory</p>
-        </div>
-        <div class="pt-2 md:pt-0">
-          <p id="invUpcoming" class="text-xl md:text-2xl font-extrabold">700</p>
-          <p class="text-xs text-sky-100 font-medium">Upcoming Inventory</p>
-        </div>
-        <div class="pt-2 md:pt-0">
-          <p id="invSuppliers" class="text-xl md:text-2xl font-extrabold">12</p>
-          <p class="text-xs text-sky-100 font-medium">No. of Supplier</p>
-        </div>
-        <div class="pt-2 md:pt-0">
-          <p id="invPayable" class="text-xl md:text-2xl font-extrabold">650</p>
-          <p class="text-xs text-sky-100 font-medium">Accounts Payable</p>
-        </div>
+        <div class="pt-2 md:pt-0"><p id="invSales" class="text-xl md:text-2xl font-extrabold">2,00,000</p><p class="text-xs text-sky-100 font-medium">Sales</p></div>
+        <div class="pt-2 md:pt-0"><p id="invTotal" class="text-xl md:text-2xl font-extrabold">8,765</p><p class="text-xs text-sky-100 font-medium">Inventory</p></div>
+        <div class="pt-2 md:pt-0"><p id="invUpcoming" class="text-xl md:text-2xl font-extrabold">700</p><p class="text-xs text-sky-100 font-medium">Upcoming Inventory</p></div>
+        <div class="pt-2 md:pt-0"><p id="invSuppliers" class="text-xl md:text-2xl font-extrabold">12</p><p class="text-xs text-sky-100 font-medium">No. of Supplier</p></div>
+        <div class="pt-2 md:pt-0"><p id="invPayable" class="text-xl md:text-2xl font-extrabold">650</p><p class="text-xs text-sky-100 font-medium">Accounts Payable</p></div>
       </div>
     </div>
 
-    <!-- Main Section: Sales, Inventory and Inventory Turnover -->
-    <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
-      <h2 class="text-sm font-bold text-slate-700 mb-3 text-center">Sales, Inventory and Inventory Turnover</h2>
-      <div class="h-64">
-        <canvas id="chartSalesTurnover"></canvas>
-      </div>
-    </div>
-
-    <!-- Bottom Section: 3 Columns -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <!-- Left Column: Days Inventory Outstanding & Inventory Trend -->
-      <div class="space-y-6">
-        <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
-          <h3 class="text-xs font-bold text-slate-700 mb-2">Days Inventory Outstanding</h3>
-          <div class="h-32 relative flex items-center justify-center">
-            <canvas id="chartDioGauge"></canvas>
-            <div class="absolute bottom-2 text-center">
-              <span id="dioValue" class="text-lg font-bold text-slate-800">64</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
-          <h3 class="text-xs font-bold text-slate-700 mb-2">Inventory Trend</h3>
-          <div class="h-28">
-            <canvas id="chartInvTrend"></canvas>
-          </div>
-        </div>
-      </div>
-
-      <!-- Center Column: Inventory Value by Item -->
-      <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 flex flex-col justify-between">
+    <!-- Data Entry Form & Upload Section -->
+    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+      <h2 class="text-base font-bold text-slate-800 mb-4 flex items-center gap-2">
+        <span class="bg-sky-500 text-white text-xs px-2.5 py-1 rounded-lg">📋</span> Add New Scrap Record (กรอกข้อมูล Scrap)
+      </h2>
+      <form id="scrapForm" class="grid grid-cols-1 md:grid-cols-4 gap-4">
         <div>
-          <div class="flex justify-between items-center mb-4">
-            <h3 class="text-xs font-bold text-slate-700">Inventory Value by Item</h3>
-            <span class="text-[11px] text-slate-400">Total Inventory: <strong id="totalInvItemVal" class="text-slate-700">8,765</strong></span>
-          </div>
-          <div class="h-64">
-            <canvas id="chartInvValueItem"></canvas>
-          </div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Date (วันที่)</label>
+          <input type="date" id="scrapDate" required class="w-full border border-slate-300 rounded-lg p-2 text-xs focus:ring-2 focus:ring-sky-500 focus:outline-none" />
         </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Shift (กะ)</label>
+          <select id="scrapShift" class="w-full border border-slate-300 rounded-lg p-2 text-xs focus:ring-2 focus:ring-sky-500 focus:outline-none">
+            <option value="Night">Night</option>
+            <option value="Day">Day</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Model (รุ่น)</label>
+          <input type="text" id="scrapModel" placeholder="e.g. TM19, BM23" required class="w-full border border-slate-300 rounded-lg p-2 text-xs focus:ring-2 focus:ring-sky-500 focus:outline-none" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Q'ty (Unit) (จำนวน)</label>
+          <input type="number" id="scrapQty" min="1" value="1" required class="w-full border border-slate-300 rounded-lg p-2 text-xs focus:ring-2 focus:ring-sky-500 focus:outline-none" />
+        </div>
+        <div class="md:col-span-2">
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Problem (ปัญหาที่พบ)</label>
+          <input type="text" id="scrapProblem" placeholder="ระบุปัญหา..." required class="w-full border border-slate-300 rounded-lg p-2 text-xs focus:ring-2 focus:ring-sky-500 focus:outline-none" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Department (แผนกที่รับผิดชอบ)</label>
+          <input type="text" id="scrapDept" placeholder="e.g. PD, TF, MT" required class="w-full border border-slate-300 rounded-lg p-2 text-xs focus:ring-2 focus:ring-sky-500 focus:outline-none" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Responsible (ผู้รับผิดชอบ)</label>
+          <input type="text" id="scrapResp" placeholder="e.g. K. Thida" required class="w-full border border-slate-300 rounded-lg p-2 text-xs focus:ring-2 focus:ring-sky-500 focus:outline-none" />
+        </div>
+        <div class="md:col-span-3">
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Picture (อัปโหลดรูปภาพ)</label>
+          <input type="file" id="scrapImages" accept="image/*" multiple class="w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-sky-50 file:text-sky-700 hover:file:bg-sky-100 cursor-pointer" />
+        </div>
+        <div class="flex items-end">
+          <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2 px-4 rounded-lg text-xs shadow transition flex items-center justify-center gap-1">
+            💾 บันทึกข้อมูล (Save)
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Scrap Daily Table Section -->
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+      <div class="bg-sky-600 text-white p-3 font-bold text-center text-sm tracking-wide uppercase">
+        Scrap Daily B Line
       </div>
-
-      <!-- Right Column: Days Payable Outstanding & Payable Aging -->
-      <div class="space-y-6">
-        <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
-          <h3 class="text-xs font-bold text-slate-700 mb-2">Days Payable Outstanding</h3>
-          <div class="h-32 relative flex items-center justify-center">
-            <canvas id="chartDpoGauge"></canvas>
-            <div class="absolute bottom-2 text-center">
-              <span id="dpoValue" class="text-lg font-bold text-slate-800">102</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
-          <div class="flex justify-between items-center mb-2">
-            <h3 class="text-xs font-bold text-slate-700">Payable Aging</h3>
-            <span class="text-[10px] text-slate-400">Total Payable: <strong>600</strong></span>
-          </div>
-          <div class="h-28">
-            <canvas id="chartPayableAging"></canvas>
-          </div>
-        </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse text-xs">
+          <thead>
+            <tr class="bg-slate-500 text-white text-center">
+              <th class="p-3 border-r border-slate-400 font-semibold w-20">Date</th>
+              <th class="p-3 border-r border-slate-400 font-semibold w-16">Shift</th>
+              <th class="p-3 border-r border-slate-400 font-semibold w-24">Model</th>
+              <th class="p-3 border-r border-slate-400 font-semibold">Problem</th>
+              <th class="p-3 border-r border-slate-400 font-semibold w-36">Picture</th>
+              <th class="p-3 border-r border-slate-400 font-semibold w-16">Q'ty (Unit)</th>
+              <th class="p-3 border-r border-slate-400 font-semibold w-28">責任部門<br><span class="text-[10px] font-normal">ผู้รับผิดชอบ (Department)</span></th>
+              <th class="p-3 border-r border-slate-400 font-semibold w-32">責任人<br><span class="text-[10px] font-normal">ผู้รับผิดชอบ</span></th>
+              <th class="p-3 font-semibold w-16">Action</th>
+            </tr>
+          </thead>
+          <tbody id="scrapTableBody" class="divide-y divide-slate-200 text-slate-800">
+            <!-- Dynamic rows will be rendered here -->
+          </tbody>
+        </table>
       </div>
     </div>
   </main>
 
-  <!-- ================= TEMPLATE 3: PRODUCTION LOSS (LEAN DASHBOARD) ================= -->
+  <!-- ================= TEMPLATE 3: PRODUCTION LOSS ================= -->
   <main id="tab-loss" class="tab-content hidden bg-slate-50 p-6 rounded-3xl shadow-sm border border-slate-200">
     <div class="bg-indigo-600 text-white p-6 rounded-2xl mb-6 shadow-md">
       <h1 class="text-2xl font-bold tracking-tight">Lean manufacturing dashboard showcasing production progress</h1>
@@ -292,12 +286,135 @@
     </div>
   </main>
 
-  <!-- Navigation & Script -->
+  <!-- Image Modal View -->
+  <div id="imageModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
+    <div class="relative max-w-3xl w-full bg-white rounded-2xl overflow-hidden p-2">
+      <button onclick="closeImageModal()" class="absolute top-4 right-4 bg-slate-800 text-white w-8 h-8 rounded-full font-bold text-sm">✕</button>
+      <img id="modalImage" src="" class="w-full h-auto max-h-[80vh] object-contain rounded-xl" />
+    </div>
+  </div>
+
+  <!-- Scripts -->
   <script>
     let activeShift = 'all';
     let currentTab = 'ftr';
     let ftrChartInstance = null;
 
+    // Default Initial Data for Scrap Daily Table
+    const defaultScrapRecords = [
+      { id: 1, date: '14-Jul', shift: 'Night', model: 'TM19', problem: 'ยิงสกรูโดนท่อ hot line', qty: 1, dept: 'PD', resp: 'K.Thida , K. Peecha', images: ['https://via.placeholder.com/80?text=HotLine'] },
+      { id: 2, date: '14-Jul', shift: 'Night', model: 'BM23', problem: 'ถังในเป็นรอย', qty: 1, dept: 'TF', resp: 'K. Kromkrit', images: ['https://via.placeholder.com/80?text=Scratch'] },
+      { id: 3, date: '14-Jul', shift: 'Night', model: 'BM29', problem: 'ตู้ตกไลน์', qty: 1, dept: 'MT', resp: 'K. Ren', images: ['https://via.placeholder.com/80?text=Drop'] },
+      { id: 4, date: '14-Jul', shift: 'Night', model: 'TM19', problem: 'ถังในช่อง F บวม', qty: 2, dept: 'TF', resp: 'K. Kromkrit', images: ['https://via.placeholder.com/80?text=Swell'] },
+      { id: 5, date: '14-Jul', shift: 'Night', model: 'SBS', problem: 'แผ่นหน้ากลางหลุด', qty: 1, dept: 'PD', resp: 'K.Thida', images: ['https://via.placeholder.com/80?text=Loose'] },
+      { id: 6, date: '14-Jul', shift: 'Night', model: 'TM19', problem: 'โฟมรั่วใต้ตู้', qty: 1, dept: 'PD Door', resp: 'K.Passadee', images: ['https://via.placeholder.com/80?text=Leak'] }
+    ];
+
+    function getScrapRecords() {
+      const stored = localStorage.getItem('scrap_records');
+      return stored ? JSON.parse(stored) : defaultScrapRecords;
+    }
+
+    function renderScrapTable() {
+      const records = getScrapRecords();
+      const tbody = document.getElementById('scrapTableBody');
+      tbody.innerHTML = records.map(rec => `
+        <tr class="hover:bg-slate-50 text-center border-b border-slate-200">
+          <td class="p-3 border-r border-slate-200 font-medium">${rec.date}</td>
+          <td class="p-3 border-r border-slate-200">${rec.shift}</td>
+          <td class="p-3 border-r border-slate-200 font-semibold text-slate-700">${rec.model}</td>
+          <td class="p-3 border-r border-slate-200 text-left font-medium text-slate-800">${rec.problem}</td>
+          <td class="p-3 border-r border-slate-200">
+            <div class="flex items-center justify-center gap-1.5 flex-wrap">
+              ${(rec.images && rec.images.length > 0) ? rec.images.map(img => `
+                <img src="${img}" onclick="showImage('${img}')" class="w-10 h-10 object-cover rounded border border-slate-300 cursor-pointer hover:scale-110 transition shadow-sm" />
+              `).join('') : '<span class="text-slate-400 text-[10px]">No image</span>'}
+            </div>
+          </td>
+          <td class="p-3 border-r border-slate-200 font-bold text-slate-800">${rec.qty}</td>
+          <td class="p-3 border-r border-slate-200 font-semibold text-slate-700">${rec.dept}</td>
+          <td class="p-3 border-r border-slate-200 font-medium text-slate-600">${rec.resp}</td>
+          <td class="p-3">
+            <button onclick="deleteScrapRecord(${rec.id})" class="text-red-500 hover:text-red-700 text-xs font-bold px-2 py-1 bg-red-50 rounded hover:bg-red-100 transition">
+              🗑️
+            </button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function showImage(src) {
+      document.getElementById('modalImage').src = src;
+      document.getElementById('imageModal').classList.remove('hidden');
+    }
+
+    function closeImageModal() {
+      document.getElementById('imageModal').classList.add('hidden');
+    }
+
+    function deleteScrapRecord(id) {
+      if (confirm('ยืนยันการลบรายการนี้?')) {
+        let records = getScrapRecords();
+        records = records.filter(r => r.id !== id);
+        localStorage.setItem('scrap_records', JSON.stringify(records));
+        renderScrapTable();
+      }
+    }
+
+    // Handle Form Submit and Image Upload
+    document.getElementById('scrapForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const rawDate = document.getElementById('scrapDate').value;
+      const dateObj = new Date(rawDate);
+      const formattedDate = dateObj.toLocaleDateString('en-GB', { day: '2-digit', month: 'short' });
+
+      const shift = document.getElementById('scrapShift').value;
+      const model = document.getElementById('scrapModel').value;
+      const qty = parseInt(document.getElementById('scrapQty').value);
+      const problem = document.getElementById('scrapProblem').value;
+      const dept = document.getElementById('scrapDept').value;
+      const resp = document.getElementById('scrapResp').value;
+      const files = document.getElementById('scrapImages').files;
+
+      const processImagesAndSave = (base64Images) => {
+        const records = getScrapRecords();
+        const newRecord = {
+          id: Date.now(),
+          date: formattedDate || 'Today',
+          shift,
+          model,
+          problem,
+          qty,
+          dept,
+          resp,
+          images: base64Images
+        };
+        records.unshift(newRecord);
+        localStorage.setItem('scrap_records', JSON.stringify(records));
+        renderScrapTable();
+        document.getElementById('scrapForm').reset();
+        alert('บันทึกข้อมูล Scrap เรียบร้อยแล้ว!');
+      };
+
+      if (files.length > 0) {
+        const imagePromises = Array.from(files).map(file => {
+          return new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onload = (e) => resolve(e.target.result);
+            reader.readAsDataURL(file);
+          });
+        });
+
+        Promise.all(imagePromises).then(base64Images => {
+          processImagesAndSave(base64Images);
+        });
+      } else {
+        processImagesAndSave([]);
+      }
+    });
+
+    // Tab Switching Navigation
     function initTabSwitching() {
       const tabs = document.querySelectorAll('.nav-tab');
       tabs.forEach(tab => {
@@ -328,25 +445,20 @@
       if (shift === 'day') { nightOutput = 0; nightDefects = 0; nightScrap = 0; }
       if (shift === 'night') { dayOutput = 0; dayDefects = 0; dayScrap = 0; }
 
-      const totalOutput = dayOutput + nightOutput;
-      const totalDefects = dayDefects + nightDefects;
-      const totalScrap = dayScrap + nightScrap;
-
       return {
-        totalOutput, dayOutput, nightOutput,
-        totalDefects, dayDefects, nightDefects,
+        totalOutput: dayOutput + nightOutput,
+        dayOutput, nightOutput,
+        totalDefects: dayDefects + nightDefects,
+        dayDefects, nightDefects,
         dayDefectRate: dayOutput > 0 ? ((dayDefects / dayOutput) * 100).toFixed(2) : "0.00",
         nightDefectRate: nightOutput > 0 ? ((nightDefects / nightOutput) * 100).toFixed(2) : "0.00",
-        totalScrap, dayScrap, nightScrap,
-        // Inventory / Scrap Data
+        totalScrap: dayScrap + nightScrap,
+        dayScrap, nightScrap,
         sales: (200000 + mult(1) * 100).toLocaleString(),
         inventory: (8765 + mult(2) * 10).toLocaleString(),
         upcoming: 700 + mult(3),
         suppliers: 12 + (mult(4) % 3),
         payable: 650 + mult(5),
-        dio: 60 + (mult(6) % 20),
-        dpo: 95 + (mult(7) % 25),
-        // Production Loss Data
         prodVol: (98464 + mult(1) * 20).toLocaleString(),
         activeMachines: 40 + mult(2) % 15,
         orderVol: (76665 + mult(3) * 15).toLocaleString(),
@@ -359,9 +471,9 @@
         ],
         chartData: [100 + mult(8) * 4, 80 + mult(9) * 3, 60 + mult(10) * 3, 40 + mult(11) * 2, 20 + mult(12) * 2],
         stations: [
-          { name: 'Station 1 (Assembly)', val: Math.floor(totalDefects * 0.45) },
-          { name: 'Station 2 (Welding)', val: Math.floor(totalDefects * 0.33) },
-          { name: 'Station 3 (Painting)', val: Math.floor(totalDefects * 0.22) }
+          { name: 'Station 1 (Assembly)', val: Math.floor((dayDefects + nightDefects) * 0.45) },
+          { name: 'Station 2 (Welding)', val: Math.floor((dayDefects + nightDefects) * 0.33) },
+          { name: 'Station 3 (Painting)', val: Math.floor((dayDefects + nightDefects) * 0.22) }
         ]
       };
     }
@@ -395,12 +507,9 @@
       } else if (currentTab === 'scrap') {
         document.getElementById('invSales').innerText = data.sales;
         document.getElementById('invTotal').innerText = data.inventory;
-        document.getElementById('totalInvItemVal').innerText = data.inventory;
         document.getElementById('invUpcoming').innerText = data.upcoming;
         document.getElementById('invSuppliers').innerText = data.suppliers;
         document.getElementById('invPayable').innerText = data.payable;
-        document.getElementById('dioValue').innerText = data.dio;
-        document.getElementById('dpoValue').innerText = data.dpo;
       } else if (currentTab === 'loss') {
         document.getElementById('leanProdVol').innerText = data.prodVol;
         document.getElementById('leanActiveMachines').innerText = data.activeMachines;
@@ -416,76 +525,6 @@
       }
     }
 
-    // Initialize Inventory Charts (Scrap Metal Tab)
-    function initInventoryCharts() {
-      // Combo Chart
-      new Chart(document.getElementById('chartSalesTurnover').getContext('2d'), {
-        type: 'bar',
-        data: {
-          labels: ['Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-          datasets: [
-            { type: 'line', label: 'Inventory Turnover', data: [12, 4, 11, 5, 11, 8, 5, 4, 5, 6, 10, 6], borderColor: '#1d4ed8', borderWidth: 2, yAxisID: 'y1' },
-            { type: 'bar', label: 'Sales', data: [13622, 9546, 11140, 13180, 9335, 14380, 12206, 10857, 10302, 10038, 10938, 14300], backgroundColor: '#38bdf8' },
-            { type: 'bar', label: 'Inventory', data: [6767, 5678, 5789, 9876, 9090, 8765, 9087, 6543, 7865, 8976, 9876, 8765], backgroundColor: '#bae6fd' }
-          ]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: { legend: { position: 'top', labels: { font: { size: 10 } } } },
-          scales: {
-            y: { position: 'left', grid: { borderDash: [2, 2] } },
-            y1: { position: 'right', grid: { display: false } }
-          }
-        }
-      });
-
-      // DIO Gauge
-      new Chart(document.getElementById('chartDioGauge').getContext('2d'), {
-        type: 'doughnut',
-        data: { datasets: [{ data: [64, 116], backgroundColor: ['#3b82f6', '#cbd5e1'], borderWidth: 0 }] },
-        options: { rotation: -90, circumference: 180, cutout: '75%', plugins: { legend: { display: false } } }
-      });
-
-      // Inventory Trend Line
-      new Chart(document.getElementById('chartInvTrend').getContext('2d'), {
-        type: 'line',
-        data: {
-          labels: ['J', 'A', 'S', 'O', 'N', 'D', 'F', 'M', 'A', 'M', 'J'],
-          datasets: [{ data: [4000, 3500, 5000, 9000, 8500, 8500, 7500, 8000, 8500, 9000, 8200], borderColor: '#3b82f6', tension: 0.3, pointRadius: 3 }]
-        },
-        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { ticks: { font: { size: 9 } } }, y: { display: false } } }
-      });
-
-      // Inventory Value by Item
-      new Chart(document.getElementById('chartInvValueItem').getContext('2d'), {
-        type: 'bar',
-        data: {
-          labels: ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5'],
-          datasets: [{ data: [3606, 1753, 1578, 1052, 877], backgroundColor: '#38bdf8' }]
-        },
-        options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
-      });
-
-      // DPO Gauge
-      new Chart(document.getElementById('chartDpoGauge').getContext('2d'), {
-        type: 'doughnut',
-        data: { datasets: [{ data: [102, 78], backgroundColor: ['#1d4ed8', '#cbd5e1'], borderWidth: 0 }] },
-        options: { rotation: -90, circumference: 180, cutout: '75%', plugins: { legend: { display: false } } }
-      });
-
-      // Payable Aging
-      new Chart(document.getElementById('chartPayableAging').getContext('2d'), {
-        type: 'bar',
-        data: {
-          labels: ['< 30 Days', '< 60 Days', '< 90 Days', '> 90 Days'],
-          datasets: [{ data: [240, 180, 120, 60], backgroundColor: '#2563eb', borderRadius: 2 }]
-        },
-        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { ticks: { font: { size: 9 } } } } }
-      });
-    }
-
-    // Initialize Lean Manufacturing Charts (Production Loss Tab)
     function initLeanCharts() {
       new Chart(document.getElementById('leanSparkLine1').getContext('2d'), {
         type: 'line',
@@ -525,10 +564,14 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
+      // Set default date picker value to today
+      const today = new Date().toISOString().split('T')[0];
+      document.getElementById('scrapDate').value = today;
+
       initTabSwitching();
       initChart();
-      initInventoryCharts();
       initLeanCharts();
+      renderScrapTable();
       updateDashboard();
 
       document.getElementById('datePicker').addEventListener('change', updateDashboard);
@@ -544,7 +587,6 @@
       });
 
       document.getElementById('refreshBtn').addEventListener('click', updateDashboard);
-      setInterval(updateDashboard, 10000);
     });
   </script>
 </body>
