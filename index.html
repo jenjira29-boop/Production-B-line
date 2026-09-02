@@ -124,7 +124,7 @@
     </div>
   </main>
 
-  <!-- ================= TEMPLATE 2: SCRAP METAL (WITH DATA ENTRY FORM & TABLE) ================= -->
+  <!-- ================= TEMPLATE 2: SCRAP METAL ================= -->
   <main id="tab-scrap" class="tab-content hidden space-y-6">
     <!-- Top Blue Dashboard Banner -->
     <div class="bg-gradient-to-r from-blue-700 via-sky-600 to-cyan-500 rounded-2xl p-4 text-white shadow-md">
@@ -137,7 +137,7 @@
       </div>
     </div>
 
-    <!-- Data Entry Form & Upload Section -->
+    <!-- Data Entry Form Section -->
     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
       <h2 class="text-base font-bold text-slate-800 mb-4 flex items-center gap-2">
         <span class="bg-sky-500 text-white text-xs px-2.5 py-1 rounded-lg">📋</span> Add New Scrap Record (กรอกข้อมูล Scrap)
@@ -207,7 +207,7 @@
             </tr>
           </thead>
           <tbody id="scrapTableBody" class="divide-y divide-slate-200 text-slate-800">
-            <!-- Dynamic rows will be rendered here -->
+            <!-- Dynamic rows rendered by JS -->
           </tbody>
         </table>
       </div>
@@ -286,7 +286,7 @@
     </div>
   </main>
 
-  <!-- Image Modal View -->
+  <!-- Image Viewer Modal -->
   <div id="imageModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
     <div class="relative max-w-3xl w-full bg-white rounded-2xl overflow-hidden p-2">
       <button onclick="closeImageModal()" class="absolute top-4 right-4 bg-slate-800 text-white w-8 h-8 rounded-full font-bold text-sm">✕</button>
@@ -294,7 +294,7 @@
     </div>
   </div>
 
-  <!-- Scripts -->
+  <!-- JavaScript Logic -->
   <script>
     let activeShift = 'all';
     let currentTab = 'ftr';
@@ -361,7 +361,7 @@
       }
     }
 
-    // Handle Form Submit and Image Upload
+    // Handle Form Submit and Image Upload (Base64)
     document.getElementById('scrapForm').addEventListener('submit', function(e) {
       e.preventDefault();
       
@@ -377,7 +377,7 @@
       const resp = document.getElementById('scrapResp').value;
       const files = document.getElementById('scrapImages').files;
 
-      const processImagesAndSave = (base64Images) => {
+      const saveRecordWithImages = (base64Images) => {
         const records = getScrapRecords();
         const newRecord = {
           id: Date.now(),
@@ -407,14 +407,14 @@
         });
 
         Promise.all(imagePromises).then(base64Images => {
-          processImagesAndSave(base64Images);
+          saveRecordWithImages(base64Images);
         });
       } else {
-        processImagesAndSave([]);
+        saveRecordWithImages([]);
       }
     });
 
-    // Tab Switching Navigation
+    // Navigation Switcher
     function initTabSwitching() {
       const tabs = document.querySelectorAll('.nav-tab');
       tabs.forEach(tab => {
@@ -564,7 +564,6 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-      // Set default date picker value to today
       const today = new Date().toISOString().split('T')[0];
       document.getElementById('scrapDate').value = today;
 
