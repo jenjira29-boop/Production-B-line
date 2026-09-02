@@ -9,10 +9,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     body { font-family: 'Inter', sans-serif; }
-    /* Sci-Fi Dashboard Theme for Production Loss Tab */
-    .sci-fi-bg { background-color: #0d1b2a; color: #e0e1dd; }
-    .sci-fi-card { background: rgba(15, 32, 67, 0.7); border: 1px solid rgba(0, 180, 216, 0.3); backdrop-filter: blur(8px); }
-    .sci-fi-title { color: #00b4d8; font-weight: 700; }
   </style>
 </head>
 <body class="bg-slate-100 p-6 min-h-screen text-slate-800">
@@ -128,132 +124,156 @@
     </div>
   </main>
 
-  <!-- ================= TEMPLATE 2: SCRAP METAL ================= -->
+  <!-- ================= TEMPLATE 2: SCRAP METAL (NEW INVENTORY & SUPPLY CHAIN TEMPLATE) ================= -->
   <main id="tab-scrap" class="tab-content hidden space-y-6">
-    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
-      <h2 class="text-xl font-bold text-slate-800 mb-2">📦 Scrap Metal Analytics</h2>
-      <p class="text-xs text-slate-500 mb-6">Real-time tracking of metal scrap weights and recycling metrics.</p>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200"><p class="text-xs text-slate-500 font-semibold">Total Scrap Weight</p><h3 id="scrapWeight" class="text-2xl font-bold text-slate-800 mt-1">452 kg</h3></div>
-        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200"><p class="text-xs text-slate-500 font-semibold">Recycled Ratio</p><h3 id="scrapRatio" class="text-2xl font-bold text-emerald-600 mt-1">94.2%</h3></div>
-        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200"><p class="text-xs text-slate-500 font-semibold">Scrap Cost Loss</p><h3 id="scrapCost" class="text-2xl font-bold text-red-500 mt-1">$1,280</h3></div>
+    <!-- Top Blue KPI Banner Bar -->
+    <div class="bg-gradient-to-r from-blue-700 via-sky-600 to-cyan-500 rounded-2xl p-4 text-white shadow-md">
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-4 divide-y md:divide-y-0 md:divide-x divide-white/20 text-center">
+        <div class="pt-2 md:pt-0">
+          <p id="invSales" class="text-xl md:text-2xl font-extrabold">2,00,000</p>
+          <p class="text-xs text-sky-100 font-medium">Sales</p>
+        </div>
+        <div class="pt-2 md:pt-0">
+          <p id="invTotal" class="text-xl md:text-2xl font-extrabold">8,765</p>
+          <p class="text-xs text-sky-100 font-medium">Inventory</p>
+        </div>
+        <div class="pt-2 md:pt-0">
+          <p id="invUpcoming" class="text-xl md:text-2xl font-extrabold">700</p>
+          <p class="text-xs text-sky-100 font-medium">Upcoming Inventory</p>
+        </div>
+        <div class="pt-2 md:pt-0">
+          <p id="invSuppliers" class="text-xl md:text-2xl font-extrabold">12</p>
+          <p class="text-xs text-sky-100 font-medium">No. of Supplier</p>
+        </div>
+        <div class="pt-2 md:pt-0">
+          <p id="invPayable" class="text-xl md:text-2xl font-extrabold">650</p>
+          <p class="text-xs text-sky-100 font-medium">Accounts Payable</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Section: Sales, Inventory and Inventory Turnover -->
+    <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
+      <h2 class="text-sm font-bold text-slate-700 mb-3 text-center">Sales, Inventory and Inventory Turnover</h2>
+      <div class="h-64">
+        <canvas id="chartSalesTurnover"></canvas>
+      </div>
+    </div>
+
+    <!-- Bottom Section: 3 Columns -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <!-- Left Column: Days Inventory Outstanding & Inventory Trend -->
+      <div class="space-y-6">
+        <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
+          <h3 class="text-xs font-bold text-slate-700 mb-2">Days Inventory Outstanding</h3>
+          <div class="h-32 relative flex items-center justify-center">
+            <canvas id="chartDioGauge"></canvas>
+            <div class="absolute bottom-2 text-center">
+              <span id="dioValue" class="text-lg font-bold text-slate-800">64</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
+          <h3 class="text-xs font-bold text-slate-700 mb-2">Inventory Trend</h3>
+          <div class="h-28">
+            <canvas id="chartInvTrend"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Center Column: Inventory Value by Item -->
+      <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 flex flex-col justify-between">
+        <div>
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="text-xs font-bold text-slate-700">Inventory Value by Item</h3>
+            <span class="text-[11px] text-slate-400">Total Inventory: <strong id="totalInvItemVal" class="text-slate-700">8,765</strong></span>
+          </div>
+          <div class="h-64">
+            <canvas id="chartInvValueItem"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Days Payable Outstanding & Payable Aging -->
+      <div class="space-y-6">
+        <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
+          <h3 class="text-xs font-bold text-slate-700 mb-2">Days Payable Outstanding</h3>
+          <div class="h-32 relative flex items-center justify-center">
+            <canvas id="chartDpoGauge"></canvas>
+            <div class="absolute bottom-2 text-center">
+              <span id="dpoValue" class="text-lg font-bold text-slate-800">102</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
+          <div class="flex justify-between items-center mb-2">
+            <h3 class="text-xs font-bold text-slate-700">Payable Aging</h3>
+            <span class="text-[10px] text-slate-400">Total Payable: <strong>600</strong></span>
+          </div>
+          <div class="h-28">
+            <canvas id="chartPayableAging"></canvas>
+          </div>
+        </div>
       </div>
     </div>
   </main>
 
-  <!-- ================= TEMPLATE 3: PRODUCTION LOSS (NEW FUTURISTIC DASHBOARD) ================= -->
-  <main id="tab-loss" class="tab-content hidden sci-fi-bg p-6 rounded-3xl shadow-2xl border border-sky-900/50">
-    <!-- Sci-Fi Header -->
-    <div class="flex flex-wrap justify-between items-center mb-6 border-b border-sky-800/40 pb-4">
-      <div class="flex items-center gap-4">
-        <h1 class="text-2xl font-extrabold tracking-wider text-sky-400 italic">PRODUCTION DASHBOARD</h1>
-        <div class="flex bg-sky-950/80 p-1 rounded-lg border border-sky-700/50 text-xs">
-          <button class="bg-sky-500 text-white px-3 py-1 rounded font-bold">Output</button>
-          <button class="text-sky-300 hover:bg-sky-900 px-3 py-1 rounded">Quality</button>
-          <button class="text-sky-300 hover:bg-sky-900 px-3 py-1 rounded">Equipment</button>
-          <button class="text-sky-300 hover:bg-sky-900 px-3 py-1 rounded">Corporation</button>
-        </div>
-      </div>
-      <div class="flex items-center gap-4 text-xs text-sky-300">
-        <div><span>Production Line:</span> <span class="text-white font-semibold">Production Line1</span></div>
-      </div>
+  <!-- ================= TEMPLATE 3: PRODUCTION LOSS (LEAN DASHBOARD) ================= -->
+  <main id="tab-loss" class="tab-content hidden bg-slate-50 p-6 rounded-3xl shadow-sm border border-slate-200">
+    <div class="bg-indigo-600 text-white p-6 rounded-2xl mb-6 shadow-md">
+      <h1 class="text-2xl font-bold tracking-tight">Lean manufacturing dashboard showcasing production progress</h1>
+      <p class="text-xs text-indigo-100 mt-1 opacity-90">This slide represents lean manufacturing dashboard showcasing production progress.</p>
     </div>
-
-    <!-- Row 1: Gauge & Completion Rates -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-      <!-- 1. Daily Comprehensive Qualified Rate -->
-      <div class="sci-fi-card p-4 rounded-2xl relative">
-        <h3 class="sci-fi-title text-xs flex items-center gap-1 mb-2">🔹 Daily Comprehensive Qualified Rate</h3>
-        <div class="flex justify-between items-center px-4 py-2">
-          <div class="text-center">
-            <p id="processedQty" class="text-xl font-extrabold text-white">498</p>
-            <p class="text-[10px] text-sky-400">Processed Quantity</p>
-          </div>
-          <div class="w-24 h-24 relative flex items-center justify-center">
-            <canvas id="gaugeQualified"></canvas>
-            <span id="gaugeQualifiedVal" class="absolute text-lg font-bold text-sky-300">98%</span>
-          </div>
-          <div class="text-center">
-            <p id="qualifiedQty" class="text-xl font-extrabold text-white">491</p>
-            <p class="text-[10px] text-sky-400">Qualified Quantity</p>
-          </div>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+      <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
+        <h2 class="text-sm font-bold text-slate-700 mb-4">Statistics</h2>
+        <div class="grid grid-cols-2 gap-4 pb-4 border-b border-slate-100">
+          <div><span id="leanProdVol" class="text-2xl font-extrabold text-slate-800">98,464</span><p class="text-xs text-slate-400 font-medium">Production Volume</p></div>
+          <div class="h-14"><canvas id="leanSparkLine1"></canvas></div>
+        </div>
+        <div class="grid grid-cols-3 gap-2 pt-4 text-center">
+          <div><span id="leanActiveMachines" class="text-xl font-extrabold text-slate-800">48</span><p class="text-[11px] text-slate-400">Active Machines</p></div>
+          <div><span id="leanOrderVol" class="text-xl font-extrabold text-slate-800">76,665</span><p class="text-[11px] text-slate-400">Order Volume</p></div>
+          <div><span id="leanRevenue" class="text-xl font-extrabold text-slate-800">1.14M</span><p class="text-[11px] text-slate-400">Sales Revenue</p></div>
         </div>
       </div>
-
-      <!-- 2. Completion Rate -->
-      <div class="sci-fi-card p-4 rounded-2xl">
-        <h3 class="sci-fi-title text-xs flex items-center gap-1 mb-2">🔹 Completion Rate</h3>
-        <div class="grid grid-cols-2 gap-2 text-center">
-          <div class="flex flex-col items-center">
-            <div class="w-16 h-16 relative flex items-center justify-center">
-              <canvas id="chartDailyCompletion"></canvas>
-              <span id="valDailyCompletion" class="absolute text-xs font-bold text-white">95%</span>
-            </div>
-            <p class="text-[10px] text-sky-400 mt-1">Daily Completion Rate</p>
-            <p class="text-[9px] text-slate-400">Planned: <span id="planDaily">600</span> | Actual: <span id="actDaily">570</span></p>
-          </div>
-          <div class="flex flex-col items-center">
-            <div class="w-16 h-16 relative flex items-center justify-center">
-              <canvas id="chartMonthlyCompletion"></canvas>
-              <span id="valMonthlyCompletion" class="absolute text-xs font-bold text-white">90%</span>
-            </div>
-            <p class="text-[10px] text-sky-400 mt-1">Monthly Completion Rate</p>
-            <p class="text-[9px] text-slate-400">Planned: <span id="planMonthly">20000</span> | Actual: <span id="actMonthly">18000</span></p>
-          </div>
-        </div>
-      </div>
-
-      <!-- 3. Qualified Rate of the Day -->
-      <div class="sci-fi-card p-4 rounded-2xl">
-        <h3 class="sci-fi-title text-xs flex items-center gap-1 mb-2">🔹 Qualified Rate of the Day</h3>
-        <div class="grid grid-cols-2 gap-2 text-center">
-          <div class="flex flex-col items-center">
-            <div class="w-16 h-16 relative flex items-center justify-center">
-              <canvas id="chartEquipUtil"></canvas>
-              <span id="valEquipUtil" class="absolute text-xs font-bold text-white">99%</span>
-            </div>
-            <p class="text-[10px] text-sky-400 mt-1">Equipment Utilization Rate</p>
-          </div>
-          <div class="flex flex-col items-center">
-            <div class="w-16 h-16 relative flex items-center justify-center">
-              <canvas id="chartUtil7Days"></canvas>
-              <span id="valUtil7Days" class="absolute text-xs font-bold text-white">95%</span>
-            </div>
-            <p class="text-[10px] text-sky-400 mt-1">Utilization Rate (last 7 days)</p>
-          </div>
+      <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
+        <h2 class="text-sm font-bold text-slate-700 mb-2">Downtime causes</h2>
+        <div class="flex items-center justify-center h-48 relative">
+          <canvas id="chartDowntimeCauses"></canvas>
+          <div class="absolute text-center"><span class="text-xl font-extrabold text-slate-800">4.4%</span><p class="text-[10px] text-slate-400 font-semibold">Downtime</p></div>
         </div>
       </div>
     </div>
-
-    <!-- Row 2: 7-Day Trend Charts -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-      <div class="sci-fi-card p-4 rounded-2xl">
-        <h3 class="sci-fi-title text-xs mb-2">🔹 Trend of Comprehensive Qualified Rate (last 7 days)</h3>
-        <div class="h-36"><canvas id="chartTrendQualified"></canvas></div>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
+        <h2 class="text-sm font-bold text-slate-700 mb-3">Top 5 products</h2>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-indigo-600 text-white">
+              <tr><th class="p-2.5 rounded-l-lg">Product Name</th><th class="p-2.5">Price</th><th class="p-2.5">Sold Items</th><th class="p-2.5 rounded-r-lg">Revenue</th></tr>
+            </thead>
+            <tbody id="topProductsTable" class="divide-y divide-slate-100 font-medium text-slate-700"></tbody>
+          </table>
+        </div>
       </div>
-      <div class="sci-fi-card p-4 rounded-2xl">
-        <h3 class="sci-fi-title text-xs mb-2">🔹 Output Trend (last 7 days)</h3>
-        <div class="h-36"><canvas id="chartOutputTrend"></canvas></div>
-      </div>
-      <div class="sci-fi-card p-4 rounded-2xl">
-        <h3 class="sci-fi-title text-xs mb-2">🔹 OEE Trend (last 7 days)</h3>
-        <div class="h-36"><canvas id="chartOEETrend"></canvas></div>
-      </div>
-    </div>
-
-    <!-- Row 3: Defect Rank, Order Completion & Failure Interval -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div class="sci-fi-card p-4 rounded-2xl">
-        <h3 class="sci-fi-title text-xs mb-2">🔹 Rank of Defect Causes of the Day (last 7 days)</h3>
-        <div class="h-36"><canvas id="chartDefectCauses"></canvas></div>
-      </div>
-      <div class="sci-fi-card p-4 rounded-2xl">
-        <h3 class="sci-fi-title text-xs mb-2">🔹 Top 6 of Order Completion Rate (last 7 days)</h3>
-        <div class="h-36"><canvas id="chartOrderCompletion"></canvas></div>
-      </div>
-      <div class="sci-fi-card p-4 rounded-2xl">
-        <h3 class="sci-fi-title text-xs mb-2">🔹 Trend of Average Failure Interval (last 7 days)</h3>
-        <div class="h-36"><canvas id="chartFailureInterval"></canvas></div>
+      <div class="space-y-6">
+        <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
+          <h2 class="text-sm font-bold text-slate-700 mb-3">Production volume</h2>
+          <div class="grid grid-cols-5 gap-2 text-center">
+            <div class="flex flex-col items-center"><div class="w-12 h-12 relative flex items-center justify-center"><canvas id="gaugeProd1"></canvas><span class="absolute text-[10px] font-bold">14%</span></div><span class="text-[9px] text-slate-400 mt-1">FW-64333</span></div>
+            <div class="flex flex-col items-center"><div class="w-12 h-12 relative flex items-center justify-center"><canvas id="gaugeProd2"></canvas><span class="absolute text-[10px] font-bold">9%</span></div><span class="text-[9px] text-slate-400 mt-1">LKM-53397</span></div>
+            <div class="flex flex-col items-center"><div class="w-12 h-12 relative flex items-center justify-center"><canvas id="gaugeProd3"></canvas><span class="absolute text-[10px] font-bold">4%</span></div><span class="text-[9px] text-slate-400 mt-1">FWT-64333</span></div>
+            <div class="flex flex-col items-center"><div class="w-12 h-12 relative flex items-center justify-center"><canvas id="gaugeProd4"></canvas><span class="absolute text-[10px] font-bold">10%</span></div><span class="text-[9px] text-slate-400 mt-1">PWT-64334</span></div>
+            <div class="flex flex-col items-center"><div class="w-12 h-12 relative flex items-center justify-center"><canvas id="gaugeProd5"></canvas><span class="absolute text-[10px] font-bold">5%</span></div><span class="text-[9px] text-slate-400 mt-1">RJL-14564</span></div>
+          </div>
+        </div>
+        <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
+          <h2 class="text-sm font-bold text-slate-700 mb-2">Returned items by reason</h2>
+          <div class="h-32"><canvas id="chartReturnedItems"></canvas></div>
+        </div>
       </div>
     </div>
   </main>
@@ -272,12 +292,11 @@
     </div>
   </main>
 
-  <!-- Navigation, Real-time & Sci-Fi Chart Controller Script -->
+  <!-- Navigation & Script -->
   <script>
     let activeShift = 'all';
     let currentTab = 'ftr';
     let ftrChartInstance = null;
-    let sciFiCharts = {};
 
     function initTabSwitching() {
       const tabs = document.querySelectorAll('.nav-tab');
@@ -319,16 +338,25 @@
         dayDefectRate: dayOutput > 0 ? ((dayDefects / dayOutput) * 100).toFixed(2) : "0.00",
         nightDefectRate: nightOutput > 0 ? ((nightDefects / nightOutput) * 100).toFixed(2) : "0.00",
         totalScrap, dayScrap, nightScrap,
-        scrapWeight: 300 + mult(7) * 4,
-        scrapCost: 800 + mult(8) * 15,
-        // Sci-Fi Data
-        processedQty: 450 + mult(1) * 2,
-        qualifiedQty: 440 + mult(1) * 2 - mult(3),
-        qualRate: Math.min(99, 92 + Math.floor(mult(4) / 10)),
-        dailyCompRate: Math.min(98, 88 + Math.floor(mult(5) / 10)),
-        monthlyCompRate: 90,
-        equipUtilRate: 99,
-        util7DaysRate: 95,
+        // Inventory / Scrap Data
+        sales: (200000 + mult(1) * 100).toLocaleString(),
+        inventory: (8765 + mult(2) * 10).toLocaleString(),
+        upcoming: 700 + mult(3),
+        suppliers: 12 + (mult(4) % 3),
+        payable: 650 + mult(5),
+        dio: 60 + (mult(6) % 20),
+        dpo: 95 + (mult(7) % 25),
+        // Production Loss Data
+        prodVol: (98464 + mult(1) * 20).toLocaleString(),
+        activeMachines: 40 + mult(2) % 15,
+        orderVol: (76665 + mult(3) * 15).toLocaleString(),
+        topProducts: [
+          { name: 'Product 1', price: '$378', sold: (2203 + mult(1)).toLocaleString(), rev: '$832,734' },
+          { name: 'Product 2', price: '$325', sold: (2047 + mult(2)).toLocaleString(), rev: '$665,275' },
+          { name: 'Product 3', price: '$148', sold: (2045 + mult(3)).toLocaleString(), rev: '$302,660' },
+          { name: 'Product 4', price: '$148', sold: (1781 + mult(4)).toLocaleString(), rev: '$263,588' },
+          { name: 'Product 5', price: '$568', sold: (1958 + mult(5)).toLocaleString(), rev: '$1,112,144' },
+        ],
         chartData: [100 + mult(8) * 4, 80 + mult(9) * 3, 60 + mult(10) * 3, 40 + mult(11) * 2, 20 + mult(12) * 2],
         stations: [
           { name: 'Station 1 (Assembly)', val: Math.floor(totalDefects * 0.45) },
@@ -365,118 +393,125 @@
           ftrChartInstance.update();
         }
       } else if (currentTab === 'scrap') {
-        document.getElementById('scrapWeight').innerText = `${data.scrapWeight} kg`;
-        document.getElementById('scrapCost').innerText = `$${data.scrapCost.toLocaleString()}`;
+        document.getElementById('invSales').innerText = data.sales;
+        document.getElementById('invTotal').innerText = data.inventory;
+        document.getElementById('totalInvItemVal').innerText = data.inventory;
+        document.getElementById('invUpcoming').innerText = data.upcoming;
+        document.getElementById('invSuppliers').innerText = data.suppliers;
+        document.getElementById('invPayable').innerText = data.payable;
+        document.getElementById('dioValue').innerText = data.dio;
+        document.getElementById('dpoValue').innerText = data.dpo;
       } else if (currentTab === 'loss') {
-        // Update Sci-Fi Loss Dashboard Elements
-        document.getElementById('processedQty').innerText = data.processedQty;
-        document.getElementById('qualifiedQty').innerText = data.qualifiedQty;
-        document.getElementById('gaugeQualifiedVal').innerText = `${data.qualRate}%`;
-        document.getElementById('valDailyCompletion').innerText = `${data.dailyCompRate}%`;
-
-        // Update Gauges & Charts
-        updateDoughnut(sciFiCharts.gaugeQualified, data.qualRate);
-        updateDoughnut(sciFiCharts.dailyComp, data.dailyCompRate);
+        document.getElementById('leanProdVol').innerText = data.prodVol;
+        document.getElementById('leanActiveMachines').innerText = data.activeMachines;
+        document.getElementById('leanOrderVol').innerText = data.orderVol;
+        document.getElementById('topProductsTable').innerHTML = data.topProducts.map(p => `
+          <tr>
+            <td class="p-2.5 font-semibold text-slate-800">${p.name}</td>
+            <td class="p-2.5">${p.price}</td>
+            <td class="p-2.5">${p.sold}</td>
+            <td class="p-2.5 text-indigo-600 font-bold">${p.rev}</td>
+          </tr>
+        `).join('');
       }
     }
 
-    function updateDoughnut(chart, val) {
-      if (chart) {
-        chart.data.datasets[0].data = [val, 100 - val];
-        chart.update();
-      }
-    }
+    // Initialize Inventory Charts (Scrap Metal Tab)
+    function initInventoryCharts() {
+      // Combo Chart
+      new Chart(document.getElementById('chartSalesTurnover').getContext('2d'), {
+        type: 'bar',
+        data: {
+          labels: ['Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+          datasets: [
+            { type: 'line', label: 'Inventory Turnover', data: [12, 4, 11, 5, 11, 8, 5, 4, 5, 6, 10, 6], borderColor: '#1d4ed8', borderWidth: 2, yAxisID: 'y1' },
+            { type: 'bar', label: 'Sales', data: [13622, 9546, 11140, 13180, 9335, 14380, 12206, 10857, 10302, 10038, 10938, 14300], backgroundColor: '#38bdf8' },
+            { type: 'bar', label: 'Inventory', data: [6767, 5678, 5789, 9876, 9090, 8765, 9087, 6543, 7865, 8976, 9876, 8765], backgroundColor: '#bae6fd' }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { position: 'top', labels: { font: { size: 10 } } } },
+          scales: {
+            y: { position: 'left', grid: { borderDash: [2, 2] } },
+            y1: { position: 'right', grid: { display: false } }
+          }
+        }
+      });
 
-    function createDoughnut(canvasId, val, color = '#00b4d8') {
-      const ctx = document.getElementById(canvasId).getContext('2d');
-      return new Chart(ctx, {
+      // DIO Gauge
+      new Chart(document.getElementById('chartDioGauge').getContext('2d'), {
         type: 'doughnut',
-        data: {
-          datasets: [{
-            data: [val, 100 - val],
-            backgroundColor: [color, 'rgba(255, 255, 255, 0.1)'],
-            borderWidth: 0
-          }]
-        },
-        options: { cutout: '75%', plugins: { legend: { display: false } } }
-      });
-    }
-
-    function initSciFiCharts() {
-      // Gauges & Mini Rings
-      sciFiCharts.gaugeQualified = createDoughnut('gaugeQualified', 98, '#00b4d8');
-      sciFiCharts.dailyComp = createDoughnut('chartDailyCompletion', 95, '#00b4d8');
-      sciFiCharts.monthlyComp = createDoughnut('chartMonthlyCompletion', 90, '#00b4d8');
-      sciFiCharts.equipUtil = createDoughnut('chartEquipUtil', 99, '#00b4d8');
-      sciFiCharts.util7Days = createDoughnut('chartUtil7Days', 95, '#00b4d8');
-
-      // 1. Trend Qualified (Combo Chart)
-      new Chart(document.getElementById('chartTrendQualified').getContext('2d'), {
-        type: 'bar',
-        data: {
-          labels: ['09-01', '09-02', '09-03', '09-04', '09-05', '09-06', '09-07'],
-          datasets: [
-            { type: 'line', label: 'Qualified Rate', data: [98, 97, 98, 96, 97, 95, 98], borderColor: '#00b4d8', borderWidth: 2 },
-            { type: 'bar', label: 'Processed Qty', data: [500, 490, 510, 480, 495, 470, 505], backgroundColor: 'rgba(0, 180, 216, 0.4)' }
-          ]
-        },
-        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { ticks: { color: '#8d99ae', font: { size: 9 } } }, y: { display: false } } }
+        data: { datasets: [{ data: [64, 116], backgroundColor: ['#3b82f6', '#cbd5e1'], borderWidth: 0 }] },
+        options: { rotation: -90, circumference: 180, cutout: '75%', plugins: { legend: { display: false } } }
       });
 
-      // 2. Output Trend
-      new Chart(document.getElementById('chartOutputTrend').getContext('2d'), {
-        type: 'bar',
-        data: {
-          labels: ['09-01', '09-02', '09-03', '09-04', '09-05', '09-06', '09-07'],
-          datasets: [
-            { label: 'Planned Output', data: [600, 600, 600, 600, 600, 600, 600], backgroundColor: 'rgba(255,255,255,0.2)' },
-            { label: 'Actual Output', data: [570, 580, 565, 590, 575, 585, 595], backgroundColor: '#00b4d8' }
-          ]
-        },
-        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { ticks: { color: '#8d99ae', font: { size: 9 } } }, y: { display: false } } }
-      });
-
-      // 3. OEE Trend
-      new Chart(document.getElementById('chartOEETrend').getContext('2d'), {
+      // Inventory Trend Line
+      new Chart(document.getElementById('chartInvTrend').getContext('2d'), {
         type: 'line',
         data: {
-          labels: ['09-01', '09-02', '09-03', '09-04', '09-05', '09-06', '09-07'],
-          datasets: [
-            { label: 'Targeted OEE', data: [85, 85, 85, 85, 85, 85, 85], borderColor: '#ef233c', borderDash: [4,4] },
-            { label: 'Actual OEE', data: [78, 80, 79, 77, 81, 80, 82], borderColor: '#00b4d8', backgroundColor: 'rgba(0,180,216,0.2)', fill: true }
-          ]
+          labels: ['J', 'A', 'S', 'O', 'N', 'D', 'F', 'M', 'A', 'M', 'J'],
+          datasets: [{ data: [4000, 3500, 5000, 9000, 8500, 8500, 7500, 8000, 8500, 9000, 8200], borderColor: '#3b82f6', tension: 0.3, pointRadius: 3 }]
         },
-        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { ticks: { color: '#8d99ae', font: { size: 9 } } }, y: { display: false } } }
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { ticks: { font: { size: 9 } } }, y: { display: false } } }
       });
 
-      // 4. Defect Causes (Horizontal Bar)
-      new Chart(document.getElementById('chartDefectCauses').getContext('2d'), {
+      // Inventory Value by Item
+      new Chart(document.getElementById('chartInvValueItem').getContext('2d'), {
         type: 'bar',
         data: {
-          labels: ['Q1', 'Q2', 'Q4', 'Q3', 'Q5'],
-          datasets: [{ data: [10.23, 9.21, 5.44, 4.54, 2.12], backgroundColor: '#00b4d8' }]
+          labels: ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5'],
+          datasets: [{ data: [3606, 1753, 1578, 1052, 877], backgroundColor: '#38bdf8' }]
         },
-        options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { display: false }, y: { ticks: { color: '#8d99ae', font: { size: 9 } } } } }
+        options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
       });
 
-      // 5. Order Completion (Horizontal Bar)
-      new Chart(document.getElementById('chartOrderCompletion').getContext('2d'), {
-        type: 'bar',
-        data: {
-          labels: ['10016', '10013', '10012', '10004', '10003', '10011'],
-          datasets: [{ data: [95, 95, 95, 95, 95, 90], backgroundColor: '#0077b6' }]
-        },
-        options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { display: false }, y: { ticks: { color: '#8d99ae', font: { size: 9 } } } } }
+      // DPO Gauge
+      new Chart(document.getElementById('chartDpoGauge').getContext('2d'), {
+        type: 'doughnut',
+        data: { datasets: [{ data: [102, 78], backgroundColor: ['#1d4ed8', '#cbd5e1'], borderWidth: 0 }] },
+        options: { rotation: -90, circumference: 180, cutout: '75%', plugins: { legend: { display: false } } }
       });
 
-      // 6. Average Failure Interval
-      new Chart(document.getElementById('chartFailureInterval').getContext('2d'), {
+      // Payable Aging
+      new Chart(document.getElementById('chartPayableAging').getContext('2d'), {
         type: 'bar',
         data: {
-          labels: ['09-01', '09-02', '09-03', '09-04', '09-05', '09-06', '09-07'],
-          datasets: [{ data: [6.8, 6.0, 7.1, 6.3, 7.4, 6.1, 7.0], backgroundColor: '#0077b6' }]
+          labels: ['< 30 Days', '< 60 Days', '< 90 Days', '> 90 Days'],
+          datasets: [{ data: [240, 180, 120, 60], backgroundColor: '#2563eb', borderRadius: 2 }]
         },
-        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { ticks: { color: '#8d99ae', font: { size: 9 } } }, y: { display: false } } }
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { ticks: { font: { size: 9 } } } } }
+      });
+    }
+
+    // Initialize Lean Manufacturing Charts (Production Loss Tab)
+    function initLeanCharts() {
+      new Chart(document.getElementById('leanSparkLine1').getContext('2d'), {
+        type: 'line',
+        data: { labels: [1,2,3,4,5,6,7,8,9,10,11,12], datasets: [{ data: [30, 45, 32, 60, 40, 65, 50, 70, 45, 80, 55, 60], borderColor: '#3b82f6', borderWidth: 2, tension: 0.4, pointRadius: 0 }] },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { display: false }, y: { display: false } } }
+      });
+
+      new Chart(document.getElementById('chartDowntimeCauses').getContext('2d'), {
+        type: 'doughnut',
+        data: { labels: ['Broken Machine', 'Missing Parts', 'Service'], datasets: [{ data: [35, 30, 35], backgroundColor: ['#2563eb', '#60a5fa', '#93c5fd'], borderWidth: 0 }] },
+        options: { cutout: '70%', plugins: { legend: { position: 'right', labels: { boxWidth: 10, font: { size: 10 } } } } }
+      });
+
+      ['gaugeProd1', 'gaugeProd2', 'gaugeProd3', 'gaugeProd4', 'gaugeProd5'].forEach((id, idx) => {
+        const vals = [14, 9, 4, 10, 5];
+        new Chart(document.getElementById(id).getContext('2d'), {
+          type: 'doughnut',
+          data: { datasets: [{ data: [vals[idx], 100 - vals[idx]], backgroundColor: ['#3b82f6', '#e2e8f0'], borderWidth: 0 }] },
+          options: { cutout: '75%', plugins: { legend: { display: false } } }
+        });
+      });
+
+      new Chart(document.getElementById('chartReturnedItems').getContext('2d'), {
+        type: 'bar',
+        data: { labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'], datasets: [{ label: 'Returned Units', data: [120, 117, 134, 85, 132, 87, 95, 110, 90, 78], backgroundColor: '#3b82f6', borderRadius: 3 }] },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { ticks: { font: { size: 9 } } }, y: { display: false } } }
       });
     }
 
@@ -484,10 +519,7 @@
       const ctx = document.getElementById('ftrChart').getContext('2d');
       ftrChartInstance = new Chart(ctx, {
         type: 'bar',
-        data: {
-          labels: ['Model A', 'Model B', 'Model C', 'Model D', 'Model E'],
-          datasets: [{ label: 'Output Units', data: [0, 0, 0, 0, 0], backgroundColor: 'rgba(255, 255, 255, 0.85)', borderRadius: 8 }]
-        },
+        data: { labels: ['Model A', 'Model B', 'Model C', 'Model D', 'Model E'], datasets: [{ label: 'Output Units', data: [0, 0, 0, 0, 0], backgroundColor: 'rgba(255, 255, 255, 0.85)', borderRadius: 8 }] },
         options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
       });
     }
@@ -495,7 +527,8 @@
     document.addEventListener('DOMContentLoaded', () => {
       initTabSwitching();
       initChart();
-      initSciFiCharts();
+      initInventoryCharts();
+      initLeanCharts();
       updateDashboard();
 
       document.getElementById('datePicker').addEventListener('change', updateDashboard);
