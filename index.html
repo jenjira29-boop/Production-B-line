@@ -4,438 +4,168 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Smart Factory Operating System</title>
-  
-  <!-- Tailwind CSS CDN -->
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Chart.js CDN -->
+  <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Prompt', sans-serif; }
+    body { font-family: 'Inter', sans-serif; }
   </style>
 </head>
-<body class="bg-slate-100 p-4 md:p-6 min-h-screen text-slate-800">
+<body class="bg-slate-100 p-6 min-h-screen text-slate-800">
 
-  <!-- Top Navigation Bar -->
-  <header class="bg-white/80 backdrop-blur border border-slate-200 shadow-sm rounded-2xl px-6 py-3 flex flex-wrap items-center justify-between mb-6 gap-4">
+  <!-- Header Navigation -->
+  <header class="bg-white border border-slate-200 shadow-sm rounded-2xl px-6 py-3 flex flex-wrap items-center justify-between mb-6 gap-4">
     <div class="flex items-center space-x-3 font-bold text-slate-700">
-      <span class="text-sky-500 text-2xl">🏭</span>
-      <span class="text-base tracking-tight">Smart Factory OS</span>
+      <span class="text-sky-500 text-xl">🏭</span>
+      <span class="text-base tracking-tight">Smart Factory Operating System</span>
     </div>
     
     <nav class="flex items-center space-x-2" id="navTabs">
-      <button data-tab="ftr" class="nav-tab bg-sky-500 text-white px-4 py-1.5 rounded-full font-medium text-xs shadow-sm transition">
-        FTR Dashboard
-      </button>
-      <button data-tab="scrap" class="nav-tab text-slate-600 hover:bg-slate-100 px-4 py-1.5 rounded-full text-xs font-medium transition">
-        Scrap Metal
-      </button>
-      <button data-tab="loss" class="nav-tab text-slate-600 hover:bg-slate-100 px-4 py-1.5 rounded-full text-xs font-medium transition">
-        Production Loss
-      </button>
+      <button data-tab="ftr" class="nav-tab bg-sky-500 text-white px-4 py-1.5 rounded-xl font-medium text-xs transition">FTR</button>
+      <button data-tab="scrap" class="nav-tab text-slate-600 hover:bg-slate-100 px-4 py-1.5 rounded-xl text-xs font-medium transition">Scrap Metal</button>
+      <button data-tab="loss" class="nav-tab text-slate-600 hover:bg-slate-100 px-4 py-1.5 rounded-xl text-xs font-medium transition">Production Loss</button>
     </nav>
-
-    <div class="flex items-center gap-2">
-      <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
-      <span class="text-xs text-emerald-600 font-semibold">Online</span>
-    </div>
   </header>
 
-  <!-- Control & Filter Bar -->
+  <!-- Control Bar -->
   <div class="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm flex flex-wrap items-center justify-between gap-4 mb-6">
-    <div class="flex flex-wrap items-center gap-4">
+    <div class="flex items-center gap-4">
       <div class="flex items-center gap-2 text-xs font-semibold text-slate-600">
-        <span>เลือกวันที่:</span>
-        <input type="date" id="datePicker" class="border border-slate-200 rounded-lg px-3 py-1.5 text-xs bg-slate-50 font-medium focus:outline-none focus:ring-2 focus:ring-sky-500 cursor-pointer" />
+        <span>Select Date:</span>
+        <input type="date" id="datePicker" class="border border-slate-300 rounded-lg px-3 py-1 text-xs" />
       </div>
-
       <div class="flex items-center gap-2 text-xs font-semibold text-slate-600">
-        <span>กะการทำงาน:</span>
-        <select id="shiftSelect" class="border border-slate-200 rounded-lg px-3 py-1.5 text-xs bg-slate-50 font-medium focus:outline-none focus:ring-2 focus:ring-sky-500 cursor-pointer">
-          <option value="all">ทั้งหมด (All Shifts)</option>
-          <option value="day">กะเช้า (Day Shift)</option>
-          <option value="night">กะดึก (Night Shift)</option>
+        <span>Shift:</span>
+        <select id="shiftFilter" class="border border-slate-300 rounded-lg px-2 py-1 text-xs">
+          <option value="all">All Shifts</option>
+          <option value="day">Day Shift</option>
+          <option value="night">Night Shift</option>
         </select>
       </div>
     </div>
-
-    <button id="refreshBtn" class="bg-sky-50 text-sky-600 hover:bg-sky-100 border border-sky-200 px-4 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition">
-      🔄 อัปเดตข้อมูล
-    </button>
   </div>
 
-  <!-- ================= TAB 1: FTR DASHBOARD ================= -->
+  <!-- TAB 1: FTR -->
   <main id="tab-ftr" class="tab-content space-y-6">
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-      <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 text-center">
-        <div class="text-slate-400 text-xs font-semibold uppercase">Total Output</div>
-        <div id="kpiTotalOutput" class="text-3xl font-extrabold text-slate-800 my-2">1,244</div>
-        <span class="text-[11px] text-emerald-500 font-medium">ชิ้นงานทั้งหมด</span>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <div class="bg-white rounded-2xl p-4 shadow-sm border text-center">
+        <div class="text-xs text-slate-500 font-bold uppercase">Total Output</div>
+        <div id="kpiTotalOutput" class="text-3xl font-extrabold text-slate-800 my-2">0</div>
       </div>
-      <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 text-center">
-        <div class="text-slate-400 text-xs font-semibold uppercase">Total Defects</div>
-        <div id="kpiTotalDefects" class="text-3xl font-extrabold text-red-500 my-2">137</div>
-        <span class="text-[11px] text-red-400 font-medium">ของเสียในระบบ</span>
+      <div class="bg-white rounded-2xl p-4 shadow-sm border text-center">
+        <div class="text-xs text-slate-500 font-bold uppercase">Total Defects</div>
+        <div id="kpiTotalDefects" class="text-3xl font-extrabold text-red-500 my-2">0</div>
       </div>
-      <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 text-center">
-        <div class="text-slate-400 text-xs font-semibold uppercase">Defect Rate</div>
-        <div id="kpiDefectRate" class="text-3xl font-extrabold text-amber-500 my-2">11.01%</div>
-        <span class="text-[11px] text-amber-500 font-medium">อัตราของเสีย</span>
-      </div>
-      <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 text-center">
-        <div class="text-slate-400 text-xs font-semibold uppercase">Total Scrap</div>
-        <div id="kpiTotalScrap" class="text-3xl font-extrabold text-slate-700 my-2">29</div>
-        <span class="text-[11px] text-slate-400 font-medium">ทิ้งทำลาย</span>
-      </div>
-    </div>
-
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-      <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-100">
-        <h3 class="text-sm font-bold text-slate-700 mb-4 flex items-center gap-2">
-          <span class="w-2 h-2 rounded-full bg-red-500"></span> รายงานจุดพบ Defect (Station)
-        </h3>
-        <div id="stationDefectsList" class="space-y-3"></div>
-      </div>
-      
-      <div class="lg:col-span-2 bg-white rounded-2xl p-5 shadow-sm border border-slate-100">
-        <h3 class="text-sm font-bold text-slate-700 mb-4">ปริมาณการผลิตแยกตามรุ่น (Production by Model)</h3>
-        <div class="h-64 relative">
-          <canvas id="ftrChart"></canvas>
-        </div>
+      <div class="bg-white rounded-2xl p-4 shadow-sm border text-center">
+        <div class="text-xs text-slate-500 font-bold uppercase">Total Scrap</div>
+        <div id="kpiTotalScrap" class="text-3xl font-extrabold text-slate-800 my-2">0</div>
       </div>
     </div>
   </main>
 
-  <!-- ================= TAB 2: SCRAP METAL ================= -->
+  <!-- TAB 2: SCRAP -->
   <main id="tab-scrap" class="tab-content hidden space-y-6">
-    <!-- Form Section -->
     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-      <h2 class="text-sm font-bold text-slate-800 mb-4 flex items-center gap-2">
-        <span>📋</span> บันทึกข้อมูล Scrap Metal
-      </h2>
-      <form id="scrapForm" class="grid grid-cols-1 md:grid-cols-4 gap-4 text-xs">
+      <h2 class="text-sm font-bold text-slate-800 mb-4">📋 บันทึกข้อมูล Scrap ใหม่</h2>
+      <form id="scrapForm" class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
         <div>
-          <label class="block font-semibold text-slate-600 mb-1">กะการทำงาน</label>
-          <select id="scrapShift" class="w-full border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-sky-500 focus:outline-none">
-            <option value="Day">กะเช้า (Day)</option>
-            <option value="Night">กะดึก (Night)</option>
-          </select>
+          <label class="block font-semibold mb-1">Model</label>
+          <input type="text" id="scrapModel" required class="w-full border p-2 rounded-lg" placeholder="เช่น TM19" />
         </div>
         <div>
-          <label class="block font-semibold text-slate-600 mb-1">ชื่อรุ่น (Model)</label>
-          <input type="text" id="scrapModel" placeholder="เช่น TM19" required class="w-full border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-sky-500 focus:outline-none" />
+          <label class="block font-semibold mb-1">Q'ty</label>
+          <input type="number" id="scrapQty" min="1" value="1" required class="w-full border p-2 rounded-lg" />
         </div>
-        <div>
-          <label class="block font-semibold text-slate-600 mb-1">จำนวน (Q'ty)</label>
-          <input type="number" id="scrapQty" min="1" value="1" required class="w-full border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-sky-500 focus:outline-none" />
-        </div>
-        <div>
-          <label class="block font-semibold text-slate-600 mb-1">แผนก (Department)</label>
-          <input type="text" id="scrapDept" placeholder="เช่น PD, QC" required class="w-full border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-sky-500 focus:outline-none" />
-        </div>
-        <div class="md:col-span-2">
-          <label class="block font-semibold text-slate-600 mb-1">ปัญหาที่พบ (Problem)</label>
-          <input type="text" id="scrapProblem" placeholder="ระบุรายละเอียดปัญหา..." required class="w-full border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-sky-500 focus:outline-none" />
-        </div>
-        <div>
-          <label class="block font-semibold text-slate-600 mb-1">ผู้รับผิดชอบ (Responsible)</label>
-          <input type="text" id="scrapResp" placeholder="ชื่อผู้รับผิดชอบ" required class="w-full border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-sky-500 focus:outline-none" />
-        </div>
-        <div>
-          <label class="block font-semibold text-slate-600 mb-1">แนบรูปภาพ</label>
-          <input type="file" id="scrapImages" accept="image/*" class="w-full text-slate-500 file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:bg-sky-50 file:text-sky-700 hover:file:bg-sky-100 cursor-pointer" />
-        </div>
-        <div class="md:col-span-4 flex justify-end">
-          <button type="submit" class="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2 px-6 rounded-lg shadow transition">
-            💾 บันทึกข้อมูล
-          </button>
+        <div class="flex items-end">
+          <button type="submit" class="w-full bg-emerald-600 text-white font-bold py-2 rounded-lg hover:bg-emerald-700">บันทึก</button>
         </div>
       </form>
     </div>
 
-    <!-- Scrap Table -->
-    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-      <div class="bg-slate-800 text-white p-3 font-bold text-center text-xs tracking-wide uppercase">
-        ตารางบันทึกรายการ Scrap Metal
-      </div>
-      <div class="overflow-x-auto">
-        <table class="w-full text-left border-collapse text-xs">
-          <thead>
-            <tr class="bg-slate-100 text-slate-600 border-b">
-              <th class="p-3">วันที่</th>
-              <th class="p-3">กะ</th>
-              <th class="p-3">Model</th>
-              <th class="p-3">ปัญหา</th>
-              <th class="p-3 text-center">รูปภาพ</th>
-              <th class="p-3 text-center">จำนวน</th>
-              <th class="p-3">แผนก</th>
-              <th class="p-3">ผู้รับผิดชอบ</th>
-              <th class="p-3 text-center">จัดการ</th>
-            </tr>
-          </thead>
-          <tbody id="scrapTableBody" class="divide-y divide-slate-100"></tbody>
-        </table>
-      </div>
+    <div class="bg-white rounded-2xl shadow-sm border overflow-hidden">
+      <table class="w-full text-left text-xs">
+        <thead class="bg-slate-100 text-slate-700">
+          <tr>
+            <th class="p-3 border-b">Model</th>
+            <th class="p-3 border-b">Quantity</th>
+            <th class="p-3 border-b">Action</th>
+          </tr>
+        </thead>
+        <tbody id="scrapTableBody" class="divide-y divide-slate-100"></tbody>
+      </table>
     </div>
   </main>
 
-  <!-- ================= TAB 3: PRODUCTION LOSS ================= -->
+  <!-- TAB 3: LOSS -->
   <main id="tab-loss" class="tab-content hidden space-y-6">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100">
-        <h3 class="text-sm font-bold text-slate-700 mb-4">สัดส่วนสาเหตุ Downtime Loss</h3>
-        <div class="h-56 relative flex justify-center">
-          <canvas id="lossDoughnutChart"></canvas>
-        </div>
-      </div>
-      <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100">
-        <h3 class="text-sm font-bold text-slate-700 mb-4">จำนวนชิ้นงานที่ถูกส่งคืน (Returned Units)</h3>
-        <div class="h-56 relative">
-          <canvas id="lossBarChart"></canvas>
-        </div>
-      </div>
+    <div class="bg-white p-6 rounded-2xl shadow-sm border">
+      <h2 class="text-sm font-bold text-slate-800">Production Loss Analytics</h2>
+      <p class="text-xs text-slate-500 mt-2">ระบบกำลังประมวลผลข้อมูล Production Loss...</p>
     </div>
   </main>
-
-  <!-- Image Modal -->
-  <div id="imageModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4" onclick="closeModal()">
-    <div class="bg-white p-2 rounded-2xl max-w-xl w-full">
-      <img id="modalImg" src="" class="w-full h-auto rounded-xl max-h-[80vh] object-contain" />
-    </div>
-  </div>
 
   <script>
-    // --- State Variables ---
-    let activeShift = 'all';
-    let currentTab = 'ftr';
-    let ftrChart = null;
-    let lossDoughnut = null;
-    let lossBar = null;
+    document.addEventListener('DOMContentLoaded', () => {
+      // Set Default Date
+      const dateInput = document.getElementById('datePicker');
+      if (dateInput) dateInput.value = new Date().toISOString().split('T')[0];
 
-    // --- Mock Scrap Data ---
-    const defaultScrap = [
-      { id: 1, date: '01/09/2026', shift: 'Night', model: 'TM19', problem: 'Scratch on surface', qty: 2, dept: 'PD', resp: 'K. Somchai', img: '' },
-      { id: 2, date: '01/09/2026', shift: 'Day', model: 'BM23', problem: 'Welding defect', qty: 1, dept: 'QC', resp: 'K. Anan', img: '' }
-    ];
-
-    // --- Core Functions ---
-    function init() {
-      // Set Today's Date
-      const today = new Date().toISOString().split('T')[0];
-      document.getElementById('datePicker').value = today;
-
-      // Tab Events
-      document.querySelectorAll('.nav-tab').forEach(tab => {
+      // Tab Switcher
+      const tabs = document.querySelectorAll('.nav-tab');
+      tabs.forEach(tab => {
         tab.addEventListener('click', (e) => {
-          document.querySelectorAll('.nav-tab').forEach(t => {
-            t.className = 'nav-tab text-slate-600 hover:bg-slate-100 px-4 py-1.5 rounded-full text-xs font-medium transition';
-          });
-          e.target.className = 'nav-tab bg-sky-500 text-white px-4 py-1.5 rounded-full text-xs font-medium shadow-sm transition';
+          tabs.forEach(t => t.className = 'nav-tab text-slate-600 hover:bg-slate-100 px-4 py-1.5 rounded-xl text-xs font-medium transition');
+          e.target.className = 'nav-tab bg-sky-500 text-white px-4 py-1.5 rounded-xl text-xs font-medium transition';
 
-          currentTab = e.target.getAttribute('data-tab');
+          const targetTab = e.target.getAttribute('data-tab');
           document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
-          document.getElementById(`tab-${currentTab}`).classList.remove('hidden');
-
-          if (currentTab === 'loss') renderLossCharts();
+          
+          const activeContent = document.getElementById(`tab-${targetTab}`);
+          if (activeContent) activeContent.classList.remove('hidden');
         });
       });
 
-      // Filters Event
-      document.getElementById('shiftSelect').addEventListener('change', (e) => {
-        activeShift = e.target.value;
-        updateDashboardData();
-      });
+      // Simple LocalStorage Logic for Scrap Form
+      const scrapForm = document.getElementById('scrapForm');
+      const scrapTableBody = document.getElementById('scrapTableBody');
 
-      document.getElementById('datePicker').addEventListener('change', updateDashboardData);
-      document.getElementById('refreshBtn').addEventListener('click', updateDashboardData);
-
-      // Forms
-      document.getElementById('scrapForm').addEventListener('submit', handleScrapSubmit);
-
-      // Initial Render
-      renderFTRChart();
-      renderScrapTable();
-      updateDashboardData();
-    }
-
-    function updateDashboardData() {
-      // Dynamic calculations based on filter
-      const mult = activeShift === 'day' ? 0.7 : (activeShift === 'night' ? 0.4 : 1);
-      
-      const totalOutput = Math.floor(1244 * mult);
-      const totalDefects = Math.floor(137 * mult);
-      const defectRate = totalOutput > 0 ? ((totalDefects / totalOutput) * 100).toFixed(2) : "0.00";
-      const totalScrap = Math.floor(29 * mult);
-
-      document.getElementById('kpiTotalOutput').innerText = totalOutput.toLocaleString();
-      document.getElementById('kpiTotalDefects').innerText = totalDefects.toLocaleString();
-      document.getElementById('kpiDefectRate').innerText = `${defectRate}%`;
-      document.getElementById('kpiTotalScrap').innerText = totalScrap.toLocaleString();
-
-      // Update Station Defects
-      const stations = [
-        { name: 'Station 1 (Assembly)', val: Math.floor(totalDefects * 0.5) },
-        { name: 'Station 2 (Welding)', val: Math.floor(totalDefects * 0.3) },
-        { name: 'Station 3 (Painting)', val: Math.floor(totalDefects * 0.2) }
-      ];
-
-      document.getElementById('stationDefectsList').innerHTML = stations.map(s => `
-        <div class="flex justify-between items-center text-xs p-2.5 bg-slate-50 rounded-xl border border-slate-100">
-          <span class="font-medium text-slate-700">${s.name}</span>
-          <span class="font-bold text-red-500 bg-red-50 px-2 py-0.5 rounded-md">${s.val} Def.</span>
-        </div>
-      `).join('');
-
-      // Update Chart Data
-      if (ftrChart) {
-        ftrChart.data.datasets[0].data = [
-          Math.floor(400 * mult),
-          Math.floor(300 * mult),
-          Math.floor(250 * mult),
-          Math.floor(180 * mult),
-          Math.floor(114 * mult)
-        ];
-        ftrChart.update();
+      function loadScrapData() {
+        const data = JSON.parse(localStorage.getItem('simple_scrap') || '[]');
+        scrapTableBody.innerHTML = data.map((item, idx) => `
+          <tr>
+            <td class="p-3">${item.model}</td>
+            <td class="p-3 font-bold">${item.qty}</td>
+            <td class="p-3"><button onclick="deleteItem(${idx})" class="text-red-500 font-bold">ลบ</button></td>
+          </tr>
+        `).join('');
       }
-    }
 
-    function renderFTRChart() {
-      const ctx = document.getElementById('ftrChart').getContext('2d');
-      ftrChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-          labels: ['Model A', 'Model B', 'Model C', 'Model D', 'Model E'],
-          datasets: [{
-            label: 'จำนวนผลิต (ชิ้น)',
-            data: [400, 300, 250, 180, 114],
-            backgroundColor: '#0284c7',
-            borderRadius: 6
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: { legend: { display: false } },
-          scales: { y: { beginAtZero: true } }
-        }
-      });
-    }
-
-    function renderLossCharts() {
-      if (lossDoughnut) lossDoughnut.destroy();
-      if (lossBar) lossBar.destroy();
-
-      const ctx1 = document.getElementById('lossDoughnutChart').getContext('2d');
-      lossDoughnut = new Chart(ctx1, {
-        type: 'doughnut',
-        data: {
-          labels: ['เครื่องจักรเสีย', 'ขาดวัตถุดิบ', 'ตั้งค่าเครื่อง'],
-          datasets: [{
-            data: [45, 30, 25],
-            backgroundColor: ['#ef4444', '#f59e0b', '#3b82f6']
-          }]
-        },
-        options: { responsive: true, maintainAspectRatio: false }
-      });
-
-      const ctx2 = document.getElementById('lossBarChart').getContext('2d');
-      lossBar = new Chart(ctx2, {
-        type: 'line',
-        data: {
-          labels: ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.'],
-          datasets: [{
-            label: 'จำนวนคืน',
-            data: [12, 19, 8, 15, 7, 10],
-            borderColor: '#6366f1',
-            tension: 0.3,
-            fill: false
-          }]
-        },
-        options: { responsive: true, maintainAspectRatio: false }
-      });
-    }
-
-    // --- Scrap Functions ---
-    function getScrapData() {
-      return JSON.parse(localStorage.getItem('app_scrap_records') || JSON.stringify(defaultScrap));
-    }
-
-    function renderScrapTable() {
-      const data = getScrapData();
-      const tbody = document.getElementById('scrapTableBody');
-      tbody.innerHTML = data.map(item => `
-        <tr class="hover:bg-slate-50 transition border-b border-slate-100">
-          <td class="p-3 text-slate-500">${item.date}</td>
-          <td class="p-3"><span class="px-2 py-0.5 text-[10px] rounded ${item.shift === 'Day' ? 'bg-amber-100 text-amber-800' : 'bg-slate-200 text-slate-800'}">${item.shift}</span></td>
-          <td class="p-3 font-semibold text-slate-700">${item.model}</td>
-          <td class="p-3 text-slate-600">${item.problem}</td>
-          <td class="p-3 text-center">
-            ${item.img ? `<img src="${item.img}" onclick="openModal('${item.img}')" class="w-8 h-8 object-cover rounded mx-auto cursor-pointer hover:scale-110 transition" />` : '<span class="text-slate-300">-</span>'}
-          </td>
-          <td class="p-3 text-center font-bold text-slate-800">${item.qty}</td>
-          <td class="p-3 text-slate-600">${item.dept}</td>
-          <td class="p-3 text-slate-600">${item.resp}</td>
-          <td class="p-3 text-center">
-            <button onclick="deleteScrap(${item.id})" class="text-red-500 hover:text-red-700 font-bold px-2 py-1 bg-red-50 rounded">ลบ</button>
-          </td>
-        </tr>
-      `).join('');
-    }
-
-    function handleScrapSubmit(e) {
-      e.preventDefault();
-      const shift = document.getElementById('scrapShift').value;
-      const model = document.getElementById('scrapModel').value;
-      const qty = document.getElementById('scrapQty').value;
-      const dept = document.getElementById('scrapDept').value;
-      const problem = document.getElementById('scrapProblem').value;
-      const resp = document.getElementById('scrapResp').value;
-      const fileInput = document.getElementById('scrapImages');
-
-      const saveRecord = (imgBase64 = '') => {
-        const records = getScrapData();
-        const newRecord = {
-          id: Date.now(),
-          date: new Date().toLocaleDateString('th-TH'),
-          shift, model, qty, dept, problem, resp, img: imgBase64
-        };
-        records.unshift(newRecord);
-        localStorage.setItem('app_scrap_records', JSON.stringify(records));
-        renderScrapTable();
-        document.getElementById('scrapForm').reset();
+      window.deleteItem = function(index) {
+        let data = JSON.parse(localStorage.getItem('simple_scrap') || '[]');
+        data.splice(index, 1);
+        localStorage.setItem('simple_scrap', JSON.stringify(data));
+        loadScrapData();
       };
 
-      if (fileInput.files && fileInput.files[0]) {
-        const reader = new FileReader();
-        reader.onload = (e) => saveRecord(e.target.result);
-        reader.readAsDataURL(fileInput.files[0]);
-      } else {
-        saveRecord();
+      if (scrapForm) {
+        scrapForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const model = document.getElementById('scrapModel').value;
+          const qty = document.getElementById('scrapQty').value;
+
+          let data = JSON.parse(localStorage.getItem('simple_scrap') || '[]');
+          data.push({ model, qty });
+          localStorage.setItem('simple_scrap', JSON.stringify(data));
+          
+          scrapForm.reset();
+          loadScrapData();
+        });
       }
-    }
 
-    function deleteScrap(id) {
-      if (confirm('ยืนยันการลบรายการนี้?')) {
-        let records = getScrapData();
-        records = records.filter(r => r.id !== id);
-        localStorage.setItem('app_scrap_records', JSON.stringify(records));
-        renderScrapTable();
-      }
-    }
-
-    function openModal(imgSrc) {
-      document.getElementById('modalImg').src = imgSrc;
-      document.getElementById('imageModal').classList.remove('hidden');
-    }
-
-    function closeModal() {
-      document.getElementById('imageModal').classList.add('hidden');
-    }
-
-    // Run when ready
-    document.addEventListener('DOMContentLoaded', init);
+      loadScrapData();
+    });
   </script>
 </body>
 </html>
