@@ -126,7 +126,6 @@
 
   <!-- ================= TEMPLATE 2: SCRAP METAL ================= -->
   <main id="tab-scrap" class="tab-content hidden space-y-6">
-    <!-- Top Blue Dashboard Banner -->
     <div class="bg-gradient-to-r from-blue-700 via-sky-600 to-cyan-500 rounded-2xl p-4 text-white shadow-md">
       <div class="grid grid-cols-2 md:grid-cols-5 gap-4 divide-y md:divide-y-0 md:divide-x divide-white/20 text-center">
         <div class="pt-2 md:pt-0"><p id="invSales" class="text-xl md:text-2xl font-extrabold">2,00,000</p><p class="text-xs text-sky-100 font-medium">Sales</p></div>
@@ -137,59 +136,59 @@
       </div>
     </div>
 
-    <!-- Data Entry Form Section -->
+    <!-- Form Section -->
     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
       <h2 class="text-base font-bold text-slate-800 mb-4 flex items-center gap-2">
-        <span class="bg-sky-500 text-white text-xs px-2.5 py-1 rounded-lg">📋</span> Add New Scrap Record (กรอกข้อมูล Scrap)
+        <span class="bg-sky-500 text-white text-xs px-2.5 py-1 rounded-lg">📋</span> Add New Scrap Record
       </h2>
       <form id="scrapForm" class="grid grid-cols-1 md:grid-cols-4 gap-4">
         <div>
-          <label class="block text-xs font-semibold text-slate-600 mb-1">Date (วันที่)</label>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Date</label>
           <input type="date" id="scrapDate" required class="w-full border border-slate-300 rounded-lg p-2 text-xs focus:ring-2 focus:ring-sky-500 focus:outline-none" />
         </div>
         <div>
-          <label class="block text-xs font-semibold text-slate-600 mb-1">Shift (กะ)</label>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Shift</label>
           <select id="scrapShift" class="w-full border border-slate-300 rounded-lg p-2 text-xs focus:ring-2 focus:ring-sky-500 focus:outline-none">
             <option value="Night">Night</option>
             <option value="Day">Day</option>
           </select>
         </div>
         <div>
-          <label class="block text-xs font-semibold text-slate-600 mb-1">Model (รุ่น)</label>
-          <input type="text" id="scrapModel" placeholder="e.g. TM19, BM23" required class="w-full border border-slate-300 rounded-lg p-2 text-xs focus:ring-2 focus:ring-sky-500 focus:outline-none" />
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Model</label>
+          <input type="text" id="scrapModel" placeholder="e.g. TM19" required class="w-full border border-slate-300 rounded-lg p-2 text-xs focus:ring-2 focus:ring-sky-500 focus:outline-none" />
         </div>
         <div>
-          <label class="block text-xs font-semibold text-slate-600 mb-1">Q'ty (Unit) (จำนวน)</label>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Q'ty (Unit)</label>
           <input type="number" id="scrapQty" min="1" value="1" required class="w-full border border-slate-300 rounded-lg p-2 text-xs focus:ring-2 focus:ring-sky-500 focus:outline-none" />
         </div>
         <div class="md:col-span-2">
-          <label class="block text-xs font-semibold text-slate-600 mb-1">Problem (ปัญหาที่พบ)</label>
-          <input type="text" id="scrapProblem" placeholder="ระบุปัญหา..." required class="w-full border border-slate-300 rounded-lg p-2 text-xs focus:ring-2 focus:ring-sky-500 focus:outline-none" />
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Problem</label>
+          <input type="text" id="scrapProblem" placeholder="Enter issue details..." required class="w-full border border-slate-300 rounded-lg p-2 text-xs focus:ring-2 focus:ring-sky-500 focus:outline-none" />
         </div>
         <div>
-          <label class="block text-xs font-semibold text-slate-600 mb-1">Department (แผนกที่รับผิดชอบ)</label>
-          <input type="text" id="scrapDept" placeholder="e.g. PD, TF, MT" required class="w-full border border-slate-300 rounded-lg p-2 text-xs focus:ring-2 focus:ring-sky-500 focus:outline-none" />
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Department</label>
+          <input type="text" id="scrapDept" placeholder="e.g. PD" required class="w-full border border-slate-300 rounded-lg p-2 text-xs focus:ring-2 focus:ring-sky-500 focus:outline-none" />
         </div>
         <div>
-          <label class="block text-xs font-semibold text-slate-600 mb-1">Responsible (ผู้รับผิดชอบ)</label>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Responsible</label>
           <input type="text" id="scrapResp" placeholder="e.g. K. Thida" required class="w-full border border-slate-300 rounded-lg p-2 text-xs focus:ring-2 focus:ring-sky-500 focus:outline-none" />
         </div>
         <div class="md:col-span-3">
-          <label class="block text-xs font-semibold text-slate-600 mb-1">Picture (อัปโหลดรูปภาพ)</label>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Picture Upload</label>
           <input type="file" id="scrapImages" accept="image/*" multiple class="w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-sky-50 file:text-sky-700 hover:file:bg-sky-100 cursor-pointer" />
         </div>
         <div class="flex items-end">
           <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2 px-4 rounded-lg text-xs shadow transition flex items-center justify-center gap-1">
-            💾 บันทึกข้อมูล (Save)
+            💾 Save Record
           </button>
         </div>
       </form>
     </div>
 
-    <!-- Scrap Daily Table Section -->
+    <!-- Scrap Table -->
     <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
       <div class="bg-sky-600 text-white p-3 font-bold text-center text-sm tracking-wide uppercase">
-        Scrap Daily B Line
+        Scrap Daily Line Report
       </div>
       <div class="overflow-x-auto">
         <table class="w-full text-left border-collapse text-xs">
@@ -200,15 +199,13 @@
               <th class="p-3 border-r border-slate-400 font-semibold w-24">Model</th>
               <th class="p-3 border-r border-slate-400 font-semibold">Problem</th>
               <th class="p-3 border-r border-slate-400 font-semibold w-36">Picture</th>
-              <th class="p-3 border-r border-slate-400 font-semibold w-16">Q'ty (Unit)</th>
-              <th class="p-3 border-r border-slate-400 font-semibold w-28">責任部門<br><span class="text-[10px] font-normal">ผู้รับผิดชอบ (Department)</span></th>
-              <th class="p-3 border-r border-slate-400 font-semibold w-32">責任人<br><span class="text-[10px] font-normal">ผู้รับผิดชอบ</span></th>
+              <th class="p-3 border-r border-slate-400 font-semibold w-16">Q'ty</th>
+              <th class="p-3 border-r border-slate-400 font-semibold w-28">Department</th>
+              <th class="p-3 border-r border-slate-400 font-semibold w-32">Responsible</th>
               <th class="p-3 font-semibold w-16">Action</th>
             </tr>
           </thead>
-          <tbody id="scrapTableBody" class="divide-y divide-slate-200 text-slate-800">
-            <!-- Dynamic rows rendered by JS -->
-          </tbody>
+          <tbody id="scrapTableBody" class="divide-y divide-slate-200 text-slate-800"></tbody>
         </table>
       </div>
     </div>
@@ -218,7 +215,6 @@
   <main id="tab-loss" class="tab-content hidden bg-slate-50 p-6 rounded-3xl shadow-sm border border-slate-200">
     <div class="bg-indigo-600 text-white p-6 rounded-2xl mb-6 shadow-md">
       <h1 class="text-2xl font-bold tracking-tight">Lean manufacturing dashboard showcasing production progress</h1>
-      <p class="text-xs text-indigo-100 mt-1 opacity-90">This slide represents lean manufacturing dashboard showcasing production progress.</p>
     </div>
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
       <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
@@ -234,7 +230,7 @@
         </div>
       </div>
       <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
-        <h2 class="text-sm font-bold text-slate-700 mb-2">Downtime causes</h2>
+        <h2 class="text-sm font-bold text-slate-700 mb-2">Downtime Causes</h2>
         <div class="flex items-center justify-center h-48 relative">
           <canvas id="chartDowntimeCauses"></canvas>
           <div class="absolute text-center"><span class="text-xl font-extrabold text-slate-800">4.4%</span><p class="text-[10px] text-slate-400 font-semibold">Downtime</p></div>
@@ -243,7 +239,7 @@
     </div>
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
       <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
-        <h2 class="text-sm font-bold text-slate-700 mb-3">Top 5 products</h2>
+        <h2 class="text-sm font-bold text-slate-700 mb-3">Top 5 Products</h2>
         <div class="overflow-x-auto">
           <table class="w-full text-left text-xs">
             <thead class="bg-indigo-600 text-white">
@@ -255,7 +251,7 @@
       </div>
       <div class="space-y-6">
         <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
-          <h2 class="text-sm font-bold text-slate-700 mb-3">Production volume</h2>
+          <h2 class="text-sm font-bold text-slate-700 mb-3">Production Volume Details</h2>
           <div class="grid grid-cols-5 gap-2 text-center">
             <div class="flex flex-col items-center"><div class="w-12 h-12 relative flex items-center justify-center"><canvas id="gaugeProd1"></canvas><span class="absolute text-[10px] font-bold">14%</span></div><span class="text-[9px] text-slate-400 mt-1">FW-64333</span></div>
             <div class="flex flex-col items-center"><div class="w-12 h-12 relative flex items-center justify-center"><canvas id="gaugeProd2"></canvas><span class="absolute text-[10px] font-bold">9%</span></div><span class="text-[9px] text-slate-400 mt-1">LKM-53397</span></div>
@@ -265,7 +261,7 @@
           </div>
         </div>
         <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
-          <h2 class="text-sm font-bold text-slate-700 mb-2">Returned items by reason</h2>
+          <h2 class="text-sm font-bold text-slate-700 mb-2">Returned Items by Reason</h2>
           <div class="h-32"><canvas id="chartReturnedItems"></canvas></div>
         </div>
       </div>
@@ -294,20 +290,14 @@
     </div>
   </div>
 
-  <!-- JavaScript Logic -->
   <script>
     let activeShift = 'all';
     let currentTab = 'ftr';
     let ftrChartInstance = null;
 
-    // Default Initial Data for Scrap Daily Table
     const defaultScrapRecords = [
-      { id: 1, date: '14-Jul', shift: 'Night', model: 'TM19', problem: 'ยิงสกรูโดนท่อ hot line', qty: 1, dept: 'PD', resp: 'K.Thida , K. Peecha', images: ['https://via.placeholder.com/80?text=HotLine'] },
-      { id: 2, date: '14-Jul', shift: 'Night', model: 'BM23', problem: 'ถังในเป็นรอย', qty: 1, dept: 'TF', resp: 'K. Kromkrit', images: ['https://via.placeholder.com/80?text=Scratch'] },
-      { id: 3, date: '14-Jul', shift: 'Night', model: 'BM29', problem: 'ตู้ตกไลน์', qty: 1, dept: 'MT', resp: 'K. Ren', images: ['https://via.placeholder.com/80?text=Drop'] },
-      { id: 4, date: '14-Jul', shift: 'Night', model: 'TM19', problem: 'ถังในช่อง F บวม', qty: 2, dept: 'TF', resp: 'K. Kromkrit', images: ['https://via.placeholder.com/80?text=Swell'] },
-      { id: 5, date: '14-Jul', shift: 'Night', model: 'SBS', problem: 'แผ่นหน้ากลางหลุด', qty: 1, dept: 'PD', resp: 'K.Thida', images: ['https://via.placeholder.com/80?text=Loose'] },
-      { id: 6, date: '14-Jul', shift: 'Night', model: 'TM19', problem: 'โฟมรั่วใต้ตู้', qty: 1, dept: 'PD Door', resp: 'K.Passadee', images: ['https://via.placeholder.com/80?text=Leak'] }
+      { id: 1, date: '14-Jul', shift: 'Night', model: 'TM19', problem: 'Screw hit hot line', qty: 1, dept: 'PD', resp: 'K. Thida', images: [] },
+      { id: 2, date: '14-Jul', shift: 'Night', model: 'BM23', problem: 'Inner tank scratch', qty: 1, dept: 'TF', resp: 'K. Kromkrit', images: [] }
     ];
 
     function getScrapRecords() {
@@ -353,7 +343,7 @@
     }
 
     function deleteScrapRecord(id) {
-      if (confirm('ยืนยันการลบรายการนี้?')) {
+      if (confirm('Confirm deleting this item?')) {
         let records = getScrapRecords();
         records = records.filter(r => r.id !== id);
         localStorage.setItem('scrap_records', JSON.stringify(records));
@@ -361,7 +351,6 @@
       }
     }
 
-    // Handle Form Submit and Image Upload (Base64)
     document.getElementById('scrapForm').addEventListener('submit', function(e) {
       e.preventDefault();
       
@@ -394,7 +383,6 @@
         localStorage.setItem('scrap_records', JSON.stringify(records));
         renderScrapTable();
         document.getElementById('scrapForm').reset();
-        alert('บันทึกข้อมูล Scrap เรียบร้อยแล้ว!');
       };
 
       if (files.length > 0) {
@@ -414,7 +402,6 @@
       }
     });
 
-    // Navigation Switcher
     function initTabSwitching() {
       const tabs = document.querySelectorAll('.nav-tab');
       tabs.forEach(tab => {
