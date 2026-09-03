@@ -1,185 +1,155 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Smart Factory Operating System</title>
+  
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Chart.js CDN -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
   <style>
-    body { font-family: 'Inter', sans-serif; }
+    body { font-family: 'Prompt', sans-serif; }
   </style>
 </head>
-<body class="bg-slate-100 p-6 min-h-screen text-slate-800">
+<body class="bg-slate-100 p-4 md:p-6 min-h-screen text-slate-800">
 
   <!-- Top Navigation Bar -->
-  <header class="bg-white/80 backdrop-blur border border-white/60 shadow-sm rounded-full px-6 py-3 flex items-center justify-between mb-6">
+  <header class="bg-white/80 backdrop-blur border border-slate-200 shadow-sm rounded-2xl px-6 py-3 flex flex-wrap items-center justify-between mb-6 gap-4">
     <div class="flex items-center space-x-3 font-bold text-slate-700">
-      <span class="text-sky-500 text-xl">🏭</span>
-      <span class="text-base tracking-tight">Smart Factory Operating System</span>
+      <span class="text-sky-500 text-2xl">🏭</span>
+      <span class="text-base tracking-tight">Smart Factory OS</span>
     </div>
     
     <nav class="flex items-center space-x-2" id="navTabs">
-      <button data-tab="ftr" class="nav-tab bg-sky-500 text-white px-5 py-1.5 rounded-full font-medium text-xs shadow-sm transition">
-        FTR
+      <button data-tab="ftr" class="nav-tab bg-sky-500 text-white px-4 py-1.5 rounded-full font-medium text-xs shadow-sm transition">
+        FTR Dashboard
       </button>
-      <button data-tab="scrap" class="nav-tab text-slate-600 hover:bg-slate-100 px-5 py-1.5 rounded-full text-xs font-medium transition">
+      <button data-tab="scrap" class="nav-tab text-slate-600 hover:bg-slate-100 px-4 py-1.5 rounded-full text-xs font-medium transition">
         Scrap Metal
       </button>
-      <button data-tab="loss" class="nav-tab text-slate-600 hover:bg-slate-100 px-5 py-1.5 rounded-full text-xs font-medium transition">
+      <button data-tab="loss" class="nav-tab text-slate-600 hover:bg-slate-100 px-4 py-1.5 rounded-full text-xs font-medium transition">
         Production Loss
-      </button>
-      <button data-tab="improvements" class="nav-tab text-slate-600 hover:bg-slate-100 px-5 py-1.5 rounded-full text-xs font-medium transition">
-        Improvements
       </button>
     </nav>
 
-    <button class="text-red-500 hover:text-red-600 text-xs font-semibold flex items-center gap-1">
-      ↪ Logout
-    </button>
+    <div class="flex items-center gap-2">
+      <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+      <span class="text-xs text-emerald-600 font-semibold">Online</span>
+    </div>
   </header>
 
   <!-- Control & Filter Bar -->
-  <div class="bg-white/70 backdrop-blur border border-white/60 rounded-2xl p-4 shadow-sm flex flex-wrap items-center justify-between gap-4 mb-6">
-    <div class="flex items-center gap-6">
+  <div class="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm flex flex-wrap items-center justify-between gap-4 mb-6">
+    <div class="flex flex-wrap items-center gap-4">
       <div class="flex items-center gap-2 text-xs font-semibold text-slate-600">
-        <span>Select Date:</span>
-        <input type="date" id="datePicker" value="2026-09-01" class="border border-slate-200 rounded-lg px-3 py-1.5 text-xs bg-white shadow-inner font-medium focus:outline-none focus:ring-2 focus:ring-sky-500 cursor-pointer" />
+        <span>เลือกวันที่:</span>
+        <input type="date" id="datePicker" class="border border-slate-200 rounded-lg px-3 py-1.5 text-xs bg-slate-50 font-medium focus:outline-none focus:ring-2 focus:ring-sky-500 cursor-pointer" />
       </div>
 
       <div class="flex items-center gap-2 text-xs font-semibold text-slate-600">
-        <span>Shift Filter:</span>
-        <div class="bg-slate-200/60 p-1 rounded-xl flex gap-1" id="shiftContainer">
-          <button data-shift="all" class="shift-btn bg-sky-500 text-white px-3 py-1 rounded-lg text-xs font-semibold shadow-sm transition">All Shifts</button>
-          <button data-shift="day" class="shift-btn text-slate-600 hover:bg-white/50 px-3 py-1 rounded-lg text-xs font-medium transition">Day Shift</button>
-          <button data-shift="night" class="shift-btn text-slate-600 hover:bg-white/50 px-3 py-1 rounded-lg text-xs font-medium transition">Night Shift</button>
-        </div>
+        <span>กะการทำงาน:</span>
+        <select id="shiftSelect" class="border border-slate-200 rounded-lg px-3 py-1.5 text-xs bg-slate-50 font-medium focus:outline-none focus:ring-2 focus:ring-sky-500 cursor-pointer">
+          <option value="all">ทั้งหมด (All Shifts)</option>
+          <option value="day">กะเช้า (Day Shift)</option>
+          <option value="night">กะดึก (Night Shift)</option>
+        </select>
       </div>
     </div>
 
-    <div class="flex items-center gap-3">
-      <span class="flex items-center gap-1.5 text-xs text-emerald-600 font-semibold bg-emerald-50 px-3 py-1.5 rounded-xl border border-emerald-200">
-        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span> Real-Time Active
-      </span>
-      <button id="refreshBtn" class="bg-sky-50 text-sky-600 hover:bg-sky-100 border border-sky-200 px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition">
-        🔄 Refresh Data
-      </button>
-    </div>
+    <button id="refreshBtn" class="bg-sky-50 text-sky-600 hover:bg-sky-100 border border-sky-200 px-4 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition">
+      🔄 อัปเดตข้อมูล
+    </button>
   </div>
 
-  <!-- ================= TEMPLATE 1: FTR ================= -->
+  <!-- ================= TAB 1: FTR DASHBOARD ================= -->
   <main id="tab-ftr" class="tab-content space-y-6">
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
       <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 text-center">
-        <div class="bg-indigo-600 text-white text-[11px] font-bold py-1 px-3 rounded-full uppercase">Total Output</div>
-        <div id="kpiTotalOutput" class="text-3xl font-extrabold text-slate-800 my-3">1,244</div>
-        <span class="text-[10px] text-slate-400">Total Processed</span>
+        <div class="text-slate-400 text-xs font-semibold uppercase">Total Output</div>
+        <div id="kpiTotalOutput" class="text-3xl font-extrabold text-slate-800 my-2">1,244</div>
+        <span class="text-[11px] text-emerald-500 font-medium">ชิ้นงานทั้งหมด</span>
       </div>
       <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 text-center">
-        <div class="bg-sky-500 text-white text-[11px] font-bold py-1 px-3 rounded-full uppercase">Production Shift</div>
-        <div class="flex justify-center gap-2 my-2">
-          <div class="bg-amber-100/70 rounded-xl p-2 flex-1"><p class="text-[10px] text-amber-800 font-bold">Day</p><p id="kpiDayOutput" class="text-sm font-extrabold text-slate-800">833</p></div>
-          <div class="bg-slate-800 text-white rounded-xl p-2 flex-1"><p class="text-[10px] text-slate-300 font-bold">Night</p><p id="kpiNightOutput" class="text-sm font-extrabold">411</p></div>
-        </div>
+        <div class="text-slate-400 text-xs font-semibold uppercase">Total Defects</div>
+        <div id="kpiTotalDefects" class="text-3xl font-extrabold text-red-500 my-2">137</div>
+        <span class="text-[11px] text-red-400 font-medium">ของเสียในระบบ</span>
       </div>
       <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 text-center">
-        <div class="bg-orange-500 text-white text-[11px] font-bold py-1 px-3 rounded-full uppercase">Total Defects</div>
-        <div id="kpiTotalDefects" class="text-3xl font-extrabold text-red-500 my-3">137</div>
-        <span class="text-[10px] text-red-400">Action Needed</span>
+        <div class="text-slate-400 text-xs font-semibold uppercase">Defect Rate</div>
+        <div id="kpiDefectRate" class="text-3xl font-extrabold text-amber-500 my-2">11.01%</div>
+        <span class="text-[11px] text-amber-500 font-medium">อัตราของเสีย</span>
       </div>
       <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 text-center">
-        <div class="bg-orange-500 text-white text-[11px] font-bold py-1 px-3 rounded-full uppercase">Defect Rate</div>
-        <div class="flex justify-center gap-2 my-2">
-          <div class="bg-amber-100/70 rounded-xl p-2 flex-1"><p class="text-[10px] text-amber-800 font-bold">Day</p><p id="kpiDayDefectRate" class="text-xs font-extrabold text-slate-800">10.68%</p></div>
-          <div class="bg-slate-800 text-white rounded-xl p-2 flex-1"><p class="text-[10px] text-slate-300 font-bold">Night</p><p id="kpiNightDefectRate" class="text-xs font-extrabold">11.68%</p></div>
-        </div>
-      </div>
-      <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 text-center">
-        <div class="bg-cyan-500 text-white text-[11px] font-bold py-1 px-3 rounded-full uppercase">Total Scrap</div>
-        <div id="kpiTotalScrap" class="text-3xl font-extrabold text-slate-800 my-3">29</div>
-        <span class="text-[10px] text-slate-400">Items Scrapped</span>
-      </div>
-      <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 text-center">
-        <div class="bg-emerald-500 text-white text-[11px] font-bold py-1 px-3 rounded-full uppercase">Scrap / Shift</div>
-        <div class="flex justify-center gap-2 my-2">
-          <div class="bg-amber-100/70 rounded-xl p-2 flex-1"><p class="text-[10px] text-amber-800 font-bold">Day</p><p id="kpiDayScrap" class="text-sm font-extrabold text-slate-800">8</p></div>
-          <div class="bg-slate-800 text-white rounded-xl p-2 flex-1"><p class="text-[10px] text-slate-300 font-bold">Night</p><p id="kpiNightScrap" class="text-sm font-extrabold">21</p></div>
-        </div>
+        <div class="text-slate-400 text-xs font-semibold uppercase">Total Scrap</div>
+        <div id="kpiTotalScrap" class="text-3xl font-extrabold text-slate-700 my-2">29</div>
+        <span class="text-[11px] text-slate-400 font-medium">ทิ้งทำลาย</span>
       </div>
     </div>
-    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
       <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-100">
-        <span class="bg-red-500 text-white text-xs font-bold px-3 py-1.5 rounded-full inline-block mb-4">Station Defects</span>
+        <h3 class="text-sm font-bold text-slate-700 mb-4 flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-red-500"></span> รายงานจุดพบ Defect (Station)
+        </h3>
         <div id="stationDefectsList" class="space-y-3"></div>
       </div>
-      <div class="lg:col-span-3 bg-gradient-to-r from-cyan-600 to-sky-600 rounded-2xl p-6 text-white shadow-md flex flex-col justify-between">
-        <div class="flex justify-between items-start mb-4">
-          <div><p class="text-xs text-cyan-100 font-medium">Production Summary</p><h2 class="text-2xl font-bold">Top 5 Popular Models</h2></div>
-        </div>
-        <div class="bg-white/10 backdrop-blur rounded-xl p-4 border border-white/20">
-          <canvas id="ftrChart" class="max-h-48"></canvas>
+      
+      <div class="lg:col-span-2 bg-white rounded-2xl p-5 shadow-sm border border-slate-100">
+        <h3 class="text-sm font-bold text-slate-700 mb-4">ปริมาณการผลิตแยกตามรุ่น (Production by Model)</h3>
+        <div class="h-64 relative">
+          <canvas id="ftrChart"></canvas>
         </div>
       </div>
     </div>
   </main>
 
-  <!-- ================= TEMPLATE 2: SCRAP METAL ================= -->
+  <!-- ================= TAB 2: SCRAP METAL ================= -->
   <main id="tab-scrap" class="tab-content hidden space-y-6">
-    <div class="bg-gradient-to-r from-blue-700 via-sky-600 to-cyan-500 rounded-2xl p-4 text-white shadow-md">
-      <div class="grid grid-cols-2 md:grid-cols-5 gap-4 divide-y md:divide-y-0 md:divide-x divide-white/20 text-center">
-        <div class="pt-2 md:pt-0"><p id="invSales" class="text-xl md:text-2xl font-extrabold">2,00,000</p><p class="text-xs text-sky-100 font-medium">Sales</p></div>
-        <div class="pt-2 md:pt-0"><p id="invTotal" class="text-xl md:text-2xl font-extrabold">8,765</p><p class="text-xs text-sky-100 font-medium">Inventory</p></div>
-        <div class="pt-2 md:pt-0"><p id="invUpcoming" class="text-xl md:text-2xl font-extrabold">700</p><p class="text-xs text-sky-100 font-medium">Upcoming Inventory</p></div>
-        <div class="pt-2 md:pt-0"><p id="invSuppliers" class="text-xl md:text-2xl font-extrabold">12</p><p class="text-xs text-sky-100 font-medium">No. of Supplier</p></div>
-        <div class="pt-2 md:pt-0"><p id="invPayable" class="text-xl md:text-2xl font-extrabold">650</p><p class="text-xs text-sky-100 font-medium">Accounts Payable</p></div>
-      </div>
-    </div>
-
     <!-- Form Section -->
     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-      <h2 class="text-base font-bold text-slate-800 mb-4 flex items-center gap-2">
-        <span class="bg-sky-500 text-white text-xs px-2.5 py-1 rounded-lg">📋</span> Add New Scrap Record
+      <h2 class="text-sm font-bold text-slate-800 mb-4 flex items-center gap-2">
+        <span>📋</span> บันทึกข้อมูล Scrap Metal
       </h2>
-      <form id="scrapForm" class="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <form id="scrapForm" class="grid grid-cols-1 md:grid-cols-4 gap-4 text-xs">
         <div>
-          <label class="block text-xs font-semibold text-slate-600 mb-1">Date</label>
-          <input type="date" id="scrapDate" required class="w-full border border-slate-300 rounded-lg p-2 text-xs focus:ring-2 focus:ring-sky-500 focus:outline-none" />
-        </div>
-        <div>
-          <label class="block text-xs font-semibold text-slate-600 mb-1">Shift</label>
-          <select id="scrapShift" class="w-full border border-slate-300 rounded-lg p-2 text-xs focus:ring-2 focus:ring-sky-500 focus:outline-none">
-            <option value="Night">Night</option>
-            <option value="Day">Day</option>
+          <label class="block font-semibold text-slate-600 mb-1">กะการทำงาน</label>
+          <select id="scrapShift" class="w-full border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-sky-500 focus:outline-none">
+            <option value="Day">กะเช้า (Day)</option>
+            <option value="Night">กะดึก (Night)</option>
           </select>
         </div>
         <div>
-          <label class="block text-xs font-semibold text-slate-600 mb-1">Model</label>
-          <input type="text" id="scrapModel" placeholder="e.g. TM19" required class="w-full border border-slate-300 rounded-lg p-2 text-xs focus:ring-2 focus:ring-sky-500 focus:outline-none" />
+          <label class="block font-semibold text-slate-600 mb-1">ชื่อรุ่น (Model)</label>
+          <input type="text" id="scrapModel" placeholder="เช่น TM19" required class="w-full border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-sky-500 focus:outline-none" />
         </div>
         <div>
-          <label class="block text-xs font-semibold text-slate-600 mb-1">Q'ty (Unit)</label>
-          <input type="number" id="scrapQty" min="1" value="1" required class="w-full border border-slate-300 rounded-lg p-2 text-xs focus:ring-2 focus:ring-sky-500 focus:outline-none" />
+          <label class="block font-semibold text-slate-600 mb-1">จำนวน (Q'ty)</label>
+          <input type="number" id="scrapQty" min="1" value="1" required class="w-full border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-sky-500 focus:outline-none" />
+        </div>
+        <div>
+          <label class="block font-semibold text-slate-600 mb-1">แผนก (Department)</label>
+          <input type="text" id="scrapDept" placeholder="เช่น PD, QC" required class="w-full border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-sky-500 focus:outline-none" />
         </div>
         <div class="md:col-span-2">
-          <label class="block text-xs font-semibold text-slate-600 mb-1">Problem</label>
-          <input type="text" id="scrapProblem" placeholder="Enter issue details..." required class="w-full border border-slate-300 rounded-lg p-2 text-xs focus:ring-2 focus:ring-sky-500 focus:outline-none" />
+          <label class="block font-semibold text-slate-600 mb-1">ปัญหาที่พบ (Problem)</label>
+          <input type="text" id="scrapProblem" placeholder="ระบุรายละเอียดปัญหา..." required class="w-full border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-sky-500 focus:outline-none" />
         </div>
         <div>
-          <label class="block text-xs font-semibold text-slate-600 mb-1">Department</label>
-          <input type="text" id="scrapDept" placeholder="e.g. PD" required class="w-full border border-slate-300 rounded-lg p-2 text-xs focus:ring-2 focus:ring-sky-500 focus:outline-none" />
+          <label class="block font-semibold text-slate-600 mb-1">ผู้รับผิดชอบ (Responsible)</label>
+          <input type="text" id="scrapResp" placeholder="ชื่อผู้รับผิดชอบ" required class="w-full border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-sky-500 focus:outline-none" />
         </div>
         <div>
-          <label class="block text-xs font-semibold text-slate-600 mb-1">Responsible</label>
-          <input type="text" id="scrapResp" placeholder="e.g. K. Thida" required class="w-full border border-slate-300 rounded-lg p-2 text-xs focus:ring-2 focus:ring-sky-500 focus:outline-none" />
+          <label class="block font-semibold text-slate-600 mb-1">แนบรูปภาพ</label>
+          <input type="file" id="scrapImages" accept="image/*" class="w-full text-slate-500 file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:bg-sky-50 file:text-sky-700 hover:file:bg-sky-100 cursor-pointer" />
         </div>
-        <div class="md:col-span-3">
-          <label class="block text-xs font-semibold text-slate-600 mb-1">Picture Upload</label>
-          <input type="file" id="scrapImages" accept="image/*" multiple class="w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-sky-50 file:text-sky-700 hover:file:bg-sky-100 cursor-pointer" />
-        </div>
-        <div class="flex items-end">
-          <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2 px-4 rounded-lg text-xs shadow transition flex items-center justify-center gap-1">
-            💾 Save Record
+        <div class="md:col-span-4 flex justify-end">
+          <button type="submit" class="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2 px-6 rounded-lg shadow transition">
+            💾 บันทึกข้อมูล
           </button>
         </div>
       </form>
@@ -187,393 +157,285 @@
 
     <!-- Scrap Table -->
     <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-      <div class="bg-sky-600 text-white p-3 font-bold text-center text-sm tracking-wide uppercase">
-        Scrap Daily Line Report
+      <div class="bg-slate-800 text-white p-3 font-bold text-center text-xs tracking-wide uppercase">
+        ตารางบันทึกรายการ Scrap Metal
       </div>
       <div class="overflow-x-auto">
         <table class="w-full text-left border-collapse text-xs">
           <thead>
-            <tr class="bg-slate-500 text-white text-center">
-              <th class="p-3 border-r border-slate-400 font-semibold w-20">Date</th>
-              <th class="p-3 border-r border-slate-400 font-semibold w-16">Shift</th>
-              <th class="p-3 border-r border-slate-400 font-semibold w-24">Model</th>
-              <th class="p-3 border-r border-slate-400 font-semibold">Problem</th>
-              <th class="p-3 border-r border-slate-400 font-semibold w-36">Picture</th>
-              <th class="p-3 border-r border-slate-400 font-semibold w-16">Q'ty</th>
-              <th class="p-3 border-r border-slate-400 font-semibold w-28">Department</th>
-              <th class="p-3 border-r border-slate-400 font-semibold w-32">Responsible</th>
-              <th class="p-3 font-semibold w-16">Action</th>
+            <tr class="bg-slate-100 text-slate-600 border-b">
+              <th class="p-3">วันที่</th>
+              <th class="p-3">กะ</th>
+              <th class="p-3">Model</th>
+              <th class="p-3">ปัญหา</th>
+              <th class="p-3 text-center">รูปภาพ</th>
+              <th class="p-3 text-center">จำนวน</th>
+              <th class="p-3">แผนก</th>
+              <th class="p-3">ผู้รับผิดชอบ</th>
+              <th class="p-3 text-center">จัดการ</th>
             </tr>
           </thead>
-          <tbody id="scrapTableBody" class="divide-y divide-slate-200 text-slate-800"></tbody>
+          <tbody id="scrapTableBody" class="divide-y divide-slate-100"></tbody>
         </table>
       </div>
     </div>
   </main>
 
-  <!-- ================= TEMPLATE 3: PRODUCTION LOSS ================= -->
-  <main id="tab-loss" class="tab-content hidden bg-slate-50 p-6 rounded-3xl shadow-sm border border-slate-200">
-    <div class="bg-indigo-600 text-white p-6 rounded-2xl mb-6 shadow-md">
-      <h1 class="text-2xl font-bold tracking-tight">Lean manufacturing dashboard showcasing production progress</h1>
-    </div>
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-      <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
-        <h2 class="text-sm font-bold text-slate-700 mb-4">Statistics</h2>
-        <div class="grid grid-cols-2 gap-4 pb-4 border-b border-slate-100">
-          <div><span id="leanProdVol" class="text-2xl font-extrabold text-slate-800">98,464</span><p class="text-xs text-slate-400 font-medium">Production Volume</p></div>
-          <div class="h-14"><canvas id="leanSparkLine1"></canvas></div>
-        </div>
-        <div class="grid grid-cols-3 gap-2 pt-4 text-center">
-          <div><span id="leanActiveMachines" class="text-xl font-extrabold text-slate-800">48</span><p class="text-[11px] text-slate-400">Active Machines</p></div>
-          <div><span id="leanOrderVol" class="text-xl font-extrabold text-slate-800">76,665</span><p class="text-[11px] text-slate-400">Order Volume</p></div>
-          <div><span id="leanRevenue" class="text-xl font-extrabold text-slate-800">1.14M</span><p class="text-[11px] text-slate-400">Sales Revenue</p></div>
+  <!-- ================= TAB 3: PRODUCTION LOSS ================= -->
+  <main id="tab-loss" class="tab-content hidden space-y-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100">
+        <h3 class="text-sm font-bold text-slate-700 mb-4">สัดส่วนสาเหตุ Downtime Loss</h3>
+        <div class="h-56 relative flex justify-center">
+          <canvas id="lossDoughnutChart"></canvas>
         </div>
       </div>
-      <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
-        <h2 class="text-sm font-bold text-slate-700 mb-2">Downtime Causes</h2>
-        <div class="flex items-center justify-center h-48 relative">
-          <canvas id="chartDowntimeCauses"></canvas>
-          <div class="absolute text-center"><span class="text-xl font-extrabold text-slate-800">4.4%</span><p class="text-[10px] text-slate-400 font-semibold">Downtime</p></div>
-        </div>
-      </div>
-    </div>
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
-        <h2 class="text-sm font-bold text-slate-700 mb-3">Top 5 Products</h2>
-        <div class="overflow-x-auto">
-          <table class="w-full text-left text-xs">
-            <thead class="bg-indigo-600 text-white">
-              <tr><th class="p-2.5 rounded-l-lg">Product Name</th><th class="p-2.5">Price</th><th class="p-2.5">Sold Items</th><th class="p-2.5 rounded-r-lg">Revenue</th></tr>
-            </thead>
-            <tbody id="topProductsTable" class="divide-y divide-slate-100 font-medium text-slate-700"></tbody>
-          </table>
-        </div>
-      </div>
-      <div class="space-y-6">
-        <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
-          <h2 class="text-sm font-bold text-slate-700 mb-3">Production Volume Details</h2>
-          <div class="grid grid-cols-5 gap-2 text-center">
-            <div class="flex flex-col items-center"><div class="w-12 h-12 relative flex items-center justify-center"><canvas id="gaugeProd1"></canvas><span class="absolute text-[10px] font-bold">14%</span></div><span class="text-[9px] text-slate-400 mt-1">FW-64333</span></div>
-            <div class="flex flex-col items-center"><div class="w-12 h-12 relative flex items-center justify-center"><canvas id="gaugeProd2"></canvas><span class="absolute text-[10px] font-bold">9%</span></div><span class="text-[9px] text-slate-400 mt-1">LKM-53397</span></div>
-            <div class="flex flex-col items-center"><div class="w-12 h-12 relative flex items-center justify-center"><canvas id="gaugeProd3"></canvas><span class="absolute text-[10px] font-bold">4%</span></div><span class="text-[9px] text-slate-400 mt-1">FWT-64333</span></div>
-            <div class="flex flex-col items-center"><div class="w-12 h-12 relative flex items-center justify-center"><canvas id="gaugeProd4"></canvas><span class="absolute text-[10px] font-bold">10%</span></div><span class="text-[9px] text-slate-400 mt-1">PWT-64334</span></div>
-            <div class="flex flex-col items-center"><div class="w-12 h-12 relative flex items-center justify-center"><canvas id="gaugeProd5"></canvas><span class="absolute text-[10px] font-bold">5%</span></div><span class="text-[9px] text-slate-400 mt-1">RJL-14564</span></div>
-          </div>
-        </div>
-        <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
-          <h2 class="text-sm font-bold text-slate-700 mb-2">Returned Items by Reason</h2>
-          <div class="h-32"><canvas id="chartReturnedItems"></canvas></div>
+      <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100">
+        <h3 class="text-sm font-bold text-slate-700 mb-4">จำนวนชิ้นงานที่ถูกส่งคืน (Returned Units)</h3>
+        <div class="h-56 relative">
+          <canvas id="lossBarChart"></canvas>
         </div>
       </div>
     </div>
   </main>
 
-  <!-- ================= TEMPLATE 4: IMPROVEMENTS ================= -->
-  <main id="tab-improvements" class="tab-content hidden space-y-6">
-    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
-      <h2 class="text-xl font-bold text-slate-800 mb-2">🚀 Continuous Improvements (Kaizen)</h2>
-      <p class="text-xs text-slate-500 mb-6">Status of ongoing factory floor optimizations.</p>
-      <div class="space-y-4">
-        <div class="flex items-center justify-between p-3 bg-slate-50 rounded-xl">
-          <span class="text-xs font-semibold text-slate-700">Automation on Station 2 Welding</span>
-          <span class="bg-emerald-100 text-emerald-700 text-[10px] font-bold px-3 py-1 rounded-full">Completed</span>
-        </div>
-      </div>
-    </div>
-  </main>
-
-  <!-- Image Viewer Modal -->
-  <div id="imageModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
-    <div class="relative max-w-3xl w-full bg-white rounded-2xl overflow-hidden p-2">
-      <button onclick="closeImageModal()" class="absolute top-4 right-4 bg-slate-800 text-white w-8 h-8 rounded-full font-bold text-sm">✕</button>
-      <img id="modalImage" src="" class="w-full h-auto max-h-[80vh] object-contain rounded-xl" />
+  <!-- Image Modal -->
+  <div id="imageModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4" onclick="closeModal()">
+    <div class="bg-white p-2 rounded-2xl max-w-xl w-full">
+      <img id="modalImg" src="" class="w-full h-auto rounded-xl max-h-[80vh] object-contain" />
     </div>
   </div>
 
   <script>
+    // --- State Variables ---
     let activeShift = 'all';
     let currentTab = 'ftr';
-    let ftrChartInstance = null;
+    let ftrChart = null;
+    let lossDoughnut = null;
+    let lossBar = null;
 
-    const defaultScrapRecords = [
-      { id: 1, date: '14-Jul', shift: 'Night', model: 'TM19', problem: 'Screw hit hot line', qty: 1, dept: 'PD', resp: 'K. Thida', images: [] },
-      { id: 2, date: '14-Jul', shift: 'Night', model: 'BM23', problem: 'Inner tank scratch', qty: 1, dept: 'TF', resp: 'K. Kromkrit', images: [] }
+    // --- Mock Scrap Data ---
+    const defaultScrap = [
+      { id: 1, date: '01/09/2026', shift: 'Night', model: 'TM19', problem: 'Scratch on surface', qty: 2, dept: 'PD', resp: 'K. Somchai', img: '' },
+      { id: 2, date: '01/09/2026', shift: 'Day', model: 'BM23', problem: 'Welding defect', qty: 1, dept: 'QC', resp: 'K. Anan', img: '' }
     ];
 
-    function getScrapRecords() {
-      const stored = localStorage.getItem('scrap_records');
-      return stored ? JSON.parse(stored) : defaultScrapRecords;
-    }
+    // --- Core Functions ---
+    function init() {
+      // Set Today's Date
+      const today = new Date().toISOString().split('T')[0];
+      document.getElementById('datePicker').value = today;
 
-    function renderScrapTable() {
-      const records = getScrapRecords();
-      const tbody = document.getElementById('scrapTableBody');
-      tbody.innerHTML = records.map(rec => `
-        <tr class="hover:bg-slate-50 text-center border-b border-slate-200">
-          <td class="p-3 border-r border-slate-200 font-medium">${rec.date}</td>
-          <td class="p-3 border-r border-slate-200">${rec.shift}</td>
-          <td class="p-3 border-r border-slate-200 font-semibold text-slate-700">${rec.model}</td>
-          <td class="p-3 border-r border-slate-200 text-left font-medium text-slate-800">${rec.problem}</td>
-          <td class="p-3 border-r border-slate-200">
-            <div class="flex items-center justify-center gap-1.5 flex-wrap">
-              ${(rec.images && rec.images.length > 0) ? rec.images.map(img => `
-                <img src="${img}" onclick="showImage('${img}')" class="w-10 h-10 object-cover rounded border border-slate-300 cursor-pointer hover:scale-110 transition shadow-sm" />
-              `).join('') : '<span class="text-slate-400 text-[10px]">No image</span>'}
-            </div>
-          </td>
-          <td class="p-3 border-r border-slate-200 font-bold text-slate-800">${rec.qty}</td>
-          <td class="p-3 border-r border-slate-200 font-semibold text-slate-700">${rec.dept}</td>
-          <td class="p-3 border-r border-slate-200 font-medium text-slate-600">${rec.resp}</td>
-          <td class="p-3">
-            <button onclick="deleteScrapRecord(${rec.id})" class="text-red-500 hover:text-red-700 text-xs font-bold px-2 py-1 bg-red-50 rounded hover:bg-red-100 transition">
-              🗑️
-            </button>
-          </td>
-        </tr>
-      `).join('');
-    }
-
-    function showImage(src) {
-      document.getElementById('modalImage').src = src;
-      document.getElementById('imageModal').classList.remove('hidden');
-    }
-
-    function closeImageModal() {
-      document.getElementById('imageModal').classList.add('hidden');
-    }
-
-    function deleteScrapRecord(id) {
-      if (confirm('Confirm deleting this item?')) {
-        let records = getScrapRecords();
-        records = records.filter(r => r.id !== id);
-        localStorage.setItem('scrap_records', JSON.stringify(records));
-        renderScrapTable();
-      }
-    }
-
-    document.getElementById('scrapForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      const rawDate = document.getElementById('scrapDate').value;
-      const dateObj = new Date(rawDate);
-      const formattedDate = dateObj.toLocaleDateString('en-GB', { day: '2-digit', month: 'short' });
-
-      const shift = document.getElementById('scrapShift').value;
-      const model = document.getElementById('scrapModel').value;
-      const qty = parseInt(document.getElementById('scrapQty').value);
-      const problem = document.getElementById('scrapProblem').value;
-      const dept = document.getElementById('scrapDept').value;
-      const resp = document.getElementById('scrapResp').value;
-      const files = document.getElementById('scrapImages').files;
-
-      const saveRecordWithImages = (base64Images) => {
-        const records = getScrapRecords();
-        const newRecord = {
-          id: Date.now(),
-          date: formattedDate || 'Today',
-          shift,
-          model,
-          problem,
-          qty,
-          dept,
-          resp,
-          images: base64Images
-        };
-        records.unshift(newRecord);
-        localStorage.setItem('scrap_records', JSON.stringify(records));
-        renderScrapTable();
-        document.getElementById('scrapForm').reset();
-      };
-
-      if (files.length > 0) {
-        const imagePromises = Array.from(files).map(file => {
-          return new Promise((resolve) => {
-            const reader = new FileReader();
-            reader.onload = (e) => resolve(e.target.result);
-            reader.readAsDataURL(file);
-          });
-        });
-
-        Promise.all(imagePromises).then(base64Images => {
-          saveRecordWithImages(base64Images);
-        });
-      } else {
-        saveRecordWithImages([]);
-      }
-    });
-
-    function initTabSwitching() {
-      const tabs = document.querySelectorAll('.nav-tab');
-      tabs.forEach(tab => {
+      // Tab Events
+      document.querySelectorAll('.nav-tab').forEach(tab => {
         tab.addEventListener('click', (e) => {
-          tabs.forEach(t => t.className = 'nav-tab text-slate-600 hover:bg-slate-100 px-5 py-1.5 rounded-full text-xs font-medium transition');
-          e.target.className = 'nav-tab bg-sky-500 text-white px-5 py-1.5 rounded-full text-xs font-medium shadow-sm transition';
+          document.querySelectorAll('.nav-tab').forEach(t => {
+            t.className = 'nav-tab text-slate-600 hover:bg-slate-100 px-4 py-1.5 rounded-full text-xs font-medium transition';
+          });
+          e.target.className = 'nav-tab bg-sky-500 text-white px-4 py-1.5 rounded-full text-xs font-medium shadow-sm transition';
 
           currentTab = e.target.getAttribute('data-tab');
           document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
           document.getElementById(`tab-${currentTab}`).classList.remove('hidden');
 
-          updateDashboard();
+          if (currentTab === 'loss') renderLossCharts();
         });
       });
+
+      // Filters Event
+      document.getElementById('shiftSelect').addEventListener('change', (e) => {
+        activeShift = e.target.value;
+        updateDashboardData();
+      });
+
+      document.getElementById('datePicker').addEventListener('change', updateDashboardData);
+      document.getElementById('refreshBtn').addEventListener('click', updateDashboardData);
+
+      // Forms
+      document.getElementById('scrapForm').addEventListener('submit', handleScrapSubmit);
+
+      // Initial Render
+      renderFTRChart();
+      renderScrapTable();
+      updateDashboardData();
     }
 
-    function generateDynamicData(dateStr, shift) {
-      const seed = (dateStr.replace(/-/g, '') + shift).split('').reduce((a, b) => a + b.charCodeAt(0), 0);
-      const mult = (n) => Math.floor(((Math.sin(seed * n) + 1) / 2) * 50);
+    function updateDashboardData() {
+      // Dynamic calculations based on filter
+      const mult = activeShift === 'day' ? 0.7 : (activeShift === 'night' ? 0.4 : 1);
+      
+      const totalOutput = Math.floor(1244 * mult);
+      const totalDefects = Math.floor(137 * mult);
+      const defectRate = totalOutput > 0 ? ((totalDefects / totalOutput) * 100).toFixed(2) : "0.00";
+      const totalScrap = Math.floor(29 * mult);
 
-      let dayOutput = 700 + mult(1) * 5;
-      let nightOutput = 350 + mult(2) * 3;
-      let dayDefects = 70 + mult(3);
-      let nightDefects = 40 + mult(4);
-      let dayScrap = 5 + mult(5);
-      let nightScrap = 15 + mult(6);
+      document.getElementById('kpiTotalOutput').innerText = totalOutput.toLocaleString();
+      document.getElementById('kpiTotalDefects').innerText = totalDefects.toLocaleString();
+      document.getElementById('kpiDefectRate').innerText = `${defectRate}%`;
+      document.getElementById('kpiTotalScrap').innerText = totalScrap.toLocaleString();
 
-      if (shift === 'day') { nightOutput = 0; nightDefects = 0; nightScrap = 0; }
-      if (shift === 'night') { dayOutput = 0; dayDefects = 0; dayScrap = 0; }
+      // Update Station Defects
+      const stations = [
+        { name: 'Station 1 (Assembly)', val: Math.floor(totalDefects * 0.5) },
+        { name: 'Station 2 (Welding)', val: Math.floor(totalDefects * 0.3) },
+        { name: 'Station 3 (Painting)', val: Math.floor(totalDefects * 0.2) }
+      ];
 
-      return {
-        totalOutput: dayOutput + nightOutput,
-        dayOutput, nightOutput,
-        totalDefects: dayDefects + nightDefects,
-        dayDefects, nightDefects,
-        dayDefectRate: dayOutput > 0 ? ((dayDefects / dayOutput) * 100).toFixed(2) : "0.00",
-        nightDefectRate: nightOutput > 0 ? ((nightDefects / nightOutput) * 100).toFixed(2) : "0.00",
-        totalScrap: dayScrap + nightScrap,
-        dayScrap, nightScrap,
-        sales: (200000 + mult(1) * 100).toLocaleString(),
-        inventory: (8765 + mult(2) * 10).toLocaleString(),
-        upcoming: 700 + mult(3),
-        suppliers: 12 + (mult(4) % 3),
-        payable: 650 + mult(5),
-        prodVol: (98464 + mult(1) * 20).toLocaleString(),
-        activeMachines: 40 + mult(2) % 15,
-        orderVol: (76665 + mult(3) * 15).toLocaleString(),
-        topProducts: [
-          { name: 'Product 1', price: '$378', sold: (2203 + mult(1)).toLocaleString(), rev: '$832,734' },
-          { name: 'Product 2', price: '$325', sold: (2047 + mult(2)).toLocaleString(), rev: '$665,275' },
-          { name: 'Product 3', price: '$148', sold: (2045 + mult(3)).toLocaleString(), rev: '$302,660' },
-          { name: 'Product 4', price: '$148', sold: (1781 + mult(4)).toLocaleString(), rev: '$263,588' },
-          { name: 'Product 5', price: '$568', sold: (1958 + mult(5)).toLocaleString(), rev: '$1,112,144' },
-        ],
-        chartData: [100 + mult(8) * 4, 80 + mult(9) * 3, 60 + mult(10) * 3, 40 + mult(11) * 2, 20 + mult(12) * 2],
-        stations: [
-          { name: 'Station 1 (Assembly)', val: Math.floor((dayDefects + nightDefects) * 0.45) },
-          { name: 'Station 2 (Welding)', val: Math.floor((dayDefects + nightDefects) * 0.33) },
-          { name: 'Station 3 (Painting)', val: Math.floor((dayDefects + nightDefects) * 0.22) }
-        ]
-      };
-    }
+      document.getElementById('stationDefectsList').innerHTML = stations.map(s => `
+        <div class="flex justify-between items-center text-xs p-2.5 bg-slate-50 rounded-xl border border-slate-100">
+          <span class="font-medium text-slate-700">${s.name}</span>
+          <span class="font-bold text-red-500 bg-red-50 px-2 py-0.5 rounded-md">${s.val} Def.</span>
+        </div>
+      `).join('');
 
-    function updateDashboard() {
-      const dateVal = document.getElementById('datePicker').value;
-      const data = generateDynamicData(dateVal, activeShift);
-
-      if (currentTab === 'ftr') {
-        document.getElementById('kpiTotalOutput').innerText = data.totalOutput.toLocaleString();
-        document.getElementById('kpiDayOutput').innerText = data.dayOutput.toLocaleString();
-        document.getElementById('kpiNightOutput').innerText = data.nightOutput.toLocaleString();
-        document.getElementById('kpiTotalDefects').innerText = data.totalDefects.toLocaleString();
-        document.getElementById('kpiDayDefectRate').innerText = `${data.dayDefectRate}%`;
-        document.getElementById('kpiNightDefectRate').innerText = `${data.nightDefectRate}%`;
-        document.getElementById('kpiTotalScrap').innerText = data.totalScrap.toLocaleString();
-        document.getElementById('kpiDayScrap').innerText = data.dayScrap.toLocaleString();
-        document.getElementById('kpiNightScrap').innerText = data.nightScrap.toLocaleString();
-
-        document.getElementById('stationDefectsList').innerHTML = data.stations.map(st => `
-          <div class="flex justify-between items-center text-xs p-2 bg-slate-50 rounded-lg">
-            <span class="font-semibold text-slate-700">${st.name}</span>
-            <span class="font-bold text-red-500">${st.val} Def.</span>
-          </div>
-        `).join('');
-
-        if (ftrChartInstance) {
-          ftrChartInstance.data.datasets[0].data = data.chartData;
-          ftrChartInstance.update();
-        }
-      } else if (currentTab === 'scrap') {
-        document.getElementById('invSales').innerText = data.sales;
-        document.getElementById('invTotal').innerText = data.inventory;
-        document.getElementById('invUpcoming').innerText = data.upcoming;
-        document.getElementById('invSuppliers').innerText = data.suppliers;
-        document.getElementById('invPayable').innerText = data.payable;
-      } else if (currentTab === 'loss') {
-        document.getElementById('leanProdVol').innerText = data.prodVol;
-        document.getElementById('leanActiveMachines').innerText = data.activeMachines;
-        document.getElementById('leanOrderVol').innerText = data.orderVol;
-        document.getElementById('topProductsTable').innerHTML = data.topProducts.map(p => `
-          <tr>
-            <td class="p-2.5 font-semibold text-slate-800">${p.name}</td>
-            <td class="p-2.5">${p.price}</td>
-            <td class="p-2.5">${p.sold}</td>
-            <td class="p-2.5 text-indigo-600 font-bold">${p.rev}</td>
-          </tr>
-        `).join('');
+      // Update Chart Data
+      if (ftrChart) {
+        ftrChart.data.datasets[0].data = [
+          Math.floor(400 * mult),
+          Math.floor(300 * mult),
+          Math.floor(250 * mult),
+          Math.floor(180 * mult),
+          Math.floor(114 * mult)
+        ];
+        ftrChart.update();
       }
     }
 
-    function initLeanCharts() {
-      new Chart(document.getElementById('leanSparkLine1').getContext('2d'), {
-        type: 'line',
-        data: { labels: [1,2,3,4,5,6,7,8,9,10,11,12], datasets: [{ data: [30, 45, 32, 60, 40, 65, 50, 70, 45, 80, 55, 60], borderColor: '#3b82f6', borderWidth: 2, tension: 0.4, pointRadius: 0 }] },
-        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { display: false }, y: { display: false } } }
-      });
-
-      new Chart(document.getElementById('chartDowntimeCauses').getContext('2d'), {
-        type: 'doughnut',
-        data: { labels: ['Broken Machine', 'Missing Parts', 'Service'], datasets: [{ data: [35, 30, 35], backgroundColor: ['#2563eb', '#60a5fa', '#93c5fd'], borderWidth: 0 }] },
-        options: { cutout: '70%', plugins: { legend: { position: 'right', labels: { boxWidth: 10, font: { size: 10 } } } } }
-      });
-
-      ['gaugeProd1', 'gaugeProd2', 'gaugeProd3', 'gaugeProd4', 'gaugeProd5'].forEach((id, idx) => {
-        const vals = [14, 9, 4, 10, 5];
-        new Chart(document.getElementById(id).getContext('2d'), {
-          type: 'doughnut',
-          data: { datasets: [{ data: [vals[idx], 100 - vals[idx]], backgroundColor: ['#3b82f6', '#e2e8f0'], borderWidth: 0 }] },
-          options: { cutout: '75%', plugins: { legend: { display: false } } }
-        });
-      });
-
-      new Chart(document.getElementById('chartReturnedItems').getContext('2d'), {
-        type: 'bar',
-        data: { labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'], datasets: [{ label: 'Returned Units', data: [120, 117, 134, 85, 132, 87, 95, 110, 90, 78], backgroundColor: '#3b82f6', borderRadius: 3 }] },
-        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { ticks: { font: { size: 9 } } }, y: { display: false } } }
-      });
-    }
-
-    function initChart() {
+    function renderFTRChart() {
       const ctx = document.getElementById('ftrChart').getContext('2d');
-      ftrChartInstance = new Chart(ctx, {
+      ftrChart = new Chart(ctx, {
         type: 'bar',
-        data: { labels: ['Model A', 'Model B', 'Model C', 'Model D', 'Model E'], datasets: [{ label: 'Output Units', data: [0, 0, 0, 0, 0], backgroundColor: 'rgba(255, 255, 255, 0.85)', borderRadius: 8 }] },
-        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+        data: {
+          labels: ['Model A', 'Model B', 'Model C', 'Model D', 'Model E'],
+          datasets: [{
+            label: 'จำนวนผลิต (ชิ้น)',
+            data: [400, 300, 250, 180, 114],
+            backgroundColor: '#0284c7',
+            borderRadius: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: { y: { beginAtZero: true } }
+        }
       });
     }
 
-    document.addEventListener('DOMContentLoaded', () => {
-      const today = new Date().toISOString().split('T')[0];
-      document.getElementById('scrapDate').value = today;
+    function renderLossCharts() {
+      if (lossDoughnut) lossDoughnut.destroy();
+      if (lossBar) lossBar.destroy();
 
-      initTabSwitching();
-      initChart();
-      initLeanCharts();
-      renderScrapTable();
-      updateDashboard();
-
-      document.getElementById('datePicker').addEventListener('change', updateDashboard);
-      
-      const shiftBtns = document.querySelectorAll('.shift-btn');
-      shiftBtns.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          shiftBtns.forEach(b => b.className = 'shift-btn text-slate-600 hover:bg-white/50 px-3 py-1 rounded-lg text-xs font-medium transition');
-          e.target.className = 'shift-btn bg-sky-500 text-white px-3 py-1 rounded-lg text-xs font-semibold shadow-sm transition';
-          activeShift = e.target.getAttribute('data-shift');
-          updateDashboard();
-        });
+      const ctx1 = document.getElementById('lossDoughnutChart').getContext('2d');
+      lossDoughnut = new Chart(ctx1, {
+        type: 'doughnut',
+        data: {
+          labels: ['เครื่องจักรเสีย', 'ขาดวัตถุดิบ', 'ตั้งค่าเครื่อง'],
+          datasets: [{
+            data: [45, 30, 25],
+            backgroundColor: ['#ef4444', '#f59e0b', '#3b82f6']
+          }]
+        },
+        options: { responsive: true, maintainAspectRatio: false }
       });
 
-      document.getElementById('refreshBtn').addEventListener('click', updateDashboard);
-    });
+      const ctx2 = document.getElementById('lossBarChart').getContext('2d');
+      lossBar = new Chart(ctx2, {
+        type: 'line',
+        data: {
+          labels: ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.'],
+          datasets: [{
+            label: 'จำนวนคืน',
+            data: [12, 19, 8, 15, 7, 10],
+            borderColor: '#6366f1',
+            tension: 0.3,
+            fill: false
+          }]
+        },
+        options: { responsive: true, maintainAspectRatio: false }
+      });
+    }
+
+    // --- Scrap Functions ---
+    function getScrapData() {
+      return JSON.parse(localStorage.getItem('app_scrap_records') || JSON.stringify(defaultScrap));
+    }
+
+    function renderScrapTable() {
+      const data = getScrapData();
+      const tbody = document.getElementById('scrapTableBody');
+      tbody.innerHTML = data.map(item => `
+        <tr class="hover:bg-slate-50 transition border-b border-slate-100">
+          <td class="p-3 text-slate-500">${item.date}</td>
+          <td class="p-3"><span class="px-2 py-0.5 text-[10px] rounded ${item.shift === 'Day' ? 'bg-amber-100 text-amber-800' : 'bg-slate-200 text-slate-800'}">${item.shift}</span></td>
+          <td class="p-3 font-semibold text-slate-700">${item.model}</td>
+          <td class="p-3 text-slate-600">${item.problem}</td>
+          <td class="p-3 text-center">
+            ${item.img ? `<img src="${item.img}" onclick="openModal('${item.img}')" class="w-8 h-8 object-cover rounded mx-auto cursor-pointer hover:scale-110 transition" />` : '<span class="text-slate-300">-</span>'}
+          </td>
+          <td class="p-3 text-center font-bold text-slate-800">${item.qty}</td>
+          <td class="p-3 text-slate-600">${item.dept}</td>
+          <td class="p-3 text-slate-600">${item.resp}</td>
+          <td class="p-3 text-center">
+            <button onclick="deleteScrap(${item.id})" class="text-red-500 hover:text-red-700 font-bold px-2 py-1 bg-red-50 rounded">ลบ</button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function handleScrapSubmit(e) {
+      e.preventDefault();
+      const shift = document.getElementById('scrapShift').value;
+      const model = document.getElementById('scrapModel').value;
+      const qty = document.getElementById('scrapQty').value;
+      const dept = document.getElementById('scrapDept').value;
+      const problem = document.getElementById('scrapProblem').value;
+      const resp = document.getElementById('scrapResp').value;
+      const fileInput = document.getElementById('scrapImages');
+
+      const saveRecord = (imgBase64 = '') => {
+        const records = getScrapData();
+        const newRecord = {
+          id: Date.now(),
+          date: new Date().toLocaleDateString('th-TH'),
+          shift, model, qty, dept, problem, resp, img: imgBase64
+        };
+        records.unshift(newRecord);
+        localStorage.setItem('app_scrap_records', JSON.stringify(records));
+        renderScrapTable();
+        document.getElementById('scrapForm').reset();
+      };
+
+      if (fileInput.files && fileInput.files[0]) {
+        const reader = new FileReader();
+        reader.onload = (e) => saveRecord(e.target.result);
+        reader.readAsDataURL(fileInput.files[0]);
+      } else {
+        saveRecord();
+      }
+    }
+
+    function deleteScrap(id) {
+      if (confirm('ยืนยันการลบรายการนี้?')) {
+        let records = getScrapData();
+        records = records.filter(r => r.id !== id);
+        localStorage.setItem('app_scrap_records', JSON.stringify(records));
+        renderScrapTable();
+      }
+    }
+
+    function openModal(imgSrc) {
+      document.getElementById('modalImg').src = imgSrc;
+      document.getElementById('imageModal').classList.remove('hidden');
+    }
+
+    function closeModal() {
+      document.getElementById('imageModal').classList.add('hidden');
+    }
+
+    // Run when ready
+    document.addEventListener('DOMContentLoaded', init);
   </script>
 </body>
 </html>
